@@ -1,0 +1,99 @@
+/* More space at the bottom of the page. */
+.md-main__inner {
+  margin-bottom: 1.5rem;
+}
+
+
+.md-content__button {
+  display: none;
+}
+
+/* override max-width that would otherwise be 61rem 
+.md-grid {
+  max-width: 100%;
+}*/
+
+
+.jupyter-wrapper .zeroclipboard-container {
+  /* this property was set to 1000, preventing the header from hiding the copy button 
+  z-index: 0 !important;
+  Fixed in mkdocs-jupyter 0.23 or 0.24
+  */
+  /* the copy to clipboard icon collides with code */
+  display: none;
+} 
+
+
+html {
+  scroll-padding-top: 4rem;
+}
+
+
+/* Change colors of footer */
+:root,[data-md-color-scheme=default] {
+--md-footer-fg-color: #545454;
+--md-footer-fg-color--light: #545454;
+--md-footer-fg-color--lighter: #666666;
+--md-footer-bg-color: #fff;
+--md-footer-bg-color--dark: #fff;
+}
+
+
+/* The grid: Three equal columns that floats next to each other */
+.column1 {
+  float: left;
+  width: 40%;
+  /*padding: 50px;*/
+  text-align: center;
+  /*font-size: 15px;*/
+  /*cursor: pointer;*/
+  padding-top: 5%;
+}
+.column2 {
+  float: left;
+  width: 60%;
+  /*padding: 50px;*/
+  text-align: center;
+  /*font-size: 15px;*/
+  /*cursor: pointer*/;
+}
+
+
+/* Clear floats after the columns */
+.row {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Always show source icon */
+.md-header__source {
+  display: block;
+}
+
+/* navigation heading */
+.nav_heading {
+  font-size: larger;
+  padding-bottom: 5% !important;
+}
+
+
+.case_study_row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+[data-md-color-primary=white] {
+  --md-typeset-a-color: #003262; 
+}
+[data-md-color-accent=purple] {
+  --md-accent-fg-color: #FF6C0C;
+}
