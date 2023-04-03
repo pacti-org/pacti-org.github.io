@@ -16,7 +16,7 @@
         <link rel="prev" href="../scenario_generation_5steps/">
       
       
-        <link rel="next" href="../../mars_entry_descent_landing/mars_edl_2nd_encoding/">
+        <link rel="next" href="../schedulability_analysis_5steps/">
       
       <link rel="icon" href="../../../../pacti_small_icon.svg">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
@@ -755,6 +755,134 @@
         Long scenario generation
       </a>
       
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_8" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_8" id="__nav_2_7_8_label" tabindex="0">
+            Benchmarks for schedulability analysis of generated scenarios
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for schedulability analysis of generated scenarios
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedulability_analysis_5steps/" class="md-nav__link">
+        Short scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedulability_analysis_20steps/" class="md-nav__link">
+        Long scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_9" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_9" id="__nav_2_7_9_label" tabindex="0">
+            Visualization of schedulable combinations
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_9">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of schedulable combinations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis_results1-5steps/" class="md-nav__link">
+        Short scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis_results1-20steps/" class="md-nav__link">
+        Long scenario & requirements
+      </a>
     </li>
   
 
@@ -2145,7 +2273,7 @@ u_bounds = [
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We use the Latin Hypercube sampler to generate <code>n5</code> random combinations of hyper-parameters. We exploit as much parallelism as available on the machine to generate 5-step scenarios for each combination. The results show that Pacti's operations for constructing contracts scale very well.</p>
+<p>We use the Latin Hypercube sampler to generate <code>n20</code> random combinations of hyper-parameters. We exploit as much parallelism as available on the machine to generate 20-step scenarios for each combination, which requires creating 115 contracts combined via 63 contract composition and 50 contract merge operations. The results show that Pacti's operations for constructing contracts scale very well.</p>
 
 </div>
 </div>

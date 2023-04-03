@@ -81,12 +81,32 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://www.pacti.org/case_studies/cs-space-mission/space_mission/analysis_results1-20steps/</loc>
+         <lastmod>2023-04-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.pacti.org/case_studies/cs-space-mission/space_mission/analysis_results1-5steps/</loc>
+         <lastmod>2023-04-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://www.pacti.org/case_studies/cs-space-mission/space_mission/scenario_generation_20steps/</loc>
          <lastmod>2023-04-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.pacti.org/case_studies/cs-space-mission/space_mission/scenario_generation_5steps/</loc>
+         <lastmod>2023-04-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.pacti.org/case_studies/cs-space-mission/space_mission/schedulability_analysis_20steps/</loc>
+         <lastmod>2023-04-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.pacti.org/case_studies/cs-space-mission/space_mission/schedulability_analysis_5steps/</loc>
          <lastmod>2023-04-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
