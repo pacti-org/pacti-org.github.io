@@ -97,3 +97,7 @@ html {
 [data-md-color-accent=purple] {
   --md-accent-fg-color: #FF6C0C;
 }
+
+.md-typeset code {
+  font-size: .70em;
+}
