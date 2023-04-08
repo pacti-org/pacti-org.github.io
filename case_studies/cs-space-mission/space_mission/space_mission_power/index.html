@@ -1297,75 +1297,75 @@
 
   <h1>Power Viewpoint</h1>
 
-<div><div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
-
-<span class="c1">#from IPython import display</span>
-<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
-<span class="kn">from</span> <span class="nn">pacti</span> <span class="kn">import</span> <span class="n">write_contracts_to_file</span>
-<span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pacti.iocontract</span> <span class="kn">import</span> <span class="n">IoContract</span><span class="p">,</span> <span class="n">Var</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patches</span>
-<span class="kn">import</span> <span class="nn">pdb</span>
-<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
-<span class="kn">from</span> <span class="nn">contract_utils</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre></div>
+<div><div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">#from IPython import display</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">from</span> <span class="nn">pacti</span> <span class="kn">import</span> <span class="n">write_contracts_to_file</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span> <span class="nn">pacti.iocontract</span> <span class="kn">import</span> <span class="n">IoContract</span><span class="p">,</span> <span class="n">Var</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">import</span> <span class="nn">os</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patches</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kn">import</span> <span class="nn">pdb</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kn">from</span> <span class="nn">contract_utils</span> <span class="kn">import</span> <span class="o">*</span>
+</span></code></pre></div>
 <h2 id="power-viewpoint-modeling">Power viewpoint modeling<a class="headerlink" href="#power-viewpoint-modeling" title="Permanent link">¶</a></h2>
 <h3 id="charging-task">CHARGING Task<a class="headerlink" href="#charging-task" title="Permanent link">¶</a></h3>
 <p>Objective: charge the spacecraft battery</p>
 <p>As summarized in <a href="#qualitative-impacts">the qualitative impacts table</a>, this function affects this viewpoint with impacts that are linear with the duration of the task:
 - the battery charges proportionally to a generation rate.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Parameters:</span>
-<span class="c1"># - s: index of the timeline variables</span>
-<span class="c1"># - generation: (min, max) rate of battery charge during the task instance</span>
-<span class="k">def</span> <span class="nf">CHRG_power</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">generation</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span><span class="p">:</span>
-  <span class="n">spec</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry"</span><span class="p">,</span>          <span class="c1"># initial battery SOC</span>
-      <span class="sa">f</span><span class="s2">"duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>  <span class="c1"># variable task duration</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit"</span><span class="p">,</span>           <span class="c1"># final battery SOC</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="c1"># Task has a positive scheduled duration</span>
-      <span class="sa">f</span><span class="s2">"-duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-      <span class="c1"># Upper bound on entry soc</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 100.0"</span><span class="p">,</span>
-      <span class="c1"># Lower bound on entry soc</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 0"</span><span class="p">,</span>
-      <span class="c1"># Battery should not overcharge</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + </span><span class="si">{</span><span class="n">generation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 100"</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="c1"># duration*generation(min) &lt;= soc{exit} - soc{entry} &lt;= duration*generation(max)</span>
-      <span class="sa">f</span><span class="s2">" soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit - soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry - </span><span class="si">{</span><span class="n">generation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit + soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + </span><span class="si">{</span><span class="n">generation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># Battery cannot exceed maximum SOC</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 100.0"</span><span class="p">,</span>
-
-      <span class="c1"># Battery should not completely discharge</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 0"</span><span class="p">,</span>
-    <span class="p">])</span>
-  <span class="k">return</span> <span class="n">spec</span>
-
-<span class="n">charging1_power</span> <span class="o">=</span> <span class="n">CHRG_power</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">generation</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract charging1_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">charging1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span>
-                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_charging2"</span><span class="p">),</span>
-                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc2_exit"</span><span class="p">),</span>
-                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc2_entry"</span><span class="p">):</span><span class="mi">42</span><span class="p">,</span>
-                <span class="p">},</span>
-                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
-                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-</code></pre></div>
-<pre><code>Contract charging1_power:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Parameters:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># - s: index of the timeline variables</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># - generation: (min, max) rate of battery charge during the task instance</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">def</span> <span class="nf">CHRG_power</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">generation</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span><span class="p">:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  <span class="n">spec</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry"</span><span class="p">,</span>          <span class="c1"># initial battery SOC</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      <span class="sa">f</span><span class="s2">"duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>  <span class="c1"># variable task duration</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="p">],</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit"</span><span class="p">,</span>           <span class="c1"># final battery SOC</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">],</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>      <span class="c1"># Task has a positive scheduled duration</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>      <span class="sa">f</span><span class="s2">"-duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>      <span class="c1"># Upper bound on entry soc</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 100.0"</span><span class="p">,</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>      <span class="c1"># Lower bound on entry soc</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>      <span class="c1"># Battery should not overcharge</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + </span><span class="si">{</span><span class="n">generation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 100"</span><span class="p">,</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="p">],</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>      <span class="c1"># duration*generation(min) &lt;= soc{exit} - soc{entry} &lt;= duration*generation(max)</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>      <span class="sa">f</span><span class="s2">" soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit - soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry - </span><span class="si">{</span><span class="n">generation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit + soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + </span><span class="si">{</span><span class="n">generation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_charging</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>      <span class="c1"># Battery cannot exceed maximum SOC</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 100.0"</span><span class="p">,</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>      <span class="c1"># Battery should not completely discharge</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="p">])</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>  <span class="k">return</span> <span class="n">spec</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="n">charging1_power</span> <span class="o">=</span> <span class="n">CHRG_power</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">generation</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract charging1_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">charging1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_charging2"</span><span class="p">),</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc2_exit"</span><span class="p">),</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc2_entry"</span><span class="p">):</span><span class="mi">42</span><span class="p">,</span>
+</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>                <span class="p">},</span>
+</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract charging1_power:
 
 InVars: [soc2_entry, duration_charging2]
 OutVars:[soc2_exit]
@@ -1379,7 +1379,7 @@ G: [
   -4 duration_charging2 - soc2_entry + soc2_exit &lt;= 0
   3 duration_charging2 + soc2_entry - soc2_exit &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1388,58 +1388,58 @@ G: [
 </div>
 
 <h3 id="power-consuming-tasks-dsn-sbo-tcm">Power-consuming Tasks (DSN, SBO, TCM)<a class="headerlink" href="#power-consuming-tasks-dsn-sbo-tcm" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Parameters:</span>
-<span class="c1"># - s: start index of the timeline variables</span>
-<span class="c1"># - consumption: (min, max) rate of battery discharge during the task instance</span>
-<span class="k">def</span> <span class="nf">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">consumption</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span><span class="p">:</span>
-  <span class="n">spec</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry"</span><span class="p">,</span>          <span class="c1"># initial battery SOC</span>
-      <span class="sa">f</span><span class="s2">"duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>    <span class="c1"># variable task duration</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit"</span><span class="p">,</span>           <span class="c1"># final battery SOC</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="c1"># Task has a positive scheduled duration</span>
-      <span class="sa">f</span><span class="s2">"-duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-      <span class="c1"># Upper bound on entry soc</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 100.0"</span><span class="p">,</span>
-      <span class="c1"># Lower bound on entry soc</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 0"</span><span class="p">,</span>
-      <span class="c1"># Battery has enough energy for worst-case consumption throughout the task instance</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + </span><span class="si">{</span><span class="n">consumption</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="c1"># duration*consumption(min) &lt;= soc{entry} - soc{exit} &lt;= duration*consumption(max)</span>
-      <span class="sa">f</span><span class="s2">" soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry - soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit - </span><span class="si">{</span><span class="n">consumption</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit + </span><span class="si">{</span><span class="n">consumption</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># Battery cannot exceed maximum SOC</span>
-      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 100.0"</span><span class="p">,</span>
-
-      <span class="c1"># Battery should not completely discharge</span>
-      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 0"</span><span class="p">,</span>
-    <span class="p">])</span>
-  <span class="k">return</span> <span class="n">spec</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Parameters:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># - s: start index of the timeline variables</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># - consumption: (min, max) rate of battery discharge during the task instance</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span> <span class="nf">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">consumption</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  <span class="n">spec</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry"</span><span class="p">,</span>          <span class="c1"># initial battery SOC</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>      <span class="sa">f</span><span class="s2">"duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>    <span class="c1"># variable task duration</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="p">],</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit"</span><span class="p">,</span>           <span class="c1"># final battery SOC</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="p">],</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>      <span class="c1"># Task has a positive scheduled duration</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>      <span class="sa">f</span><span class="s2">"-duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>      <span class="c1"># Upper bound on entry soc</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 100.0"</span><span class="p">,</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>      <span class="c1"># Lower bound on entry soc</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>      <span class="c1"># Battery has enough energy for worst-case consumption throughout the task instance</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + </span><span class="si">{</span><span class="n">consumption</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="p">],</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>      <span class="c1"># duration*consumption(min) &lt;= soc{entry} - soc{exit} &lt;= duration*consumption(max)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>      <span class="sa">f</span><span class="s2">" soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry - soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit - </span><span class="si">{</span><span class="n">consumption</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_entry + soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit + </span><span class="si">{</span><span class="n">consumption</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">*duration_</span><span class="si">{</span><span class="n">task</span><span class="si">}{</span><span class="n">s</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>      <span class="c1"># Battery cannot exceed maximum SOC</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>      <span class="sa">f</span><span class="s2">"soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 100.0"</span><span class="p">,</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>      <span class="c1"># Battery should not completely discharge</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>      <span class="sa">f</span><span class="s2">"-soc</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">_exit &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    <span class="p">])</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>  <span class="k">return</span> <span class="n">spec</span>
+</span></code></pre></div>
 <h3 id="dsn-task">DSN Task<a class="headerlink" href="#dsn-task" title="Permanent link">¶</a></h3>
 <p>Objective: downlink science data to Earth.</p>
 <p>As summarized in <a href="#qualitative-impacts">the qualitative impacts table</a>, this function affects this viewpoint with impacts that are linear with the duration of the task:
 - the battery discharges proportionally to a consumption rate.</p>
-<div class="highlight"><pre><span></span><code><span class="n">dsn1_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"dsn"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract dsn1_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">dsn1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span>
-                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_dsn1"</span><span class="p">),</span>
-                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc1_exit"</span><span class="p">),</span>
-                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc1_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
-                <span class="p">},</span>
-                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">80</span><span class="p">))</span>
-</code></pre></div>
-<pre><code>Contract dsn1_power:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">dsn1_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"dsn"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract dsn1_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">dsn1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_dsn1"</span><span class="p">),</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc1_exit"</span><span class="p">),</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc1_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                <span class="p">},</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">80</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract dsn1_power:
 
 InVars: [soc1_entry, duration_dsn1]
 OutVars:[soc1_exit]
@@ -1453,7 +1453,7 @@ G: [
   -4.2 duration_dsn1 + soc1_entry - soc1_exit &lt;= 0
   3.8 duration_dsn1 - soc1_entry + soc1_exit &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1465,19 +1465,19 @@ G: [
 <p>Objective: Acquire small body observations (science data &amp; navigation)</p>
 <p>As summarized in <a href="#qualitative-impacts">the qualitative impacts table</a>, this function affects this viewpoint with impacts that are linear with the duration of the task:
 - the battery discharges proportionally to a consumption rate.</p>
-<div class="highlight"><pre><span></span><code><span class="n">sbo1_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"sbo"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract sbo1_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">sbo1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span>
-                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_sbo3"</span><span class="p">),</span>
-                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">),</span>
-                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc3_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
-                <span class="p">},</span>
-                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
-                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-</code></pre></div>
-<pre><code>Contract sbo1_power:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">sbo1_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"sbo"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">))</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract sbo1_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">sbo1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_sbo3"</span><span class="p">),</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">),</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc3_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>                <span class="p">},</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract sbo1_power:
 
 InVars: [soc3_entry, duration_sbo3]
 OutVars:[soc3_exit]
@@ -1491,7 +1491,7 @@ G: [
   -1.4 duration_sbo3 + soc3_entry - soc3_exit &lt;= 0
   duration_sbo3 - soc3_entry + soc3_exit &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1505,19 +1505,19 @@ G: [
 - Power: the thrusters must be heated before firing them, thereby discharging the battery proportionally to a consumption rate.</p>
 <p>Since heating the thruster must happen just before firing them, this task is modeled as the composition of two subtasks: Heating and DeltaV.</p>
 <h4 id="tcm-heating-subtask">TCM Heating SubTask<a class="headerlink" href="#tcm-heating-subtask" title="Permanent link">¶</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">tcm1_heating_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"tcm_heating"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract tcm1_heating_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">tcm1_heating_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">tcm1_heating_power</span><span class="p">,</span>
-                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_tcm_heating4"</span><span class="p">),</span>
-                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc4_exit"</span><span class="p">),</span>
-                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc4_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
-                <span class="p">},</span>
-                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
-                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-</code></pre></div>
-<pre><code>Contract tcm1_heating_power:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">tcm1_heating_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"tcm_heating"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract tcm1_heating_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">tcm1_heating_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">tcm1_heating_power</span><span class="p">,</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_tcm_heating4"</span><span class="p">),</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc4_exit"</span><span class="p">),</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc4_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                <span class="p">},</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract tcm1_heating_power:
 
 InVars: [soc4_entry, duration_tcm_heating4]
 OutVars:[soc4_exit]
@@ -1531,7 +1531,7 @@ G: [
   -0.8 duration_tcm_heating4 + soc4_entry - soc4_exit &lt;= 0
   0.7 duration_tcm_heating4 - soc4_entry + soc4_exit &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1540,19 +1540,19 @@ G: [
 </div>
 
 <h4 id="tcm-deltav-subtask">TCM DeltaV SubTask<a class="headerlink" href="#tcm-deltav-subtask" title="Permanent link">¶</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">tcm1_deltav_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"tcm_deltav"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract tcm1_deltav_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">tcm1_deltav_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">tcm1_deltav_power</span><span class="p">,</span>
-                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_tcm_deltav5"</span><span class="p">),</span>
-                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">),</span>
-                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc5_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
-                <span class="p">},</span>
-                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
-                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-</code></pre></div>
-<pre><code>Contract tcm1_deltav_power:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">tcm1_deltav_power</span> <span class="o">=</span> <span class="n">power_consumer</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">"tcm_deltav"</span><span class="p">,</span> <span class="n">consumption</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">))</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract tcm1_deltav_power:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">tcm1_deltav_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="o">=</span><span class="n">tcm1_deltav_power</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"duration_tcm_deltav5"</span><span class="p">),</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">),</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>                <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>                  <span class="n">Var</span><span class="p">(</span><span class="s2">"soc5_entry"</span><span class="p">):</span><span class="mi">80</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>                <span class="p">},</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>                <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>                <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract tcm1_deltav_power:
 
 InVars: [soc5_entry, duration_tcm_deltav5]
 OutVars:[soc5_exit]
@@ -1566,7 +1566,7 @@ G: [
   -0.6 duration_tcm_deltav5 + soc5_entry - soc5_exit &lt;= 0
   0.5 duration_tcm_deltav5 - soc5_entry + soc5_exit &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1576,11 +1576,11 @@ G: [
 
 <h4 id="composing-tcm-subtasks">Composing TCM SubTasks<a class="headerlink" href="#composing-tcm-subtasks" title="Permanent link">¶</a></h4>
 <p>Algebraic composition allows us to capture the requirement that a TCM Heating subtask must always precede a TCM DeltaV subtask by composing them.</p>
-<div class="highlight"><pre><span></span><code><span class="n">tcm1_power</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">tcm1_heating_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">tcm1_deltav_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"========= tcm1_power</span><span class="se">\n</span><span class="si">{</span><span class="n">tcm1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">tcm1_power</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>========= tcm1_power
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">tcm1_power</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">tcm1_heating_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">tcm1_deltav_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"========= tcm1_power</span><span class="se">\n</span><span class="si">{</span><span class="n">tcm1_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">tcm1_power</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>========= tcm1_power
 InVars: [soc4_entry, duration_tcm_heating4, duration_tcm_deltav5]
 OutVars:[soc5_exit, output_soc4]
 A: [
@@ -1601,18 +1601,18 @@ G: [
 
 
 (-1.4210854715202004e-14, 100.0)
-</code></pre>
+</code></pre></div>
 <h3 id="power-schedule-analysis">Power Schedule Analysis<a class="headerlink" href="#power-schedule-analysis" title="Permanent link">¶</a></h3>
 <p>Let's consider a simple 4-step schedule of the following sequence of task instances, which we compose:
 - DSN
 - CHARGING
 - SBO
 - TCM</p>
-<div class="highlight"><pre><span></span><code><span class="n">steps12</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2</span><span class="se">\n</span><span class="si">{</span><span class="n">steps12</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">steps12</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>---- Steps 1,2
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">steps12</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2</span><span class="se">\n</span><span class="si">{</span><span class="n">steps12</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">steps12</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 1,2
 InVars: [soc1_entry, duration_dsn1, duration_charging2]
 OutVars:[soc2_exit, output_soc1]
 A: [
@@ -1634,13 +1634,13 @@ G: [
 
 
 (0.0, 100.0)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">steps23</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 2,3</span><span class="se">\n</span><span class="si">{</span><span class="n">steps23</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc3_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">)))</span>
 </code></pre></div>
-<pre><code>---- Steps 2,3
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">steps23</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 2,3</span><span class="se">\n</span><span class="si">{</span><span class="n">steps23</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc3_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">)))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 2,3
 InVars: [soc2_entry, duration_charging2, duration_sbo3]
 OutVars:[soc3_exit, output_soc2]
 A: [
@@ -1658,14 +1658,14 @@ G: [
 ]
 output_soc2:(0.0, 100.0)
 soc3_exit:(0.0, 100.0)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">steps1_23</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">steps23</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1 and 2,3</span><span class="se">\n</span><span class="si">{</span><span class="n">steps1_23</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc1:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps1_23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps1_23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc3_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps1_23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">)))</span>
 </code></pre></div>
-<pre><code>---- Steps 1 and 2,3
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">steps1_23</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">steps23</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1 and 2,3</span><span class="se">\n</span><span class="si">{</span><span class="n">steps1_23</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc1:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps1_23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps1_23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc3_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps1_23</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">)))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 1 and 2,3
 InVars: [soc1_entry, duration_dsn1, duration_charging2, duration_sbo3]
 OutVars:[soc3_exit, output_soc2, output_soc1]
 A: [
@@ -1688,17 +1688,17 @@ G: [
 output_soc1:(0.0, 100.0)
 output_soc2:(0.0, 100.0)
 soc3_exit:(0.0, 100.0)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">steps123</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">steps12</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2,3</span><span class="se">\n</span><span class="si">{</span><span class="n">steps123</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc1:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc3_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_dsn1"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_charging2"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_sbo3"</span><span class="p">))</span>
 </code></pre></div>
-<pre><code>---- Steps 1,2,3
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">steps123</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">steps12</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2,3</span><span class="se">\n</span><span class="si">{</span><span class="n">steps123</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc1:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc3_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc3_exit"</span><span class="p">)))</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_dsn1"</span><span class="p">))</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_charging2"</span><span class="p">))</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_sbo3"</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 1,2,3
 InVars: [soc1_entry, duration_dsn1, duration_charging2, duration_sbo3]
 OutVars:[output_soc1, soc3_exit, output_soc2]
 A: [
@@ -1724,14 +1724,14 @@ soc3_exit:(-9.523809523809533, 100.0)
 (0.0, 23.80952380952381)
 (0.0, 25.0)
 (0.0, 71.42857142857143)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">back34</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">tcm1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">back34</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back34</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back34</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back34</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
 </code></pre></div>
-<pre><code>---- Steps 3,4
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">back34</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">sbo1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">tcm1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">back34</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back34</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back34</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back34</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 3,4
 InVars: [soc3_entry, duration_sbo3, duration_tcm_heating4, duration_tcm_deltav5]
 OutVars:[soc5_exit, output_soc4, output_soc3]
 A: [
@@ -1752,15 +1752,15 @@ G: [
 output_soc3:(0.0, 100.0)
 output_soc4:(0.0, 100.0)
 soc5_exit:(-1.4210854715202004e-14, 100.0)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">back234</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">back34</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 2,3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">back234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
 </code></pre></div>
-<pre><code>---- Steps 2,3,4
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">back234</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">charging1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">back34</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 2,3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">back234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 2,3,4
 InVars: [soc2_entry, duration_charging2, duration_sbo3, duration_tcm_heating4, duration_tcm_deltav5]
 OutVars:[soc5_exit, output_soc4, output_soc3, output_soc2]
 A: [
@@ -1786,16 +1786,16 @@ output_soc2:(0.0, 100.0)
 output_soc3:(0.0, 100.0)
 output_soc4:(0.0, 100.0)
 soc5_exit:(0.0, 100.0)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">back1234</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">back234</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2,3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">back1234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
 </code></pre></div>
-<pre><code>---- Steps 1,2,3,4
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">back1234</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">dsn1_power</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">back234</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2,3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">back1234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">back1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 1,2,3,4
 InVars: [soc1_entry, duration_dsn1, duration_charging2, duration_sbo3, duration_tcm_heating4, duration_tcm_deltav5]
 OutVars:[soc5_exit, output_soc4, output_soc3, output_soc2, output_soc1]
 A: [
@@ -1826,21 +1826,21 @@ output_soc2:(0.0, 100.0)
 output_soc3:(0.0, 100.0)
 output_soc4:(0.0, 100.0)
 soc5_exit:(0.0, 100.0)
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">steps1234</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">steps123</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">tcm1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2,3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">steps1234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc1:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_dsn1"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_charging2"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_sbo3"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_tcm_heating4"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_tcm_deltav5"</span><span class="p">))</span>
 </code></pre></div>
-<pre><code>---- Steps 1,2,3,4
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">steps1234</span><span class="o">=</span><span class="n">scenario_sequence</span><span class="p">(</span><span class="n">c1</span><span class="o">=</span><span class="n">steps123</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="n">tcm1_power</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"soc"</span><span class="p">],</span> <span class="n">c1index</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"---- Steps 1,2,3,4</span><span class="se">\n</span><span class="si">{</span><span class="n">steps1234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc1:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc1"</span><span class="p">)))</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc2:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc2"</span><span class="p">)))</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc3:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc3"</span><span class="p">)))</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"output_soc4:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"output_soc4"</span><span class="p">)))</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"soc5_exit:"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">steps123</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"soc5_exit"</span><span class="p">)))</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_dsn1"</span><span class="p">))</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_charging2"</span><span class="p">))</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_sbo3"</span><span class="p">))</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_tcm_heating4"</span><span class="p">))</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">steps1234</span><span class="o">.</span><span class="n">get_variable_bounds</span><span class="p">(</span><span class="s2">"duration_tcm_deltav5"</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>---- Steps 1,2,3,4
 InVars: [soc1_entry, duration_dsn1, duration_charging2, duration_sbo3, duration_tcm_heating4, duration_tcm_deltav5]
 OutVars:[output_soc1, output_soc2, soc5_exit, output_soc4, output_soc3]
 A: [
@@ -1877,12 +1877,12 @@ soc5_exit:(None, None)
 (0.0, 71.42857142857143)
 (0.0, 125.0)
 (0.0, 166.66666666666669)
-</code></pre>
-<h4 id="power-schedule-constraints">Power Schedule constraints<a class="headerlink" href="#power-schedule-constraints" title="Permanent link">¶</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">scenario_power</span><span class="o">=</span><span class="n">steps1234</span><span class="o">.</span><span class="n">rename_variables</span><span class="p">([(</span><span class="s2">"soc5_exit"</span><span class="p">,</span> <span class="s2">"output_soc5"</span><span class="p">)])</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scenario_power=</span><span class="si">{</span><span class="n">scenario_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
-<pre><code>scenario_power=InVars: [soc1_entry, duration_dsn1, duration_charging2, duration_sbo3, duration_tcm_heating4, duration_tcm_deltav5]
+<h4 id="power-schedule-constraints">Power Schedule constraints<a class="headerlink" href="#power-schedule-constraints" title="Permanent link">¶</a></h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">scenario_power</span><span class="o">=</span><span class="n">steps1234</span><span class="o">.</span><span class="n">rename_variables</span><span class="p">([(</span><span class="s2">"soc5_exit"</span><span class="p">,</span> <span class="s2">"output_soc5"</span><span class="p">)])</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scenario_power=</span><span class="si">{</span><span class="n">scenario_power</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>scenario_power=InVars: [soc1_entry, duration_dsn1, duration_charging2, duration_sbo3, duration_tcm_heating4, duration_tcm_deltav5]
 OutVars:[output_soc1, output_soc2, output_soc4, output_soc3, output_soc5]
 A: [
   -duration_tcm_deltav5 &lt;= 0
@@ -1908,9 +1908,9 @@ G: [
   -0.6 duration_tcm_deltav5 + output_soc4 - output_soc5 &lt;= 0
   0.5 duration_tcm_deltav5 - output_soc4 + output_soc5 &lt;= 0
 ]
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">write_contracts_to_file</span><span class="p">(</span><span class="n">contracts</span><span class="o">=</span><span class="p">[</span><span class="n">scenario_power</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">"scenario_power"</span><span class="p">],</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">"json/scenario_power.json"</span><span class="p">)</span>
-</code></pre></div></div>
+</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">write_contracts_to_file</span><span class="p">(</span><span class="n">contracts</span><span class="o">=</span><span class="p">[</span><span class="n">scenario_power</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">"scenario_power"</span><span class="p">],</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">"json/scenario_power.json"</span><span class="p">)</span>
+</span></code></pre></div></div>
 
 
   

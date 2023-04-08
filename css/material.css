@@ -98,6 +98,14 @@ html {
   --md-accent-fg-color: #FF6C0C;
 }
 
-.md-typeset code {
+
+/* Change font size of code blocks, but not of inline code */
+.md-typeset pre {
   font-size: .70em;
+}
+
+
+/* Show stars when the page has small width */
+.md-source__repository--active .md-source__fact--stars{
+  flex-shrink: 0;
 }

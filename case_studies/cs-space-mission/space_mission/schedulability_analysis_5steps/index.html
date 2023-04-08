@@ -1074,74 +1074,74 @@
 
   <h1>Short scenario schedulability</h1>
 
-<div><div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
-
-<span class="kn">import</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">psutil</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">schedulability</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="kn">from</span> <span class="nn">p_tqdm</span> <span class="kn">import</span> <span class="n">p_map</span><span class="p">,</span> <span class="n">p_umap</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">qmc</span>
-
-<span class="kn">import</span> <span class="nn">pickle</span>
-</code></pre></div>
+<div><div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">platform</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">import</span> <span class="nn">psutil</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span> <span class="nn">schedulability</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">from</span> <span class="nn">p_tqdm</span> <span class="kn">import</span> <span class="n">p_map</span><span class="p">,</span> <span class="n">p_umap</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">qmc</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kn">import</span> <span class="nn">pickle</span>
+</span></code></pre></div>
 <p>Having generated 5-step scenario variants, we now turn to analyzing their schedulability with respect to variations of operational requirements as constraints on the system behavior. </p>
-<div class="highlight"><pre><span></span><code><span class="n">op_l_bounds</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="mf">90.0</span><span class="p">,</span>  <span class="c1"># power: low range of initial soc</span>
-    <span class="mf">5.0</span><span class="p">,</span>   <span class="c1"># power: low range of exit soc at each step</span>
-    <span class="mf">5.0</span><span class="p">,</span>   <span class="c1"># alloc: low range of delta t</span>
-    <span class="mf">60.0</span><span class="p">,</span>  <span class="c1"># sci: low range of d</span>
-    <span class="mf">40.0</span><span class="p">,</span>  <span class="c1"># nav: low range of u</span>
-<span class="p">]</span>
-<span class="n">op_u_bounds</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># power: high range of initial soc</span>
-    <span class="mf">30.0</span><span class="p">,</span>   <span class="c1"># power: low range of exit soc at each step</span>
-    <span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># alloc: high range of delta t</span>
-    <span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># sci: high range of  d</span>
-    <span class="mf">90.0</span><span class="p">,</span>   <span class="c1"># nav: high range of  u</span>
-<span class="p">]</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">op_l_bounds</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="mf">90.0</span><span class="p">,</span>  <span class="c1"># power: low range of initial soc</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="mf">5.0</span><span class="p">,</span>   <span class="c1"># power: low range of exit soc at each step</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="mf">5.0</span><span class="p">,</span>   <span class="c1"># alloc: low range of delta t</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="mf">60.0</span><span class="p">,</span>  <span class="c1"># sci: low range of d</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="mf">40.0</span><span class="p">,</span>  <span class="c1"># nav: low range of u</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">]</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">op_u_bounds</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># power: high range of initial soc</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="mf">30.0</span><span class="p">,</span>   <span class="c1"># power: low range of exit soc at each step</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># alloc: high range of delta t</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># sci: high range of  d</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="mf">90.0</span><span class="p">,</span>   <span class="c1"># nav: high range of  u</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">]</span>
+</span></code></pre></div>
 <p>We use the Latin Hypercube sampler to generate <code>m</code> random combinations of requirement hyper-parameters. Schedulability analysis entails checking the compatibility of each of the <code>m</code> operational requirement variations against each of the  <code>n5</code> 5-step scenario variations previously created. For a given scenario contract, this compatibility check involves merging the contracts for each of the <code>m</code> operational requirements variations. The success of the contract merge operation determines the schedulability of the given scenario contract under the given operational requirements. To provide diagnostic feedback about non-schedulable combinations, we break down the operational requirements into 3 sets of requirement constraints that we merge successively until either all are merged or one of the requirement constraints fails to merge. In the latter case, we record the requirement constraint that cannot be merged as an explanation for the non-schedulable combination. </p>
 <p>We've observed that this iterative contract merge for all combinations of scenario and requirement contracts does not scale as nicely as scenario generation since the CPU utilization hovers just above 20% despite the large collection of independent combinations to analyze. This is due in part to the fact each schedulability analysis involves up to 3 contract merge operations whereas each 5-step scenario variant generation required creating 23 contracts combined via 12 contract composition and 5 contract merge operations. That is, there is significant overhead in parallelizing computationally small processes.</p>
-<div class="highlight"><pre><span></span><code><span class="n">op_sampler</span><span class="p">:</span> <span class="n">qmc</span><span class="o">.</span><span class="n">LatinHypercube</span> <span class="o">=</span> <span class="n">qmc</span><span class="o">.</span><span class="n">LatinHypercube</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">op_l_bounds</span><span class="p">))</span>
-
-<span class="n">m</span> <span class="o">=</span> <span class="mi">300</span>
-
-<span class="n">op_sample</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">op_sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
-<span class="n">scaled_op_sample</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">qmc</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">op_sample</span><span class="p">,</span> <span class="n">l_bounds</span><span class="o">=</span><span class="n">op_l_bounds</span><span class="p">,</span> <span class="n">u_bounds</span><span class="o">=</span><span class="n">op_u_bounds</span><span class="p">)</span>
-
-<span class="n">s5</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"scenarios5.data"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span>
-<span class="n">scenarios5</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">s5</span><span class="p">)</span>
-<span class="n">s5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="n">srs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span> <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios5</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">scaled_op_sample</span><span class="p">]</span>
-
-<span class="kn">from</span> <span class="nn">cpu_usage_plot</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="k">with</span> <span class="n">cpu_usage_plot</span><span class="p">():</span>
-    <span class="n">ta</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">all_results5</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">schedule_result_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_umap</span><span class="p">(</span><span class="n">schedulability_analysis5</span><span class="p">,</span> <span class="n">srs</span><span class="p">)</span>
-    <span class="n">tb</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="n">results5</span><span class="p">:</span> <span class="n">schedule_results_t</span> <span class="o">=</span> <span class="n">aggregate_schedule_results</span><span class="p">(</span><span class="n">all_results5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results5</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2"> admissible and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results5</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2"> non-admissible schedules out of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scaled_op_sample</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios5</span><span class="p">)</span><span class="si">}</span><span class="s2"> combinations generated from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scaled_op_sample</span><span class="p">)</span><span class="si">}</span><span class="s2"> variations of operational requirements for each of the </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios5</span><span class="p">)</span><span class="si">}</span><span class="s2"> scenarios.</span><span class="se">\n</span><span class="s2">"</span>
-    <span class="sa">f</span><span class="s2">"Total time </span><span class="si">{</span><span class="n">tb</span><span class="o">-</span><span class="n">ta</span><span class="si">}</span><span class="s2"> running on </span><span class="si">{</span><span class="n">cpu_info_message</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
-<span class="p">)</span>
-
-<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"results5.data"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span>
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results5</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">op_sampler</span><span class="p">:</span> <span class="n">qmc</span><span class="o">.</span><span class="n">LatinHypercube</span> <span class="o">=</span> <span class="n">qmc</span><span class="o">.</span><span class="n">LatinHypercube</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">op_l_bounds</span><span class="p">))</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">m</span> <span class="o">=</span> <span class="mi">300</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">op_sample</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">op_sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">scaled_op_sample</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">qmc</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">op_sample</span><span class="p">,</span> <span class="n">l_bounds</span><span class="o">=</span><span class="n">op_l_bounds</span><span class="p">,</span> <span class="n">u_bounds</span><span class="o">=</span><span class="n">op_u_bounds</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">s5</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"scenarios5.data"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">scenarios5</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">s5</span><span class="p">)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">s5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">srs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span> <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios5</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">scaled_op_sample</span><span class="p">]</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="kn">from</span> <span class="nn">cpu_usage_plot</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">with</span> <span class="n">cpu_usage_plot</span><span class="p">():</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">ta</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">all_results5</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">schedule_result_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_umap</span><span class="p">(</span><span class="n">schedulability_analysis5</span><span class="p">,</span> <span class="n">srs</span><span class="p">)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">tb</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">results5</span><span class="p">:</span> <span class="n">schedule_results_t</span> <span class="o">=</span> <span class="n">aggregate_schedule_results</span><span class="p">(</span><span class="n">all_results5</span><span class="p">)</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="nb">print</span><span class="p">(</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results5</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2"> admissible and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results5</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2"> non-admissible schedules out of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scaled_op_sample</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios5</span><span class="p">)</span><span class="si">}</span><span class="s2"> combinations generated from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scaled_op_sample</span><span class="p">)</span><span class="si">}</span><span class="s2"> variations of operational requirements for each of the </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios5</span><span class="p">)</span><span class="si">}</span><span class="s2"> scenarios.</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="sa">f</span><span class="s2">"Total time </span><span class="si">{</span><span class="n">tb</span><span class="o">-</span><span class="n">ta</span><span class="si">}</span><span class="s2"> running on </span><span class="si">{</span><span class="n">cpu_info_message</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="p">)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"results5.data"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results5</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></code></pre></div>
 <p><img alt="png" src="../schedulability_analysis_5steps_files/schedulability_analysis_5steps_4_0.png"></p>
-<pre><code>Output()
+<div class="language-text highlight"><pre><span></span><code>Output()
 
 
 Found 1210 admissible and 58790 non-admissible schedules out of 60000 combinations generated from 300 variations of operational requirements for each of the 200 scenarios.
 Total time 410.94391417503357 running on AMD Ryzen Threadripper PRO 3955WX 16-Cores @ 3.8927 GHz with up to 32 threads.
-</code></pre>
+</code></pre></div>
 <p>The results above indicate that about 2% of all 60,000 combinations of 5-steps scenario variants and operational requirement variants yield admissible schedules. Even though the schedulability analysis of short scenarios involves significant overhead that limits the effectiveness of parallelism, obtaining these results under 7 minutes makes Pacti a very effective tool for finding solutions compatible with arbitrary operational constraints.</p></div>
 
 

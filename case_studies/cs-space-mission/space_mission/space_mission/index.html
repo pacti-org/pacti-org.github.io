@@ -1221,10 +1221,10 @@
 <div class="arithmatex">\[aX &lt;= b\]</div>
 <p>where <span class="arithmatex">\(x\)</span> is a timeline variable and <span class="arithmatex">\(a,b\)</span> are constants that may encode temporal information about the schedule of a task instance.</p>
 <p>Since this class of constraint formula fits the expressiveness of Pacti's polyhedral constraints, this case study explores modeling tasks for an onboard automated planning/scheduling system as assume-guarantee components using Pacti.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
-<span class="kn">from</span> <span class="nn">contract_utils</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">contract_utils</span> <span class="kn">import</span> <span class="o">*</span>
+</span></code></pre></div>
 <h2 id="a-simple-space-mission-scenario">A simple space mission scenario<a class="headerlink" href="#a-simple-space-mission-scenario" title="Permanent link">¶</a></h2>
 <p>The following figure illustrates a simplification of the CubeSat-sized spacecraft/small-body asteroid approach scenario described in more detail in <a href="ref5">Nesnas et al. 2021</a>. Note: the Sun, Earth, spacecraft and small-body asteroid are shown at different scales for illustration purposes.</p>
 <p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/space_mission/space-mission.png" alt="grid"></p>
@@ -1389,48 +1389,48 @@
 <p>For these reasons, this case study is split into distinct viewpoints for power, data, navigation, and thermal.</p>
 <h4 id="mission-scenario-requirements">Mission scenario requirements<a class="headerlink" href="#mission-scenario-requirements" title="Permanent link">¶</a></h4>
 <p>At the mission level, we can specify an end-to-end mission scenario requirement as assumptions/guarantees over the system state variables as shown below. Note that the scenario requirement omits any reference to the task duration as these must remain unconstrained so that Pacti can compute an admissible schedule by finding values of task durations that satisfy all task constraints.</p>
-<div class="highlight"><pre><span></span><code><span class="n">scenario_requirements</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">"t_entry"</span><span class="p">,</span>    <span class="c1"># scenario start time</span>
-        <span class="s2">"soc_entry"</span><span class="p">,</span>  <span class="c1"># initial battery SOC</span>
-        <span class="s2">"d_entry"</span><span class="p">,</span>    <span class="c1"># initial data storage volume</span>
-        <span class="s2">"c_entry"</span><span class="p">,</span>    <span class="c1"># initial cumulative data volume</span>
-        <span class="s2">"u_entry"</span><span class="p">,</span>    <span class="c1"># initial trajectory uncertainty</span>
-        <span class="s2">"r_entry"</span><span class="p">,</span>    <span class="c1"># initial relative distance</span>
-        <span class="s2">"temp_entry"</span><span class="p">,</span> <span class="c1"># initial spacecraft thruster temperature</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">"t_exit"</span><span class="p">,</span>     <span class="c1"># scenario end time</span>
-        <span class="s2">"soc_exit"</span><span class="p">,</span>   <span class="c1"># final battery SOC</span>
-        <span class="s2">"d_exit"</span><span class="p">,</span>     <span class="c1"># final data storage volume</span>
-        <span class="s2">"c_exit"</span><span class="p">,</span>     <span class="c1"># final cumulative data volume</span>
-        <span class="s2">"u_exit"</span><span class="p">,</span>     <span class="c1"># final trajectory uncertainty</span>
-        <span class="s2">"r_exit"</span><span class="p">,</span>     <span class="c1"># final relative distance</span>
-        <span class="s2">"temp_exit"</span><span class="p">,</span>  <span class="c1"># final spacecraft thruster temperature</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">"t_entry = 0"</span><span class="p">,</span>      <span class="c1"># start @ t=0</span>
-        <span class="s2">"soc_entry = 100"</span><span class="p">,</span>  <span class="c1"># start with battery fully charged</span>
-        <span class="s2">"d_entry = 0"</span><span class="p">,</span>      <span class="c1"># start with no science data storage</span>
-        <span class="s2">"c_entry = 0"</span><span class="p">,</span>      <span class="c1"># start with no cumulative science data</span>
-        <span class="s2">"u_entry = 20"</span><span class="p">,</span>     <span class="c1"># start with trajectory estimation uncertainty = 20% (ground-based calculations)</span>
-        <span class="s2">"r_entry = 100"</span><span class="p">,</span>    <span class="c1"># start with relative distance = 100%</span>
-        <span class="s2">"temp_entry = 0"</span><span class="p">,</span>   <span class="c1"># start with cold thruster temperature</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">"t_exit = 300"</span><span class="p">,</span>     <span class="c1"># projected end @ t=300</span>
-        <span class="s2">"-soc_exit &lt;= 70"</span><span class="p">,</span>  <span class="c1"># goal: battery &gt;= 70% SOC</span>
-        <span class="s2">"d_exit = 0"</span><span class="p">,</span>       <span class="c1"># goal: all science data downlinked</span>
-        <span class="s2">"-c_exit &lt;= -1e4"</span><span class="p">,</span>  <span class="c1"># goal: at least 10^4 cumulative science data observations</span>
-        <span class="s2">"u_exit &lt;= 1"</span><span class="p">,</span>      <span class="c1"># goal: trajectory estimation uncertainty &lt;= 1%</span>
-        <span class="s2">"r_exit &lt;= 10"</span><span class="p">,</span>     <span class="c1"># goal: relative distance below 10%</span>
-        <span class="s2">"-r_exit &lt;= -5"</span><span class="p">,</span>    <span class="c1"># goal: relative distance above 5%</span>
-        <span class="s2">"-temp_exit &lt;= 0"</span><span class="p">,</span>  <span class="c1"># goal: no constraint on thruster temperature since they cool very quickly</span>
-    <span class="p">],</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scenario_requirements:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">scenario_requirements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>scenario_requirements:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">scenario_requirements</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="s2">"t_entry"</span><span class="p">,</span>    <span class="c1"># scenario start time</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="s2">"soc_entry"</span><span class="p">,</span>  <span class="c1"># initial battery SOC</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">"d_entry"</span><span class="p">,</span>    <span class="c1"># initial data storage volume</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s2">"c_entry"</span><span class="p">,</span>    <span class="c1"># initial cumulative data volume</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">"u_entry"</span><span class="p">,</span>    <span class="c1"># initial trajectory uncertainty</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">"r_entry"</span><span class="p">,</span>    <span class="c1"># initial relative distance</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="s2">"temp_entry"</span><span class="p">,</span> <span class="c1"># initial spacecraft thruster temperature</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">],</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="s2">"t_exit"</span><span class="p">,</span>     <span class="c1"># scenario end time</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="s2">"soc_exit"</span><span class="p">,</span>   <span class="c1"># final battery SOC</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="s2">"d_exit"</span><span class="p">,</span>     <span class="c1"># final data storage volume</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="s2">"c_exit"</span><span class="p">,</span>     <span class="c1"># final cumulative data volume</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="s2">"u_exit"</span><span class="p">,</span>     <span class="c1"># final trajectory uncertainty</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="s2">"r_exit"</span><span class="p">,</span>     <span class="c1"># final relative distance</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="s2">"temp_exit"</span><span class="p">,</span>  <span class="c1"># final spacecraft thruster temperature</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="p">],</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="s2">"t_entry = 0"</span><span class="p">,</span>      <span class="c1"># start @ t=0</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        <span class="s2">"soc_entry = 100"</span><span class="p">,</span>  <span class="c1"># start with battery fully charged</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        <span class="s2">"d_entry = 0"</span><span class="p">,</span>      <span class="c1"># start with no science data storage</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        <span class="s2">"c_entry = 0"</span><span class="p">,</span>      <span class="c1"># start with no cumulative science data</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        <span class="s2">"u_entry = 20"</span><span class="p">,</span>     <span class="c1"># start with trajectory estimation uncertainty = 20% (ground-based calculations)</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>        <span class="s2">"r_entry = 100"</span><span class="p">,</span>    <span class="c1"># start with relative distance = 100%</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>        <span class="s2">"temp_entry = 0"</span><span class="p">,</span>   <span class="c1"># start with cold thruster temperature</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="p">],</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        <span class="s2">"t_exit = 300"</span><span class="p">,</span>     <span class="c1"># projected end @ t=300</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        <span class="s2">"-soc_exit &lt;= 70"</span><span class="p">,</span>  <span class="c1"># goal: battery &gt;= 70% SOC</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        <span class="s2">"d_exit = 0"</span><span class="p">,</span>       <span class="c1"># goal: all science data downlinked</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        <span class="s2">"-c_exit &lt;= -1e4"</span><span class="p">,</span>  <span class="c1"># goal: at least 10^4 cumulative science data observations</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="s2">"u_exit &lt;= 1"</span><span class="p">,</span>      <span class="c1"># goal: trajectory estimation uncertainty &lt;= 1%</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        <span class="s2">"r_exit &lt;= 10"</span><span class="p">,</span>     <span class="c1"># goal: relative distance below 10%</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        <span class="s2">"-r_exit &lt;= -5"</span><span class="p">,</span>    <span class="c1"># goal: relative distance above 5%</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        <span class="s2">"-temp_exit &lt;= 0"</span><span class="p">,</span>  <span class="c1"># goal: no constraint on thruster temperature since they cool very quickly</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="p">],</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="p">)</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scenario_requirements:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">scenario_requirements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>scenario_requirements:
 
 InVars: [t_entry, soc_entry, d_entry, c_entry, u_entry, r_entry, temp_entry]
 OutVars:[t_exit, soc_exit, d_exit, c_exit, u_exit, r_exit, temp_exit]
@@ -1453,7 +1453,7 @@ G: [
   -r_exit &lt;= -5.0
   -temp_exit &lt;= 0.0
 ]
-</code></pre>
+</code></pre></div>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>
 <p><a id="ref_contracts_book"></a> <strong><a href="https://ieeexplore.ieee.org/document/8620676">Benveniste et al. 2018</a></strong></p>
 <p>Benveniste, A., Caillaud, B., Nickovic, D., Passerone, R., Raclet, J-B., Reinkemeier, P., Sangiovanni-Vincentelli, A., Damm, W., Henzinger, T. A., and Larsen, K. G. <strong>Contracts for system design.</strong> Foundations and Trends® in Electronic Design Automation 12, no. 2-3 (2018): 124-400.</p>

@@ -1248,26 +1248,26 @@ Contracts provide mathematical rigor to several tasks of relevance to system des
 </tbody>
 </table>
 <p>We can use Pacti to obtain the contract of the system that assembles these two components as follows: </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="n">PolyhedralContract</span>
-
-<span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o - i &lt;= 0"</span><span class="p">,</span> <span class="s2">"i - 2o &lt;= 2"</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"o &lt;= 0.2"</span><span class="p">,</span> <span class="s2">"-o &lt;= 1"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p - o &lt;= 0"</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">system_contract</span> <span class="o">=</span> <span class="n">contract1</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">system_contract</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>InVars: [i]
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="n">PolyhedralContract</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o - i &lt;= 0"</span><span class="p">,</span> <span class="s2">"i - 2o &lt;= 2"</span><span class="p">]</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p"</span><span class="p">],</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"o &lt;= 0.2"</span><span class="p">,</span> <span class="s2">"-o &lt;= 1"</span><span class="p">],</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p - o &lt;= 0"</span><span class="p">]</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">)</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">system_contract</span> <span class="o">=</span> <span class="n">contract1</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract2</span><span class="p">)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nb">print</span><span class="p">(</span><span class="n">system_contract</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>InVars: [i]
 OutVars:[o_p]
 A: [
   i &lt;= 0.19999999999999996
@@ -1276,7 +1276,7 @@ A: [
 G: [
   -i + o_p &lt;= 0.0
 ]
-</code></pre>
+</code></pre></div>
 <p>Pacti gives us the specification of the system. Note that the resulting contract only involves the top-level input and output variables, having eliminated the intermediate variable, <code>o</code>.</p>
 <h2 id="system-diagnostics">System diagnostics<a class="headerlink" href="#system-diagnostics" title="Permanent link">¶</a></h2>
 <p>Suppose that we want to build a system as shown in the figure above, with subsystem <span class="arithmatex">\(M_1\)</span> replacing <span class="arithmatex">\(M\)</span>, as specified below:</p>
@@ -1311,20 +1311,20 @@ G: [
 </tbody>
 </table>
 <p>The Pacti specification then becomes the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">contract1_n</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"|o| &lt;= 3"</span><span class="p">]</span>
-<span class="p">)</span>
-
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">new_system_contract</span> <span class="o">=</span> <span class="n">contract1_n</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract2</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Composition error: </span><span class="si">{0}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-</code></pre></div>
-<pre><code>Composition error: Could not eliminate variables ['o']
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">contract1_n</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"|o| &lt;= 3"</span><span class="p">]</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">try</span><span class="p">:</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">new_system_contract</span> <span class="o">=</span> <span class="n">contract1_n</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract2</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Composition error: </span><span class="si">{0}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Composition error: Could not eliminate variables ['o']
 by refining the assumptions 
 [
   o &lt;= 0.19999999999999996
@@ -1334,7 +1334,7 @@ using guarantees
 [
   |o| &lt;= 3.0
 ]
-</code></pre>
+</code></pre></div>
 <p>Pacti is unable to compute a system specification. In this case, this is due to the fact that our guarantee <code>|o| &lt;= 3</code> for <span class="arithmatex">\(M_1\)</span> does not satisfy the assumptions of <code>contract2</code>.</p>
 <h2 id="specifications-of-missing-subsystems">Specifications of missing subsystems<a class="headerlink" href="#specifications-of-missing-subsystems" title="Permanent link">¶</a></h2>
 <p>Now consider the situation shown in the following diagram:</p>
@@ -1371,24 +1371,24 @@ using guarantees
 </tbody>
 </table>
 <p>We use Pacti's quotient operation to obtain the specification of the missing subsystem corresponding to the question mark above so that the resulting object meets the specification <code>contract_top_level</code>. The following codifies this missing subsystem problem:</p>
-<div class="highlight"><pre><span></span><code><span class="n">contract_top_level</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 1"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p - 2i = 1"</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">contract_existing_subsystem</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o - 2i = 0"</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">contract_missing_subsystem</span> <span class="o">=</span> <span class="n">contract_top_level</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">contract_existing_subsystem</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">contract_missing_subsystem</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>InVars: [o]
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">contract_top_level</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p"</span><span class="p">],</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 1"</span><span class="p">],</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o_p - 2i = 1"</span><span class="p">]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">contract_existing_subsystem</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o - 2i = 0"</span><span class="p">]</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">)</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">contract_missing_subsystem</span> <span class="o">=</span> <span class="n">contract_top_level</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">contract_existing_subsystem</span><span class="p">)</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">contract_missing_subsystem</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>InVars: [o]
 OutVars:[o_p]
 A: [
   |o| &lt;= 2.0
@@ -1396,14 +1396,14 @@ A: [
 G: [
   -o + o_p = 1.0
 ]
-</code></pre>
-<p>Observe that Pacti tells us that the missing subsystem's specification has input <code>o</code> and output <code>o_p</code>. The resulting specification is guaranteed to implement the top-level system when composed with the contract of the existing subsystem. We can verify this:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># compose quotient</span>
-<span class="n">new_system</span> <span class="o">=</span> <span class="n">contract_missing_subsystem</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract_existing_subsystem</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">new_system</span><span class="o">.</span><span class="n">refines</span><span class="p">(</span><span class="n">contract_top_level</span><span class="p">))</span>
 </code></pre></div>
-<pre><code>True
-</code></pre>
+<p>Observe that Pacti tells us that the missing subsystem's specification has input <code>o</code> and output <code>o_p</code>. The resulting specification is guaranteed to implement the top-level system when composed with the contract of the existing subsystem. We can verify this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># compose quotient</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">new_system</span> <span class="o">=</span> <span class="n">contract_missing_subsystem</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract_existing_subsystem</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">new_system</span><span class="o">.</span><span class="n">refines</span><span class="p">(</span><span class="n">contract_top_level</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>True
+</code></pre></div>
 <h2 id="fusing-viewpoints">Fusing viewpoints<a class="headerlink" href="#fusing-viewpoints" title="Permanent link">¶</a></h2>
 <p>Suppose that we have two specifications for a subsystem, corresponding to different viewpoints, as shown in the following table:</p>
 <table>
@@ -1437,24 +1437,24 @@ G: [
 </tbody>
 </table>
 <p>We can use contract merging to obtain a single specification for the subsystem:</p>
-<div class="highlight"><pre><span></span><code><span class="n">functionality_viewpoint</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o - 2i = 1"</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">power_viewpoint</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"temp"</span><span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"P"</span><span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"temp &lt;= 90"</span><span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"P &lt;= 2.1"</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">subsystem_contract</span> <span class="o">=</span> <span class="n">functionality_viewpoint</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">power_viewpoint</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">subsystem_contract</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>InVars: [i, temp]
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">functionality_viewpoint</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"i"</span><span class="p">],</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">],</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"|i| &lt;= 2"</span><span class="p">],</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"o - 2i = 1"</span><span class="p">]</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">power_viewpoint</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"temp"</span><span class="p">],</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"P"</span><span class="p">],</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span><span class="s2">"temp &lt;= 90"</span><span class="p">],</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span><span class="s2">"P &lt;= 2.1"</span><span class="p">]</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="n">subsystem_contract</span> <span class="o">=</span> <span class="n">functionality_viewpoint</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">power_viewpoint</span><span class="p">)</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">subsystem_contract</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>InVars: [i, temp]
 OutVars:[o, P]
 A: [
   |i| &lt;= 2.0
@@ -1464,7 +1464,7 @@ G: [
   -2.0 i + o = 1.0
   P &lt;= 2.1
 ]
-</code></pre>
+</code></pre></div>
 <h2 id="to-learn-more">To learn more<a class="headerlink" href="#to-learn-more" title="Permanent link">¶</a></h2>
 <p>These examples illustrate some analysis tasks we can carry out with Pacti. The <code>case_studies</code> folder contains discussions of the application of Pacti in various design disciplines.</p>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>

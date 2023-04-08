@@ -1348,10 +1348,10 @@
   <h1>Mars 2020 Entry-Descent-Landing</h1>
 
 <div><h2 id="mars-entry-descent-landing-mission-scenario">Mars Entry-Descent-Landing Mission Scenario<a class="headerlink" href="#mars-entry-descent-landing-mission-scenario" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
-<span class="kn">from</span> <span class="nn">edl</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">edl</span> <span class="kn">import</span> <span class="o">*</span>
+</span></code></pre></div>
 <p>This case study demonstrates using Pacti for formalizing a simplified version of a Mars Entry-Descent-Landing mission scenario based on the following paper: <a href="#ref1">R. Prakash et al. 2008</a>
 and the Mars 2020 EDL timeline from <a href="https://mars.nasa.gov/mars2020/timeline/landing/entry-descent-landing/">https://mars.nasa.gov/mars2020/timeline/landing/entry-descent-landing/</a></p>
 <p><img alt="" src="https://mars.nasa.gov/internal_resources/961/"></p>
@@ -1398,71 +1398,71 @@ and the Mars 2020 EDL timeline from <a href="https://mars.nasa.gov/mars2020/time
 <p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/mars_entry_descent_landing/segment-contracts-Page-2.drawio.png" alt="grid"></p>
 <p>The special variables are <code>dt0</code>, <code>dt1</code>, <code>dt2</code>, and <code>dt3</code>; they correspond to the time interval allocated to each phase segment. Since these special variables do not appear as end-to-end EDL phase contract entry/exit conditions, they are effectively unbound in the scenario. These unbound variables parameterize the end-to-end EDL phase contract and provide EDL designers 'knobs' to explore time allocation tradeoffs among the phase segments. The rest of this notebook formalizes this encoding approach using Pacti's polyhedral algebra and illustrates an application of polyhedral contract algebra to explore some aspects of segment design characteristics.</p>
 <p>The comparison between the two encoding approaches described above serves to illustrate the importance of what Albert Sangiovanni-Vincentelli calls "freedom from choice" <a href="#ref2">E. Lee. 2019</a>: Systems engineers must thinking carefully about devising an abstraction of the intented purpose of the requirement that can be encoded within the limited expressiveness of Pacti's convex polyhedral contract algebra. It would be tempting to dismiss Pacti's polyhedral algebra as too simplistic given the highly nonlinear nature of the phenomenology involved. However, systems engineers would have to confront the complexity resulting from numerous options for modeling languages and tools. In exchange for eliminating these choices, systems engineers are free to excercise their creativity and intellect to devise useful abstractions that capture the intent of the requirements. What makes Pacti somewhat unique compared to other modeling languages and tools is the ability to carry out algebraic operations on requirements formalized as contracts: in exchange from eliminating modeling language choice, systems engineers gain the freedom to explore different ways of encoding requirements and apply algebraic operations to gain insights into them.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># The following Python imports provide access to the Pacti API </span>
-<span class="c1"># and to the plotting libraries for visualizing algebraic contracts.</span>
-
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
-
-<span class="kn">from</span> <span class="nn">pacti.iocontract</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># The following Python imports provide access to the Pacti API </span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># and to the plotting libraries for visualizing algebraic contracts.</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kn">from</span> <span class="nn">pacti.iocontract</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></code></pre></div>
 <h3 id="segment-s1-parachute-entry">Segment S1: parachute Entry<a class="headerlink" href="#segment-s1-parachute-entry" title="Permanent link">¶</a></h3>
 <p>For explanations, see: <a href="https://mars.nasa.gov/resources/25445/perseverance-rover-decelerating-in-the-martian-atmosphere-illustration/">https://mars.nasa.gov/resources/25445/perseverance-rover-decelerating-in-the-martian-atmosphere-illustration/</a></p>
 <p><img alt="" src="https://mars.nasa.gov/system/resources/detail_files/25445_04_PeakHeating-1200.jpg"></p>
 <p>The contract below defines <code>dt0</code> as a special input variable to characterize the resulting velocity decrease due to the atmospheric entry subsystems active during this segment.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># EDL begins when the spacecraft reaches the top of the Martian atmosphere, traveling nearly 20,000 kilometers per hour (kph).</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_v_entry = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="c1"># The heat shield slows the spacecraft to under 1,600 kph.</span>
-<span class="c1"># This point marks be the exit of the atmospheric entry segment</span>
-<span class="c1"># and the entry of the parachute deployment segment.</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_v_exit = </span><span class="si">{</span><span class="n">atmospheric_v_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_t_entry = </span><span class="si">{</span><span class="n">atmospheric_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_t_exit = </span><span class="si">{</span><span class="n">atmospheric_t_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">atmospheric_t_duration</span> <span class="o">=</span> <span class="n">atmospheric_t_exit</span> <span class="o">-</span> <span class="n">atmospheric_t_entry</span>
-<span class="n">atmospheric_t_duration_min</span> <span class="o">=</span> <span class="n">atmospheric_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
-<span class="n">atmospheric_t_duration_max</span> <span class="o">=</span> <span class="n">atmospheric_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
-
-<span class="n">atmospheric_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">atmospheric_v_entry</span> <span class="o">-</span> <span class="n">atmospheric_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">atmospheric_t_entry</span> <span class="o">-</span> <span class="n">atmospheric_t_exit</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_deacceleration=</span><span class="si">{</span><span class="n">atmospheric_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">atmospheric_min_deacceleration</span> <span class="o">=</span> <span class="n">atmospheric_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_min_deacceleration=</span><span class="si">{</span><span class="n">atmospheric_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">atmospheric_max_deacceleration</span> <span class="o">=</span> <span class="n">atmospheric_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_max_deacceleration=</span><span class="si">{</span><span class="n">atmospheric_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">S1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"dt0"</span><span class="p">,</span>          <span class="c1"># time duration for the atmospheric segment from entry to exit.</span>
-      <span class="s2">"v0"</span>            <span class="c1"># velocity @ entry</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"v1"</span>            <span class="c1"># velocity @ exit</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ entry</span>
-      <span class="sa">f</span><span class="s2">"v0 = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># validity bounds on minimum exit velocity</span>
-      <span class="c1"># 1000 &lt;= v1</span>
-      <span class="s2">"-v1 &lt;= -1000"</span><span class="p">,</span>
-
-      <span class="c1"># atmospheric_min_deacceleration * dt0 &lt;= v0 - v1 &lt;= atmospheric_max_deacceleration * dt0</span>
-      <span class="c1"># v0 - v1 &lt;= atmospheric_max_deacceleration * dt0</span>
-      <span class="sa">f</span><span class="s2">" v0 - v1 - </span><span class="si">{</span><span class="n">atmospheric_max_deacceleration</span><span class="si">}</span><span class="s2"> dt0 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># atmospheric_min_deacceleration * dt0 &lt;= v0 - v1</span>
-      <span class="sa">f</span><span class="s2">"-v0 + v1 + </span><span class="si">{</span><span class="n">atmospheric_min_deacceleration</span><span class="si">}</span><span class="s2"> dt0 &lt;= 0"</span>
-    <span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S1:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>atmospheric_v_entry = 20000.0
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># EDL begins when the spacecraft reaches the top of the Martian atmosphere, traveling nearly 20,000 kilometers per hour (kph).</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_v_entry = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># The heat shield slows the spacecraft to under 1,600 kph.</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># This point marks be the exit of the atmospheric entry segment</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># and the entry of the parachute deployment segment.</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_v_exit = </span><span class="si">{</span><span class="n">atmospheric_v_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_t_entry = </span><span class="si">{</span><span class="n">atmospheric_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_t_exit = </span><span class="si">{</span><span class="n">atmospheric_t_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">atmospheric_t_duration</span> <span class="o">=</span> <span class="n">atmospheric_t_exit</span> <span class="o">-</span> <span class="n">atmospheric_t_entry</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">atmospheric_t_duration_min</span> <span class="o">=</span> <span class="n">atmospheric_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">atmospheric_t_duration_max</span> <span class="o">=</span> <span class="n">atmospheric_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">atmospheric_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">atmospheric_v_entry</span> <span class="o">-</span> <span class="n">atmospheric_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">atmospheric_t_entry</span> <span class="o">-</span> <span class="n">atmospheric_t_exit</span><span class="p">))</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_deacceleration=</span><span class="si">{</span><span class="n">atmospheric_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="n">atmospheric_min_deacceleration</span> <span class="o">=</span> <span class="n">atmospheric_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_min_deacceleration=</span><span class="si">{</span><span class="n">atmospheric_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="n">atmospheric_max_deacceleration</span> <span class="o">=</span> <span class="n">atmospheric_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"atmospheric_max_deacceleration=</span><span class="si">{</span><span class="n">atmospheric_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="n">S1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>      <span class="s2">"dt0"</span><span class="p">,</span>          <span class="c1"># time duration for the atmospheric segment from entry to exit.</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>      <span class="s2">"v0"</span>            <span class="c1"># velocity @ entry</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>    <span class="p">],</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>      <span class="s2">"v1"</span>            <span class="c1"># velocity @ exit</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    <span class="p">],</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>      <span class="c1"># velocity @ entry</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>      <span class="sa">f</span><span class="s2">"v0 = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    <span class="p">],</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>      <span class="c1"># validity bounds on minimum exit velocity</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>      <span class="c1"># 1000 &lt;= v1</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>      <span class="s2">"-v1 &lt;= -1000"</span><span class="p">,</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>      <span class="c1"># atmospheric_min_deacceleration * dt0 &lt;= v0 - v1 &lt;= atmospheric_max_deacceleration * dt0</span>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>      <span class="c1"># v0 - v1 &lt;= atmospheric_max_deacceleration * dt0</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>      <span class="sa">f</span><span class="s2">" v0 - v1 - </span><span class="si">{</span><span class="n">atmospheric_max_deacceleration</span><span class="si">}</span><span class="s2"> dt0 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>      <span class="c1"># atmospheric_min_deacceleration * dt0 &lt;= v0 - v1</span>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>      <span class="sa">f</span><span class="s2">"-v0 + v1 + </span><span class="si">{</span><span class="n">atmospheric_min_deacceleration</span><span class="si">}</span><span class="s2"> dt0 &lt;= 0"</span>
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>    <span class="p">])</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S1:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>atmospheric_v_entry = 20000.0
 atmospheric_v_exit = 1600.0
 atmospheric_t_entry = 0
 atmospheric_t_exit = 90.0
@@ -1482,7 +1482,7 @@ G: [
   -210.6 dt0 + v0 - v1 &lt;= 0
   192.2 dt0 - v0 + v1 &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <p>Even through linear constraints are conceptually simple, it is very helpful to project the space of admissible solutions shown in the blue trapezoid below. Pacti provides a simple 2D plotting projection capability for either contract assumptions or guarantees as shown below. Doing so requires:
 - choosing two variables from the inputs and outputs, <code>x_var</code> and <code>y_var</code>;
 - specifying values for all remaining variables, <code>var_values</code>;
@@ -1490,17 +1490,17 @@ G: [
 <p>The plot provides a useful interactive capability that tracks the mouse movement and shows underneath the plot the <code>x</code>, <code>y</code> coordinates of the mouse cursor.</p>
 <p>During notebook authoring, this interactive capability is available only in a Jupyter environment such as Microsoft VS Code with the Microsoft Jupyter extension or with JetBrains' PyCharm Professional.</p>
 <p>Note that neither the Github Jupyter notebook rendering nor the doc generator support the interactive plot functionality.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S1</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">21000</span><span class="p">)</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S1</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">),</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">),</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="p">},</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">21000</span><span class="p">)</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1509,17 +1509,17 @@ G: [
 </div>
 
 <p>One can zoom into a region of interest by changing the limits of the plot as shown below:</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S1</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S1</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">),</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">),</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="p">},</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1530,54 +1530,54 @@ G: [
 <h3 id="segment-s2-parachute-deployment">Segment S2: Parachute Deployment<a class="headerlink" href="#segment-s2-parachute-deployment" title="Permanent link">¶</a></h3>
 <p><img alt="" src="https://mars.nasa.gov/system/resources/detail_files/24989_PIA23916-800.jpg"></p>
 <p>Similar to the atmospheric entry segment above, the parachute deployment contract below defines <code>dt1</code> as a special input variable to characterize the resulting velocity decrease due to the parachute and related subsystems active during this segment.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># The parachute can be safely deployed when the velocity is less than 1,600 kph.</span>
-<span class="n">parachute_v_entry</span> <span class="o">=</span> <span class="mf">1600.0</span>
-
-<span class="c1"># The parachute maximum deceleration capability is 320 kph.</span>
-<span class="n">parachute_v_exit</span> <span class="o">=</span> <span class="mf">320.0</span>
-
-<span class="n">parachute_t_entry</span> <span class="o">=</span> <span class="mf">90.0</span>
-<span class="n">parachute_t_exit</span> <span class="o">=</span> <span class="mf">350.0</span>
-<span class="n">parachute_t_duration</span> <span class="o">=</span> <span class="n">parachute_t_exit</span> <span class="o">-</span> <span class="n">parachute_t_entry</span>
-<span class="n">parachute_t_duration_min</span> <span class="o">=</span> <span class="n">parachute_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
-<span class="n">parachute_t_duration_max</span> <span class="o">=</span> <span class="n">parachute_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
-
-<span class="n">parachute_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">parachute_v_entry</span> <span class="o">-</span> <span class="n">parachute_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">parachute_t_entry</span> <span class="o">-</span> <span class="n">parachute_t_exit</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"parachute_deacceleration=</span><span class="si">{</span><span class="n">parachute_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">parachute_min_deacceleration</span> <span class="o">=</span> <span class="n">parachute_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"parachute_min_deacceleration=</span><span class="si">{</span><span class="n">parachute_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">parachute_max_deacceleration</span> <span class="o">=</span> <span class="n">parachute_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"parachute_max_deacceleration=</span><span class="si">{</span><span class="n">parachute_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">S2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"dt1"</span><span class="p">,</span>          <span class="c1"># time duration for the parachute deployment segment from entry to exit.</span>
-      <span class="s2">"v1"</span>            <span class="c1"># entry velocity</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"v2"</span>            <span class="c1"># exit velocity</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ entry</span>
-      <span class="sa">f</span><span class="s2">"v1 &lt;= </span><span class="si">{</span><span class="n">parachute_v_entry</span><span class="si">}</span><span class="s2">"</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># # parachute effectiveness is limited to v2 &gt;= 320</span>
-      <span class="sa">f</span><span class="s2">"-v2 &lt;= -</span><span class="si">{</span><span class="n">parachute_v_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-
-      <span class="c1"># parachute_min_deacceleration * dt1 &lt;= v1 - v2 &lt;= parachute_max_deacceleration * dt1</span>
-      <span class="c1"># v1 - v2 &lt;= parachute_max_deacceleration * dt1</span>
-      <span class="sa">f</span><span class="s2">" v1 - v2 - </span><span class="si">{</span><span class="n">parachute_max_deacceleration</span><span class="si">}</span><span class="s2"> dt1 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># parachutec_min_deacceleration * dt1 &lt;= v1 - v2</span>
-      <span class="sa">f</span><span class="s2">"-v1 + v2 + </span><span class="si">{</span><span class="n">parachute_min_deacceleration</span><span class="si">}</span><span class="s2"> dt1 &lt;= 0"</span>
-   <span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S2:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>parachute_deacceleration=4.923076923076923
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># The parachute can be safely deployed when the velocity is less than 1,600 kph.</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">parachute_v_entry</span> <span class="o">=</span> <span class="mf">1600.0</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># The parachute maximum deceleration capability is 320 kph.</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">parachute_v_exit</span> <span class="o">=</span> <span class="mf">320.0</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">parachute_t_entry</span> <span class="o">=</span> <span class="mf">90.0</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">parachute_t_exit</span> <span class="o">=</span> <span class="mf">350.0</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">parachute_t_duration</span> <span class="o">=</span> <span class="n">parachute_t_exit</span> <span class="o">-</span> <span class="n">parachute_t_entry</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">parachute_t_duration_min</span> <span class="o">=</span> <span class="n">parachute_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">parachute_t_duration_max</span> <span class="o">=</span> <span class="n">parachute_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">parachute_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">parachute_v_entry</span> <span class="o">-</span> <span class="n">parachute_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">parachute_t_entry</span> <span class="o">-</span> <span class="n">parachute_t_exit</span><span class="p">))</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"parachute_deacceleration=</span><span class="si">{</span><span class="n">parachute_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="n">parachute_min_deacceleration</span> <span class="o">=</span> <span class="n">parachute_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"parachute_min_deacceleration=</span><span class="si">{</span><span class="n">parachute_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="n">parachute_max_deacceleration</span> <span class="o">=</span> <span class="n">parachute_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"parachute_max_deacceleration=</span><span class="si">{</span><span class="n">parachute_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="n">S2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>      <span class="s2">"dt1"</span><span class="p">,</span>          <span class="c1"># time duration for the parachute deployment segment from entry to exit.</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>      <span class="s2">"v1"</span>            <span class="c1"># entry velocity</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>    <span class="p">],</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>      <span class="s2">"v2"</span>            <span class="c1"># exit velocity</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>    <span class="p">],</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>      <span class="c1"># velocity @ entry</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>      <span class="sa">f</span><span class="s2">"v1 &lt;= </span><span class="si">{</span><span class="n">parachute_v_entry</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>    <span class="p">],</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>      <span class="c1"># # parachute effectiveness is limited to v2 &gt;= 320</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>      <span class="sa">f</span><span class="s2">"-v2 &lt;= -</span><span class="si">{</span><span class="n">parachute_v_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>      <span class="c1"># parachute_min_deacceleration * dt1 &lt;= v1 - v2 &lt;= parachute_max_deacceleration * dt1</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>      <span class="c1"># v1 - v2 &lt;= parachute_max_deacceleration * dt1</span>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>      <span class="sa">f</span><span class="s2">" v1 - v2 - </span><span class="si">{</span><span class="n">parachute_max_deacceleration</span><span class="si">}</span><span class="s2"> dt1 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>      <span class="c1"># parachutec_min_deacceleration * dt1 &lt;= v1 - v2</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>      <span class="sa">f</span><span class="s2">"-v1 + v2 + </span><span class="si">{</span><span class="n">parachute_min_deacceleration</span><span class="si">}</span><span class="s2"> dt1 &lt;= 0"</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>   <span class="p">])</span>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S2:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>parachute_deacceleration=4.923076923076923
 parachute_min_deacceleration=4.627692307692308
 parachute_max_deacceleration=5.070769230769232
 
@@ -1593,19 +1593,19 @@ G: [
   -5.071 dt1 + v1 - v2 &lt;= 0
   4.628 dt1 - v1 + v2 &lt;= 0
 ]
-</code></pre>
-<p>Similar to the previous contract, it is helpful to plot the full range of the segment contract to confirm that the admissible region corresponds to the intent of the contract before focusing on a subregion of interest.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S2</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">):</span><span class="n">parachute_v_entry</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
-<span class="p">)</span>
 </code></pre></div>
+<p>Similar to the previous contract, it is helpful to plot the full range of the segment contract to confirm that the admissible region corresponds to the intent of the contract before focusing on a subregion of interest.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S2</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">),</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">),</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">):</span><span class="n">parachute_v_entry</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="p">},</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1613,17 +1613,17 @@ G: [
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAABU70lEQVR4nO3deXwU9f3H8dfmJBybECAXhIDc4QiIEuOBBymnKIpVNFWsFKqCVkCqVEW8iqK1FX8opVqx9awWUGhFkSuKETEhgNxgIFxJgJCEALl25/fHkq0LQULYI5t5Px+PeUhmvvudz9eEyZs5vmMxDMNAREREREwjwNcFiIiIiIh3KQCKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiIiImIwCoIiIiIjJKACKiFfk5OQwYcIEOnfuTOPGjWncuDGJiYmMHz+eDRs2+Lo8t/nmm2+YPn06RUVFvi5FROSsLIZhGL4uQkQatsWLF3PbbbcRFBREWloaSUlJBAQEsHXrVubPn8+ePXvIyckhISHB16VesJdeeokpU6aQk5NDu3btfF2OiEiNgnxdgIg0bLt27WLUqFEkJCSwbNkyYmNjXba/8MILvPbaawQEeO+ChN1up6KigkaNGnltnyIi9YkuAYuIR82cOZPjx4/z1ltvnRH+AIKCgnjwwQeJj48H4JprruGaa645o93dd999xhm1l156icsvv5wWLVoQFhZG3759+fjjj8/4rMViYcKECbz77rt0796d0NBQlixZUqc+Fi5cSI8ePQgNDaV79+7OfgCmT5/OlClTAGjfvj0WiwWLxcLu3budbd555x369u1LWFgYkZGRjBo1ir17956xvzVr1jB48GDCw8Np3LgxV199NatXr3Zpc+zYMR566CHatWtHaGgoUVFR/OIXvyArK+uM/kREfkqXgEXEo1q3bk3jxo3ZsWNHrdpXh7+VK1e6rL/77rtZuXKlS5iKj4/nhhtuIDExkYqKCj744AO+++47Fi9ezLBhw5ztLBYL3bp14/Dhw0yYMIGWLVty+eWX07t37/PqIykpiYKCAu6//36aNWvGrFmzyMvLIzc3lxYtWrBhwwaef/553n//ff785z/TsmVLAG666SaaNGnCc889xxNPPMGtt97K1VdfzaFDh3j11Vdp2rQp69atIyIiAoDly5czZMgQ+vbtyy233EJAQABvvfUWW7du5auvvqJfv34ApKWl8fHHHzNhwgQSExM5cuQIX3/9NbfddhtpaWnn+Z0SEVMxREQ8pLi42ACMESNGnLHt6NGjxqFDh5zLiRMnDMMwjKuvvtq4+uqrz2g/evRoIyEhwWVd9WeqVVRUGD169DCuu+46l/WAERAQYGzatOmMfs+nj5CQEGPnzp3OdevXrzcA49VXX3Wue/HFFw3AyMnJcfn87t27jcDAQOO5555zWb9x40YjKCjIud5utxudOnUyBg0aZNjtdpc627dvb/ziF79wrgsPDzfGjx9/xphERM5Fl4BFxGNKSkoAaNq06RnbrrnmGlq1auVcZs+efd79h4WFOf989OhRiouLueqqq2q8BHr11VeTmJh4QX2kpqbSoUMH59e9evXCarXy448/nrPW+fPnY7fbufXWWzl8+LBziYmJoVOnTqxYsQKA7OxsduzYwR133MGRI0ec7Y4fP86AAQNIT0/HbrcDEBERwZo1azhw4MA59y8i8lN6CEREPKZZs2YAlJaWnrHtr3/9K8eOHSM/P59f/epXdep/8eLFPPvss2RnZ1NeXu5cb7FYzmjbvn37C+6jbdu2Z6xr3rw5R48ePWetO3bswDAMOnXqVOP24OBgZzuA0aNHn7Wv4uJimjdvzsyZMxk9ejTx8fH07duXoUOHctddd3HRRRedsx4RMTcFQBHxmPDwcGJjY/nhhx/O2JacnAzgck8fOIKXUcOtyTabzeXrr776ihtuuIH+/fvz2muvERsbS3BwMG+99RbvvffeGZ//6Zm+uvYRGBhY4zhrqvd0drsdi8XCZ599VmM/1WdJq8/uvfjii/Tu3bvGvqrb3nrrrVx11VUsWLCAL774ghdffJEXXniB+fPnM2TIkHPWJCLmpQAoIh41bNgw3njjDb777jvnwws/p3nz5jVeUt2zZ4/L1//+979p1KgRn3/+OaGhoc71b731Vq1rc0cfp6vpzCFAhw4dMAyD9u3b07lz57N+vvoSs9VqJTU19Zz7i42N5f777+f++++noKCAiy++mOeee04BUER+lu4BFBGP+v3vf0/jxo255557yM/PP2P76WfPOnTowNatWzl06JBz3fr168+YAiUwMBCLxeJyZnD37t0sXLiw1rW5o4/TNWnSBOCMN4HcfPPNBAYG8tRTT50xZsMwOHLkCAB9+/alQ4cOvPTSSzVeOq/+/2Kz2SguLnbZFhUVRVxcnMulbBGRmugMoIh4VKdOnXjvvfe4/fbb6dKli/NNIIZhkJOTw3vvvUdAQABt2rQB4J577uHll19m0KBBjBkzhoKCAubMmUP37t2dD5WA48ziyy+/zODBg7njjjsoKChg9uzZdOzYsdavlnNHH6fr27cvAI899hijRo0iODiY4cOH06FDB5599lmmTp3K7t27GTFiBM2aNSMnJ4cFCxYwbtw4Hn74YQICAnjjjTcYMmQI3bt359e//jWtW7dm//79rFixAqvVyqJFizh27Bht2rThlltuISkpiaZNm/Lll1+ydu1a/vSnP9WpdhExEd89gCwiZrJz507jvvvuMzp27Gg0atTICAsLM7p27Wrce++9RnZ2tkvbd955x7jooouMkJAQo3fv3sbnn39e4zQwb775ptGpUycjNDTU6Nq1q/HWW28ZTz75pHH6oQ0463QpF9pHQkKCMXr0aJd1zzzzjNG6dWsjICDgjClh/v3vfxtXXnml0aRJE6NJkyZG165djfHjxxvbtm1z6WPdunXGzTffbLRo0cIIDQ01EhISjFtvvdVYtmyZYRiGUV5ebkyZMsVISkoymjVrZjRp0sRISkoyXnvttRrHKSLyU5oIWkRERMRkdA+giIiIiMkoAIqIiIiYjAKgiIiIiMkoANYz6enpDB8+nLi4OCwWyxnTUZSWljJhwgTatGlDWFgYiYmJzJkzx6VNWVkZ48ePp0WLFjRt2pSRI0eeMf1Gbm4uw4YNo3HjxkRFRTFlyhSqqqo8PTwRERGpBxQA65njx4+TlJR01veiTpo0iSVLlvDOO++wZcsWHnroISZMmMCnn37qbDNx4kQWLVrERx99xKpVqzhw4AA333yzc7vNZmPYsGFUVFTwzTff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AIyXX37ZWLdunbFnzx7DMAzj+eefNyIiIoxPPvnE2LBhg3HjjTca7du3N06ePOnsY/DgwUafPn2MNWvWGF9//bXRqVMn4/bbb/fVkM7p58Z87Ngx4+GHHzYyMjKMnJwc48svvzQuvvhio1OnTkZZWZmzD38b83333WeEh4cbK1euNA4ePOhcTpw44Wxzrp/pqqoqo0ePHsbAgQON7OxsY8mSJUarVq2MqVOn+mJItXKuce/cudN4+umnje+//97IyckxPvnkE+Oiiy4y+vfv7+zDH8f96KOPGqtWrTJycnKMDRs2GI8++qhhsViML774wjCMhvm9lrpRAJQ6efXVV422bdsaISEhRr9+/Yxvv/3W1yW5zW233WbExsYaISEhRuvWrY3bbrvN2Llzp3P7yZMnjfvvv99o3ry50bhxY+Omm24yDh486MOK62bFihUGcMYyevRowzAcU8E88cQTRnR0tBEaGmoMGDDA2LZtm0sfR44cMW6//XajadOmhtVqNX79618bx44d88FoaufnxnzixAlj4MCBRqtWrYzg4GAjISHBGDt27Bn/sPG3Mdc0XsB46623nG1q8zO9e/duY8iQIUZYWJjRsmVLY/LkyUZlZaWXR1N75xp3bm6u0b9/fyMyMtIIDQ01OnbsaEyZMsUoLi526cffxn3PPfcYCQkJRkhIiNGqVStjwIABzvBnGA3zey11YzEMw/De+UYRERER8TXdAygiIiJiMgqAIiIiIiajACgiIiJiMgqAIiIiIiajACgiIiJiMgqAIiIiIiajACgiIiJiMgqAIiLANddcw0MPPeTrMkREvEIBUETkNO3ateMvf/mLy7qysjLuvvtuevbsSVBQECNGjPBJbSIi7qAAKCJSCzabjbCwMB588EFSU1N9XY6IyAVRABQR0zl+/Dh33XUXTZs2JTY2lj/96U/Obddccw179uxh4sSJWCwWLBYLAE2aNOH1119n7NixxMTE+Kp0ERG3UAAUEdOZMmUKq1at4pNPPuGLL75g5cqVZGVlATB//nzatGnD008/zcGDBzl48KCPqxURcb8gXxcgIuJNpaWlvPnmm7zzzjsMGDAAgLfffps2bdoAEBkZSWBgIM2aNdOZPhFpsHQGUERMZdeuXVRUVJCcnOxcFxkZSZcuXXxYlYiIdykAioiIiJiMAqCImEqHDh0IDg5mzZo1znVHjx5l+/btzq9DQkKw2Wy+KE9ExCt0D6CImErTpk0ZM2YMU6ZMoUWLFkRFRfHYY48REPC/fw+3a9eO9PR0Ro0aRWhoKC1btgRg8+bNVFRUUFhYyLFjx8jOzgagd+/ePhiJiEjdKQCKiOm8+OKLlJaWMnz4cJo1a8bkyZMpLi52bn/66af57W9/S4cOHSgvL8cwDACGDh3Knj17nO369OkD4NwuIuIvLIaOXCIiIiKmonsARURERExGAVBERETEZBQARURERExGAVBERETEZBQARURERExGAVBERETEZBQARURERExGAVBERETEZBQARURERExGAVBERETEZBQARURERExGAVBERETEZP4fAZlDPlTuInAAAAAASUVORK5CYII=" width="640.0/">
 </div>
 
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S2</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">):</span><span class="n">parachute_v_entry</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S2</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">),</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">),</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">):</span><span class="n">parachute_v_entry</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="p">},</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1633,10 +1633,10 @@ G: [
 
 <h4 id="scenario-so-far-s1-s2">Scenario so far: S1 || S2<a class="headerlink" href="#scenario-so-far-s1-s2" title="Permanent link">¶</a></h4>
 <p>We can build the scenario so far by composing the phase segments, i.e., <code>S1 || S2</code>. Doing so provides useful feedback to diagnose incompatible contracts. Successful composition provides a high-level summary of the resulting contract since composition eliminates intermediate variables. In the example below, <code>v1</code> was such an intermediate variable since it is an output of <code>S1</code> and an input of <code>S2</code>. Notice how Pacti retain the special 'knob' variables of both contracts, <code>dt1</code> and <code>dt2</code>, because these special variables are inputs only.</p>
-<div class="highlight"><pre><span></span><code><span class="n">S12</span> <span class="o">=</span> <span class="n">S1</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Scenario so far: S1 || S2</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S12</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>Scenario so far: S1 || S2
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">S12</span> <span class="o">=</span> <span class="n">S1</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S2</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Scenario so far: S1 || S2</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S12</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Scenario so far: S1 || S2
 
 InVars: [dt0, v0, dt1]
 OutVars:[v2]
@@ -1649,20 +1649,20 @@ G: [
   -v2 &lt;= -320
   192.2 dt0 + 4.628 dt1 - v0 + v2 &lt;= 0
 ]
-</code></pre>
-<p>Plotting the guarantees for the nominal entry conditions (i.e., <code>v0=atmospheric_v_entry</code>) requires using a value of <code>dt0</code> that is compatible with the constraints. In the example below, we use <code>dt0=98</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S12</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span><span class="p">,</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">):</span><span class="mi">98</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="p">)</span>
 </code></pre></div>
+<p>Plotting the guarantees for the nominal entry conditions (i.e., <code>v0=atmospheric_v_entry</code>) requires using a value of <code>dt0</code> that is compatible with the constraints. In the example below, we use <code>dt0=98</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S12</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">),</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">),</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">):</span><span class="mi">98</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="p">},</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1673,51 +1673,51 @@ G: [
 <h3 id="segment-s3-powered-descent">Segment S3: Powered Descent<a class="headerlink" href="#segment-s3-powered-descent" title="Permanent link">¶</a></h3>
 <p><img alt="" src="https://mars.nasa.gov/system/resources/detail_files/25449_08_PoweredDescent-1200.jpg"></p>
 <p>Similar to previous segment encodings, the powered descent contract below defines <code>dt2</code> as a special input variable to characterize the resulting velocity decrease due to the powered descent stage subsystem active during this segment.</p>
-<div class="highlight"><pre><span></span><code><span class="n">powered_descent_v_entry</span> <span class="o">=</span> <span class="mf">600.0</span>
-<span class="n">powered_descent_v_exit</span> <span class="o">=</span> <span class="mf">2.7</span>
-
-<span class="n">powered_descent_t_entry</span> <span class="o">=</span> <span class="mf">350.0</span>
-<span class="n">powered_descent_t_exit</span> <span class="o">=</span> <span class="mf">398.0</span>
-<span class="n">powered_descent_t_duration</span> <span class="o">=</span><span class="n">powered_descent_t_exit</span> <span class="o">-</span> <span class="n">powered_descent_t_entry</span>
-<span class="n">powered_descent_t_duration_min</span> <span class="o">=</span> <span class="n">powered_descent_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
-<span class="n">powered_descent_t_duration_max</span> <span class="o">=</span> <span class="n">powered_descent_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
-
-<span class="n">powered_descent_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">powered_descent_v_entry</span> <span class="o">-</span> <span class="n">powered_descent_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">powered_descent_t_entry</span> <span class="o">-</span> <span class="n">powered_descent_t_exit</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"powered_descent_deacceleration=</span><span class="si">{</span><span class="n">powered_descent_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">powered_descent_min_deacceleration</span> <span class="o">=</span> <span class="n">powered_descent_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"powered_descent_min_deacceleration=</span><span class="si">{</span><span class="n">powered_descent_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">powered_descent_max_deacceleration</span> <span class="o">=</span> <span class="n">powered_descent_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"powered_descent_max_deacceleration=</span><span class="si">{</span><span class="n">powered_descent_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">S3</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"dt2"</span><span class="p">,</span>          <span class="c1"># time duration for the powered descent from entry to exit.</span>
-      <span class="s2">"v2"</span>            <span class="c1"># entry velocity</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"v3"</span>            <span class="c1"># exit velocity</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ entry</span>
-      <span class="sa">f</span><span class="s2">"v2 &lt;= </span><span class="si">{</span><span class="n">powered_descent_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ exit</span>
-      <span class="s2">"-v3 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># powered_descent_min_deacceleration * dt2 &lt;= v2 - v3 &lt;= powered_descent_max_deacceleration * dt1</span>
-      <span class="c1"># v2 - v3 &lt;= powered_descent_max_deacceleration * dt2</span>
-      <span class="sa">f</span><span class="s2">" v2 - v3 - </span><span class="si">{</span><span class="n">powered_descent_max_deacceleration</span><span class="si">}</span><span class="s2"> dt2 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># powered_descent_min_deacceleration * dt2 &lt;= v2 - v3</span>
-      <span class="sa">f</span><span class="s2">"-v2 + v3 + </span><span class="si">{</span><span class="n">powered_descent_min_deacceleration</span><span class="si">}</span><span class="s2"> dt2 &lt;= 0"</span>
-    <span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S3:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>powered_descent_deacceleration=12.44375
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">powered_descent_v_entry</span> <span class="o">=</span> <span class="mf">600.0</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">powered_descent_v_exit</span> <span class="o">=</span> <span class="mf">2.7</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">powered_descent_t_entry</span> <span class="o">=</span> <span class="mf">350.0</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">powered_descent_t_exit</span> <span class="o">=</span> <span class="mf">398.0</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">powered_descent_t_duration</span> <span class="o">=</span><span class="n">powered_descent_t_exit</span> <span class="o">-</span> <span class="n">powered_descent_t_entry</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">powered_descent_t_duration_min</span> <span class="o">=</span> <span class="n">powered_descent_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">powered_descent_t_duration_max</span> <span class="o">=</span> <span class="n">powered_descent_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">powered_descent_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">powered_descent_v_entry</span> <span class="o">-</span> <span class="n">powered_descent_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">powered_descent_t_entry</span> <span class="o">-</span> <span class="n">powered_descent_t_exit</span><span class="p">))</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"powered_descent_deacceleration=</span><span class="si">{</span><span class="n">powered_descent_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="n">powered_descent_min_deacceleration</span> <span class="o">=</span> <span class="n">powered_descent_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"powered_descent_min_deacceleration=</span><span class="si">{</span><span class="n">powered_descent_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="n">powered_descent_max_deacceleration</span> <span class="o">=</span> <span class="n">powered_descent_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"powered_descent_max_deacceleration=</span><span class="si">{</span><span class="n">powered_descent_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="n">S3</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>      <span class="s2">"dt2"</span><span class="p">,</span>          <span class="c1"># time duration for the powered descent from entry to exit.</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>      <span class="s2">"v2"</span>            <span class="c1"># entry velocity</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    <span class="p">],</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>      <span class="s2">"v3"</span>            <span class="c1"># exit velocity</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    <span class="p">],</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>      <span class="c1"># velocity @ entry</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>      <span class="sa">f</span><span class="s2">"v2 &lt;= </span><span class="si">{</span><span class="n">powered_descent_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>    <span class="p">],</span>
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>      <span class="c1"># velocity @ exit</span>
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>      <span class="s2">"-v3 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>      <span class="c1"># powered_descent_min_deacceleration * dt2 &lt;= v2 - v3 &lt;= powered_descent_max_deacceleration * dt1</span>
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>      <span class="c1"># v2 - v3 &lt;= powered_descent_max_deacceleration * dt2</span>
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>      <span class="sa">f</span><span class="s2">" v2 - v3 - </span><span class="si">{</span><span class="n">powered_descent_max_deacceleration</span><span class="si">}</span><span class="s2"> dt2 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>      <span class="c1"># powered_descent_min_deacceleration * dt2 &lt;= v2 - v3</span>
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a>      <span class="sa">f</span><span class="s2">"-v2 + v3 + </span><span class="si">{</span><span class="n">powered_descent_min_deacceleration</span><span class="si">}</span><span class="s2"> dt2 &lt;= 0"</span>
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a>    <span class="p">])</span>
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a>
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S3:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>powered_descent_deacceleration=12.44375
 powered_descent_min_deacceleration=11.697125
 powered_descent_max_deacceleration=12.8170625
 
@@ -1733,19 +1733,19 @@ G: [
   -12.82 dt2 + v2 - v3 &lt;= 0
   11.7 dt2 - v2 + v3 &lt;= 0
 ]
-</code></pre>
-<p>Here, we plot only a region of interest where the exit velocity may reach zero depending on the value of <code>dt2</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S3</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt2"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v3"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">):</span><span class="n">powered_descent_v_entry</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-<span class="p">)</span>
 </code></pre></div>
+<p>Here, we plot only a region of interest where the exit velocity may reach zero depending on the value of <code>dt2</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S3</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt2"</span><span class="p">),</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v3"</span><span class="p">),</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">):</span><span class="n">powered_descent_v_entry</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="p">},</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1755,10 +1755,10 @@ G: [
 
 <h4 id="scenario-so-far-s1-s2-s3">Scenario so far: S1 || S2 || S3<a class="headerlink" href="#scenario-so-far-s1-s2-s3" title="Permanent link">¶</a></h4>
 <p>Similar to the above, we expect Pacti to eliminate the intermediate variables, <code>v1</code> and <code>v2</code>, and to retain all of our special 'knob' variables, <code>dt0</code>, <code>dt1</code>, and <code>dt2</code>,  from the composed contracts.</p>
-<div class="highlight"><pre><span></span><code><span class="n">S123</span> <span class="o">=</span> <span class="n">S12</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Scenario so far: S1 || S2 || S3</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S123</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>Scenario so far: S1 || S2 || S3
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">S123</span> <span class="o">=</span> <span class="n">S12</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S3</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Scenario so far: S1 || S2 || S3</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S123</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Scenario so far: S1 || S2 || S3
 
 InVars: [dt0, v0, dt1, dt2]
 OutVars:[v3]
@@ -1773,21 +1773,21 @@ G: [
   -v3 &lt;= 0
   192.2 dt0 + 4.628 dt1 + 11.7 dt2 - v0 + v3 &lt;= 0
 ]
-</code></pre>
-<p>Plotting the guarantees of the composition so far for the nominal entry conditions (i.e., <code>v0=atmospheric_v_entry</code>) requires choosing values for the remaining 'knobs': <code>dt0</code> and <code>dt1</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S123</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt2"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v3"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span><span class="p">,</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">):</span><span class="mi">98</span><span class="p">,</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">):</span><span class="mi">130</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="p">)</span>
 </code></pre></div>
+<p>Plotting the guarantees of the composition so far for the nominal entry conditions (i.e., <code>v0=atmospheric_v_entry</code>) requires choosing values for the remaining 'knobs': <code>dt0</code> and <code>dt1</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S123</span><span class="p">,</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt2"</span><span class="p">),</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v3"</span><span class="p">),</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span><span class="p">,</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">):</span><span class="mi">98</span><span class="p">,</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">):</span><span class="mi">130</span><span class="p">,</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="p">},</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1798,55 +1798,55 @@ G: [
 <h3 id="segment-s4-sky-crane">Segment S4: Sky Crane<a class="headerlink" href="#segment-s4-sky-crane" title="Permanent link">¶</a></h3>
 <p><img alt="" src="https://mars.nasa.gov/system/resources/detail_files/3650_PIA14839-full2.jpg"></p>
 <p>Similar to previous segment encodings, the sky crane contract below defines <code>dt3</code> as a special input variable to characterize the resulting velocity decrease due to the sky crane subsystem active during this segment.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># The sky crane maneuver initiates at a velocity less than 2.7 kph.</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_v_entry = </span><span class="si">{</span><span class="n">skycrane_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="c1"># The sky crane maneuver ends when the rover velocity reaches 0 kph.</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_v_exit = </span><span class="si">{</span><span class="n">skycrane_v_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_t_entry = </span><span class="si">{</span><span class="n">skycrane_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_t_exit = </span><span class="si">{</span><span class="n">skycrane_t_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">skycrane_t_duration</span> <span class="o">=</span> <span class="n">skycrane_t_exit</span> <span class="o">-</span> <span class="n">skycrane_t_entry</span>
-<span class="n">skycrane_t_duration_min</span> <span class="o">=</span> <span class="n">skycrane_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
-<span class="n">skycrane_t_duration_max</span> <span class="o">=</span> <span class="n">skycrane_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
-
-<span class="n">skycrane_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">skycrane_v_entry</span> <span class="o">-</span> <span class="n">skycrane_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">skycrane_t_entry</span> <span class="o">-</span> <span class="n">skycrane_t_exit</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_deacceleration=</span><span class="si">{</span><span class="n">skycrane_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">skycrane_min_deacceleration</span> <span class="o">=</span> <span class="n">skycrane_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_min_deacceleration=</span><span class="si">{</span><span class="n">skycrane_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">skycrane_max_deacceleration</span> <span class="o">=</span> <span class="n">skycrane_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_max_deacceleration=</span><span class="si">{</span><span class="n">skycrane_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">S4</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"dt3"</span><span class="p">,</span>          <span class="c1"># time duration for the powered descent from entry to exit.</span>
-      <span class="s2">"v3"</span>            <span class="c1"># entry velocity</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"v4"</span>            <span class="c1"># exit velocity</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ entry</span>
-      <span class="sa">f</span><span class="s2">"v3 &lt;= </span><span class="si">{</span><span class="n">skycrane_v_entry</span><span class="si">}</span><span class="s2">"</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ exit</span>
-      <span class="s2">"-v4 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># skycrane_min_deacceleration * dt3 &lt;= v3 - v4 &lt;= skycrane_max_deacceleration * dt1</span>
-      <span class="c1"># v3 - v4 &lt;= skycrane_max_deacceleration * dt3</span>
-      <span class="sa">f</span><span class="s2">" v3 - v4 - </span><span class="si">{</span><span class="n">skycrane_max_deacceleration</span><span class="si">}</span><span class="s2"> dt3 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># skycrane_min_deacceleration * dt3 &lt;= v3 - v4</span>
-      <span class="sa">f</span><span class="s2">"-v3 + v4 + </span><span class="si">{</span><span class="n">skycrane_min_deacceleration</span><span class="si">}</span><span class="s2"> dt3 &lt;= 0"</span>
-    <span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S4:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S4</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>skycrane_v_entry = 2.7
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># The sky crane maneuver initiates at a velocity less than 2.7 kph.</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_v_entry = </span><span class="si">{</span><span class="n">skycrane_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># The sky crane maneuver ends when the rover velocity reaches 0 kph.</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_v_exit = </span><span class="si">{</span><span class="n">skycrane_v_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_t_entry = </span><span class="si">{</span><span class="n">skycrane_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_t_exit = </span><span class="si">{</span><span class="n">skycrane_t_exit</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="n">skycrane_t_duration</span> <span class="o">=</span> <span class="n">skycrane_t_exit</span> <span class="o">-</span> <span class="n">skycrane_t_entry</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="n">skycrane_t_duration_min</span> <span class="o">=</span> <span class="n">skycrane_t_duration</span><span class="o">*</span><span class="mf">0.96</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="n">skycrane_t_duration_max</span> <span class="o">=</span> <span class="n">skycrane_t_duration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="n">skycrane_deacceleration</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">skycrane_v_entry</span> <span class="o">-</span> <span class="n">skycrane_v_exit</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">skycrane_t_entry</span> <span class="o">-</span> <span class="n">skycrane_t_exit</span><span class="p">))</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_deacceleration=</span><span class="si">{</span><span class="n">skycrane_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="n">skycrane_min_deacceleration</span> <span class="o">=</span> <span class="n">skycrane_deacceleration</span><span class="o">*</span><span class="mf">0.94</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_min_deacceleration=</span><span class="si">{</span><span class="n">skycrane_min_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="n">skycrane_max_deacceleration</span> <span class="o">=</span> <span class="n">skycrane_deacceleration</span><span class="o">*</span><span class="mf">1.03</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skycrane_max_deacceleration=</span><span class="si">{</span><span class="n">skycrane_max_deacceleration</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="n">S4</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>      <span class="s2">"dt3"</span><span class="p">,</span>          <span class="c1"># time duration for the powered descent from entry to exit.</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>      <span class="s2">"v3"</span>            <span class="c1"># entry velocity</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>    <span class="p">],</span>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>      <span class="s2">"v4"</span>            <span class="c1"># exit velocity</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>    <span class="p">],</span>
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>      <span class="c1"># velocity @ entry</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>      <span class="sa">f</span><span class="s2">"v3 &lt;= </span><span class="si">{</span><span class="n">skycrane_v_entry</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>    <span class="p">],</span>
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>      <span class="c1"># velocity @ exit</span>
+</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>      <span class="s2">"-v4 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>
+</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>      <span class="c1"># skycrane_min_deacceleration * dt3 &lt;= v3 - v4 &lt;= skycrane_max_deacceleration * dt1</span>
+</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a>      <span class="c1"># v3 - v4 &lt;= skycrane_max_deacceleration * dt3</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>      <span class="sa">f</span><span class="s2">" v3 - v4 - </span><span class="si">{</span><span class="n">skycrane_max_deacceleration</span><span class="si">}</span><span class="s2"> dt3 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>
+</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a>      <span class="c1"># skycrane_min_deacceleration * dt3 &lt;= v3 - v4</span>
+</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>      <span class="sa">f</span><span class="s2">"-v3 + v4 + </span><span class="si">{</span><span class="n">skycrane_min_deacceleration</span><span class="si">}</span><span class="s2"> dt3 &lt;= 0"</span>
+</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>    <span class="p">])</span>
+</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a>
+</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contract S4:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S4</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>skycrane_v_entry = 2.7
 skycrane_v_exit = 0
 skycrane_t_entry = 398.0
 skycrane_t_exit = 410.0
@@ -1866,19 +1866,19 @@ G: [
   -0.2318 dt3 + v3 - v4 &lt;= 0
   0.2115 dt3 - v3 + v4 &lt;= 0
 ]
-</code></pre>
-<p>Here, we plot only a region of interest where the exit velocity may reach zero depending on the value of dt3.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S4</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt3"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v4"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v3"</span><span class="p">):</span><span class="n">skycrane_v_entry</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="p">)</span>
 </code></pre></div>
+<p>Here, we plot only a region of interest where the exit velocity may reach zero depending on the value of dt3.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S4</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt3"</span><span class="p">),</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v4"</span><span class="p">),</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v3"</span><span class="p">):</span><span class="n">skycrane_v_entry</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="p">},</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1888,10 +1888,10 @@ G: [
 
 <h4 id="scenario-so-far-s1-s2-s3-s4">Scenario so far: S1 || S2 || S3 || S4<a class="headerlink" href="#scenario-so-far-s1-s2-s3-s4" title="Permanent link">¶</a></h4>
 <p>Similar to the above, we expect Pacti to eliminate the intermediate variables, <code>v1</code>, <code>v2</code>, and <code>v3</code> and to retain all of our special 'knob' variables, <code>dt0</code>, <code>dt1</code>, <code>dt2</code>, and <code>dt3</code> from the composed contracts.</p>
-<div class="highlight"><pre><span></span><code><span class="n">S1234</span> <span class="o">=</span> <span class="n">S123</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Scenario so far: S1 || S2 || S3 || S4</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S1234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>Scenario so far: S1 || S2 || S3 || S4
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">S1234</span> <span class="o">=</span> <span class="n">S123</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S4</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Scenario so far: S1 || S2 || S3 || S4</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S1234</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Scenario so far: S1 || S2 || S3 || S4
 
 InVars: [dt0, v0, dt1, dt2, dt3]
 OutVars:[v4]
@@ -1907,22 +1907,22 @@ G: [
   192.2 dt0 + 4.628 dt1 + 11.7 dt2 + 0.2115 dt3 - v0 + v4 &lt;= 0
   -v4 &lt;= 0
 ]
-</code></pre>
-<p>Plotting the guarantees of the composition so far for the nominal entry conditions (i.e., v0=atmospheric_v_entry) requires choosing values for the remaining 'knobs': <code>dt0</code>, <code>dt1</code>, and <code>dt2</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
-    <span class="n">contract</span><span class="o">=</span><span class="n">S1234</span><span class="p">,</span>
-    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt3"</span><span class="p">),</span>
-    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v4"</span><span class="p">),</span>
-    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span><span class="p">,</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">):</span><span class="mi">98</span><span class="p">,</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">):</span><span class="mi">128</span><span class="p">,</span>
-        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt2"</span><span class="p">):</span><span class="mi">49</span>
-    <span class="p">},</span>
-    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">)</span>
 </code></pre></div>
+<p>Plotting the guarantees of the composition so far for the nominal entry conditions (i.e., v0=atmospheric_v_entry) requires choosing values for the remaining 'knobs': <code>dt0</code>, <code>dt1</code>, and <code>dt2</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">plot_guarantees</span><span class="p">(</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="n">contract</span><span class="o">=</span><span class="n">S1234</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="n">x_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"dt3"</span><span class="p">),</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">y_var</span><span class="o">=</span><span class="n">Var</span><span class="p">(</span><span class="s2">"v4"</span><span class="p">),</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="n">var_values</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"v0"</span><span class="p">):</span><span class="n">atmospheric_v_entry</span><span class="p">,</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt0"</span><span class="p">):</span><span class="mi">98</span><span class="p">,</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt1"</span><span class="p">):</span><span class="mi">128</span><span class="p">,</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>        <span class="n">Var</span><span class="p">(</span><span class="s2">"dt2"</span><span class="p">):</span><span class="mi">49</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>    <span class="p">},</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    <span class="n">x_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>    <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="p">)</span>
+</span></code></pre></div>
 <div style="display: inline-block;">
     <div class="jupyter-widgets widget-label" style="text-align: center;">
         Figure
@@ -1941,34 +1941,34 @@ G: [
 <p>Before we go into these details, we need to write a specification for the toplevel EDL phase itself, which is very simple: 
 - assume the entry conditions are as given (exact values in this example)
 - guarantee the desired exit conditions are as given (value ranges in this example)</p>
-<div class="highlight"><pre><span></span><code><span class="n">EDL0</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"t0"</span><span class="p">,</span>          <span class="c1"># time @ entry</span>
-      <span class="s2">"v0"</span>           <span class="c1"># velocity @ entry</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"t4"</span><span class="p">,</span>
-      <span class="s2">"v4"</span>            <span class="c1"># velocity @ exit</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># time @ entry</span>
-      <span class="sa">f</span><span class="s2">"t0 = </span><span class="si">{</span><span class="n">atmospheric_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-
-      <span class="c1"># velocity @ entry</span>
-      <span class="sa">f</span><span class="s2">"v0 = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># bound for time @ exit</span>
-      <span class="s2">"t4 &lt;= 500"</span><span class="p">,</span>
-      <span class="s2">"-t4 &lt;= 0"</span><span class="p">,</span>
-
-      <span class="c1"># bound for velocity @ exit</span>
-      <span class="s2">"v4 &lt;= 2.7"</span><span class="p">,</span>
-      <span class="sa">f</span><span class="s2">"-v4 &lt;= </span><span class="si">{</span><span class="n">skycrane_v_exit</span><span class="si">}</span><span class="s2">"</span>
-    <span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"toplevel EDL scenario contract: EDL0</span><span class="se">\n\n</span><span class="si">{</span><span class="n">EDL0</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>toplevel EDL scenario contract: EDL0
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">EDL0</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>      <span class="s2">"t0"</span><span class="p">,</span>          <span class="c1"># time @ entry</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>      <span class="s2">"v0"</span>           <span class="c1"># velocity @ entry</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="p">],</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>      <span class="s2">"t4"</span><span class="p">,</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>      <span class="s2">"v4"</span>            <span class="c1"># velocity @ exit</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="p">],</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>      <span class="c1"># time @ entry</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>      <span class="sa">f</span><span class="s2">"t0 = </span><span class="si">{</span><span class="n">atmospheric_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>      <span class="c1"># velocity @ entry</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>      <span class="sa">f</span><span class="s2">"v0 = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>    <span class="p">],</span>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>      <span class="c1"># bound for time @ exit</span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>      <span class="s2">"t4 &lt;= 500"</span><span class="p">,</span>
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>      <span class="s2">"-t4 &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>      <span class="c1"># bound for velocity @ exit</span>
+</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>      <span class="s2">"v4 &lt;= 2.7"</span><span class="p">,</span>
+</span><span id="__span-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>      <span class="sa">f</span><span class="s2">"-v4 &lt;= </span><span class="si">{</span><span class="n">skycrane_v_exit</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>    <span class="p">])</span>
+</span><span id="__span-18-26"><a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"toplevel EDL scenario contract: EDL0</span><span class="se">\n\n</span><span class="si">{</span><span class="n">EDL0</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>toplevel EDL scenario contract: EDL0
 
 InVars: [t0, v0]
 OutVars:[t4, v4]
@@ -1982,13 +1982,13 @@ G: [
   v4 &lt;= 2.7
   -v4 &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <h3 id="deriving-end-to-end-allocation-constraints">Deriving end-to-end allocation constraints<a class="headerlink" href="#deriving-end-to-end-allocation-constraints" title="Permanent link">¶</a></h3>
 <p>Given the toplevel, end-to-end EDL scenario contract, we want to extract the derived constraints for our special 'knob' input variables governing the allocated resources to each phase segment. These derived constraints capture the relationships that an admissible allocation of resources must satisfy as a function of the remaining variables, i.e., <code>t0</code> and <code>t4</code>. Notice that Pacti managed to simplify the constraints by eliminating both input and output velocities, <code>v0</code> and <code>v4</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">EndToEndDTconstraints</span> <span class="o">=</span> <span class="n">EDL0</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">S1234</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"End-to-end DT constraints: EndToEndDTconstraints</span><span class="se">\n\n</span><span class="si">{</span><span class="n">EndToEndDTconstraints</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>End-to-end DT constraints: EndToEndDTconstraints
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">EndToEndDTconstraints</span> <span class="o">=</span> <span class="n">EDL0</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">S1234</span><span class="p">)</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"End-to-end DT constraints: EndToEndDTconstraints</span><span class="se">\n\n</span><span class="si">{</span><span class="n">EndToEndDTconstraints</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>End-to-end DT constraints: EndToEndDTconstraints
 
 InVars: [t0]
 OutVars:[t4, dt0, dt1, dt2, dt3]
@@ -2003,45 +2003,45 @@ G: [
   -192.2 dt0 - 4.628 dt1 &lt;= -1.94e+04
   -192.2 dt0 &lt;= -1.84e+04
 ]
-</code></pre>
+</code></pre></div>
 <h3 id="calculating-the-contract-for-a-missing-subsystem">Calculating the contract for a missing subsystem<a class="headerlink" href="#calculating-the-contract-for-a-missing-subsystem" title="Permanent link">¶</a></h3>
 <p>Suppose that the EDL designers are aware of the allocation-based modeling strategy with the special 'knob' input variables: <code>dt0</code>, ... <code>dt3</code>. At the toplevel, one could specify allocation limits for each segment contract as specified below.</p>
-<div class="highlight"><pre><span></span><code><span class="n">EDL1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
-    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"t0"</span><span class="p">,</span>          <span class="c1"># time @ entry</span>
-      <span class="s2">"dt0"</span><span class="p">,</span>         <span class="c1"># duration of S1</span>
-      <span class="s2">"dt1"</span><span class="p">,</span>         <span class="c1"># duration of S2</span>
-      <span class="s2">"dt2"</span><span class="p">,</span>         <span class="c1"># duration of S3</span>
-      <span class="s2">"dt3"</span><span class="p">,</span>         <span class="c1"># duration of S4</span>
-      <span class="s2">"v0"</span>           <span class="c1"># velocity @ entry</span>
-    <span class="p">],</span>
-    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
-      <span class="s2">"v4"</span>            <span class="c1"># velocity @ exit</span>
-    <span class="p">],</span>
-    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># time @ entry</span>
-      <span class="sa">f</span><span class="s2">"t0 = </span><span class="si">{</span><span class="n">atmospheric_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-
-      <span class="c1"># velocity @ entry</span>
-      <span class="sa">f</span><span class="s2">"v0 = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-
-      <span class="s2">"-dt0 &lt;= 100"</span><span class="p">,</span>
-      <span class="s2">"-dt0 &lt;= -96"</span><span class="p">,</span>
-      <span class="s2">"dt1 &lt;= 130"</span><span class="p">,</span>
-      <span class="s2">"-dt1 &lt;= -126"</span><span class="p">,</span>
-      <span class="s2">"dt2 &lt;= 52"</span><span class="p">,</span>
-      <span class="s2">"-dt2 &lt;= -47"</span><span class="p">,</span>
-      <span class="s2">"dt3 &lt;= 5.1"</span><span class="p">,</span>
-      <span class="s2">"-dt3 &lt;= -4.9"</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
-      <span class="c1"># velocity @ exit</span>
-      <span class="s2">"v4 &lt;= 2.7"</span><span class="p">,</span>
-      <span class="sa">f</span><span class="s2">"-v4 &lt;= </span><span class="si">{</span><span class="n">skycrane_v_exit</span><span class="si">}</span><span class="s2">"</span>
-    <span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"toplevel EDL scenario contract with allocation bounds: EDL1</span><span class="se">\n\n</span><span class="si">{</span><span class="n">EDL1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>toplevel EDL scenario contract with allocation bounds: EDL1
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">EDL1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>      <span class="s2">"t0"</span><span class="p">,</span>          <span class="c1"># time @ entry</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>      <span class="s2">"dt0"</span><span class="p">,</span>         <span class="c1"># duration of S1</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>      <span class="s2">"dt1"</span><span class="p">,</span>         <span class="c1"># duration of S2</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>      <span class="s2">"dt2"</span><span class="p">,</span>         <span class="c1"># duration of S3</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>      <span class="s2">"dt3"</span><span class="p">,</span>         <span class="c1"># duration of S4</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>      <span class="s2">"v0"</span>           <span class="c1"># velocity @ entry</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="p">],</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>    <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>      <span class="s2">"v4"</span>            <span class="c1"># velocity @ exit</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>    <span class="p">],</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>    <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>      <span class="c1"># time @ entry</span>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>      <span class="sa">f</span><span class="s2">"t0 = </span><span class="si">{</span><span class="n">atmospheric_t_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>      <span class="c1"># velocity @ entry</span>
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>      <span class="sa">f</span><span class="s2">"v0 = </span><span class="si">{</span><span class="n">atmospheric_v_entry</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>
+</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>      <span class="s2">"-dt0 &lt;= 100"</span><span class="p">,</span>
+</span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>      <span class="s2">"-dt0 &lt;= -96"</span><span class="p">,</span>
+</span><span id="__span-20-22"><a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>      <span class="s2">"dt1 &lt;= 130"</span><span class="p">,</span>
+</span><span id="__span-20-23"><a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>      <span class="s2">"-dt1 &lt;= -126"</span><span class="p">,</span>
+</span><span id="__span-20-24"><a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>      <span class="s2">"dt2 &lt;= 52"</span><span class="p">,</span>
+</span><span id="__span-20-25"><a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>      <span class="s2">"-dt2 &lt;= -47"</span><span class="p">,</span>
+</span><span id="__span-20-26"><a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>      <span class="s2">"dt3 &lt;= 5.1"</span><span class="p">,</span>
+</span><span id="__span-20-27"><a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>      <span class="s2">"-dt3 &lt;= -4.9"</span><span class="p">,</span>
+</span><span id="__span-20-28"><a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>    <span class="p">],</span>
+</span><span id="__span-20-29"><a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>    <span class="n">guarantees</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-20-30"><a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a>      <span class="c1"># velocity @ exit</span>
+</span><span id="__span-20-31"><a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a>      <span class="s2">"v4 &lt;= 2.7"</span><span class="p">,</span>
+</span><span id="__span-20-32"><a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>      <span class="sa">f</span><span class="s2">"-v4 &lt;= </span><span class="si">{</span><span class="n">skycrane_v_exit</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-20-33"><a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a>    <span class="p">])</span>
+</span><span id="__span-20-34"><a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"toplevel EDL scenario contract with allocation bounds: EDL1</span><span class="se">\n\n</span><span class="si">{</span><span class="n">EDL1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>toplevel EDL scenario contract with allocation bounds: EDL1
 
 InVars: [t0, dt0, dt1, dt2, dt3, v0]
 OutVars:[v4]
@@ -2061,15 +2061,15 @@ G: [
   v4 &lt;= 2.7
   -v4 &lt;= 0
 ]
-</code></pre>
+</code></pre></div>
 <p>Suppose we have contracts for a subset of the EDL segments, <code>S1</code>, <code>S2</code>, and <code>S4</code>. Given the toplevel EDL scenario contract with allocation bounds, we calculate a contract for the missing subsystem, <code>S3</code>, with a simple script of algebraic manipulations:
 - first, compose all available segment contracts for <code>S1</code>, <code>S2</code>, and <code>S4</code>,
 - then, calculate the difference between the toplevel EDL scenario contract with allocation bounds and the 3-segment composite contract.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># First, compose the contracts we have: S1, S2, and S4.</span>
-<span class="n">S124</span> <span class="o">=</span> <span class="n">S12</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract for S1 || S2 || S4:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S124</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>Contract for S1 || S2 || S4:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># First, compose the contracts we have: S1, S2, and S4.</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">S124</span> <span class="o">=</span> <span class="n">S12</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S4</span><span class="p">)</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract for S1 || S2 || S4:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">S124</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract for S1 || S2 || S4:
 
 InVars: [dt0, v0, dt1, dt3, v3]
 OutVars:[v2, v4]
@@ -2086,12 +2086,12 @@ G: [
   -0.2318 dt3 + v3 - v4 &lt;= 0
   0.2115 dt3 - v3 + v4 &lt;= 0
 ]
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="c1"># Then, define the missing S3 as the quotient of toplevel contract w.r.t. what we have.</span>
-<span class="n">missingS3</span> <span class="o">=</span> <span class="n">EDL1</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">S124</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract for the missing S3 segment:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">missingS3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
-<pre><code>Contract for the missing S3 segment:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Then, define the missing S3 as the quotient of toplevel contract w.r.t. what we have.</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">missingS3</span> <span class="o">=</span> <span class="n">EDL1</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">S124</span><span class="p">)</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Contract for the missing S3 segment:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">missingS3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Contract for the missing S3 segment:
 
 InVars: [t0, dt2, v2]
 OutVars:[v3]
@@ -2103,12 +2103,12 @@ A: [
 G: [
   v3 &lt;= 2.7
 ]
-</code></pre>
-<p>It is good practice to verify the results; so let's recompose the scenario segments, starting from <code>S1</code> and <code>S2</code> we already have and composing the missing <code>S3</code> contract calculated above: </p>
-<div class="highlight"><pre><span></span><code><span class="n">S123_implied</span> <span class="o">=</span> <span class="n">S12</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">missingS3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">S123_implied</span><span class="p">)</span>
 </code></pre></div>
-<pre><code>InVars: [dt0, v0, dt1, t0, dt2]
+<p>It is good practice to verify the results; so let's recompose the scenario segments, starting from <code>S1</code> and <code>S2</code> we already have and composing the missing <code>S3</code> contract calculated above: </p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">S123_implied</span> <span class="o">=</span> <span class="n">S12</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">missingS3</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">S123_implied</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>InVars: [dt0, v0, dt1, t0, dt2]
 OutVars:[v3]
 A: [
   t0 = 0
@@ -2122,12 +2122,12 @@ G: [
   192.2 dt0 + 4.628 dt1 - v0 &lt;= -320
   v3 &lt;= 2.7
 ]
-</code></pre>
-<p>.. and compose that with the last segment, <code>S4</code>, we already have:</p>
-<div class="highlight"><pre><span></span><code><span class="n">S1234_implied</span> <span class="o">=</span> <span class="n">S123_implied</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">S1234_implied</span><span class="p">)</span>
 </code></pre></div>
-<pre><code>InVars: [dt0, v0, dt1, t0, dt2, dt3]
+<p>.. and compose that with the last segment, <code>S4</code>, we already have:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">S1234_implied</span> <span class="o">=</span> <span class="n">S123_implied</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">S4</span><span class="p">)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">S1234_implied</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>InVars: [dt0, v0, dt1, t0, dt2, dt3]
 OutVars:[v4]
 A: [
   t0 = 0
@@ -2143,12 +2143,12 @@ G: [
   -v4 &lt;= 0
   -0.02025 dt3 &lt;= 0
 ]
-</code></pre>
-<p>Now, we can verify that this end-to-end scenario contract based on the missing contract for <code>S3</code> is algebraically a refinement of the toplevel EDL scenario contract with allocation bounds.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">S1234_implied</span><span class="o">.</span><span class="n">refines</span><span class="p">(</span><span class="n">EDL1</span><span class="p">))</span>
 </code></pre></div>
-<pre><code>True
-</code></pre>
+<p>Now, we can verify that this end-to-end scenario contract based on the missing contract for <code>S3</code> is algebraically a refinement of the toplevel EDL scenario contract with allocation bounds.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">S1234_implied</span><span class="o">.</span><span class="n">refines</span><span class="p">(</span><span class="n">EDL1</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>True
+</code></pre></div>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>
 <p><a id="ref1"></a> <strong><a href="https://ieeexplore.ieee.org/abstract/document/4526283">R. Prakash et al. 2008</a></strong></p>
 <p>R. Prakash et al., "Mars Science Laboratory Entry, Descent, and Landing System Overview," 2008 IEEE Aerospace Conference, Big Sky, MT, USA, 2008, pp. 1-18, doi: 10.1109/AERO.2008.4526283.</p>
