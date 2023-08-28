@@ -1164,6 +1164,7 @@ shows all available tasks.
 <h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">¶</a></h2>
 <p>We use <a href="https://pdm.fming.dev/latest/">pdm</a> to manage dependencies.
 Use <code>pdm add</code> to install new packages.</p>
+<p>Add unit tests to make sure the new functionality is covered. If your functionality falls into one of the existing classes, add your tests to the corresponding file under the tests/ directory. Otherwise, create a new file. We use <code>pytest</code> to run our tests. Make sure that your test starts with the name <em>test</em> to ensure that it will be executed when <code>make test</code> is invoked.</p>
 <p><strong>Before committing:</strong></p>
 <ol>
 <li>run <code>make format</code> to auto-format the code</li>
