@@ -2256,7 +2256,7 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-146"><a id="__codelineno-0-146" name="__codelineno-0-146"></a>
 </span><span id="__span-0-147"><a id="__codelineno-0-147" name="__codelineno-0-147"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-148"><a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">            `True` if the syntax of the term refers to the given variable;</span>
-</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">            `False` otherwise.</span>
+</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">                `False` otherwise.</span>
 </span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150"></a><span class="sd">        """</span>
 </span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151"></a>        <span class="k">return</span> <span class="n">var_to_seek</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span>
 </span><span id="__span-0-152"><a id="__codelineno-0-152" name="__codelineno-0-152"></a>
@@ -2289,8 +2289,8 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-179"><a id="__codelineno-0-179" name="__codelineno-0-179"></a>
 </span><span id="__span-0-180"><a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-181"><a id="__codelineno-0-181" name="__codelineno-0-181"></a><span class="sd">            `True` if the variable's polarity matches `polarity` and</span>
-</span><span id="__span-0-182"><a id="__codelineno-0-182" name="__codelineno-0-182"></a><span class="sd">            `False` otherwise. If the variable's coefficient in the term</span>
-</span><span id="__span-0-183"><a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">            is zero, return `True`.</span>
+</span><span id="__span-0-182"><a id="__codelineno-0-182" name="__codelineno-0-182"></a><span class="sd">                `False` otherwise. If the variable's coefficient in the term</span>
+</span><span id="__span-0-183"><a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">                is zero, return `True`.</span>
 </span><span id="__span-0-184"><a id="__codelineno-0-184" name="__codelineno-0-184"></a><span class="sd">        """</span>
 </span><span id="__span-0-185"><a id="__codelineno-0-185" name="__codelineno-0-185"></a>        <span class="k">if</span> <span class="n">polarity</span><span class="p">:</span>
 </span><span id="__span-0-186"><a id="__codelineno-0-186" name="__codelineno-0-186"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
@@ -2342,8 +2342,8 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-232"><a id="__codelineno-0-232" name="__codelineno-0-232"></a>
 </span><span id="__span-0-233"><a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-234"><a id="__codelineno-0-234" name="__codelineno-0-234"></a><span class="sd">            If all variables in the term match the polarities specified in the</span>
-</span><span id="__span-0-235"><a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">            argument, the routine returns the matching variables.  Otherwise,</span>
-</span><span id="__span-0-236"><a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">            it returns an empty list.</span>
+</span><span id="__span-0-235"><a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">                argument, the routine returns the matching variables.  Otherwise,</span>
+</span><span id="__span-0-236"><a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">                it returns an empty list.</span>
 </span><span id="__span-0-237"><a id="__codelineno-0-237" name="__codelineno-0-237"></a><span class="sd">        """</span>
 </span><span id="__span-0-238"><a id="__codelineno-0-238" name="__codelineno-0-238"></a>        <span class="n">variable_list</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="__span-0-239"><a id="__codelineno-0-239" name="__codelineno-0-239"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variable_polarity</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># noqa: VNE002</span>
@@ -2404,7 +2404,7 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-294"><a id="__codelineno-0-294" name="__codelineno-0-294"></a>
 </span><span id="__span-0-295"><a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-296"><a id="__codelineno-0-296" name="__codelineno-0-296"></a><span class="sd">            A new term in which the variable is substituted with the given term</span>
-</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">            understood as an equality.</span>
+</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">                understood as an equality.</span>
 </span><span id="__span-0-298"><a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="sd">        """</span>
 </span><span id="__span-0-299"><a id="__codelineno-0-299" name="__codelineno-0-299"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_var</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
 </span><span id="__span-0-300"><a id="__codelineno-0-300" name="__codelineno-0-300"></a>            <span class="n">term</span> <span class="o">=</span> <span class="n">subst_with_term</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
@@ -2428,7 +2428,7 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-318"><a id="__codelineno-0-318" name="__codelineno-0-318"></a>
 </span><span id="__span-0-319"><a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-320"><a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">            A new term which corresponds to the isolation of the indicated</span>
-</span><span id="__span-0-321"><a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">            variable.</span>
+</span><span id="__span-0-321"><a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">                variable.</span>
 </span><span id="__span-0-322"><a id="__codelineno-0-322" name="__codelineno-0-322"></a>
 </span><span id="__span-0-323"><a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="sd">        Raises:</span>
 </span><span id="__span-0-324"><a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">            ValueError: the indicated variable is not contained in the term.</span>
@@ -2456,7 +2456,7 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-346"><a id="__codelineno-0-346" name="__codelineno-0-346"></a><span class="sd">                PolyhedralTerm.to_symbolic(term)</span>
 </span><span id="__span-0-347"><a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="sd">            ```</span>
 </span><span id="__span-0-348"><a id="__codelineno-0-348" name="__codelineno-0-348"></a>
-</span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">            yields the expression $-2x + 3y$.</span>
+</span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">            yields the expression $-2x + 3y - 4$.</span>
 </span><span id="__span-0-350"><a id="__codelineno-0-350" name="__codelineno-0-350"></a>
 </span><span id="__span-0-351"><a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">        Args:</span>
 </span><span id="__span-0-352"><a id="__codelineno-0-352" name="__codelineno-0-352"></a><span class="sd">            term:</span>
@@ -2518,7 +2518,7 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-408"><a id="__codelineno-0-408" name="__codelineno-0-408"></a>
 </span><span id="__span-0-409"><a id="__codelineno-0-409" name="__codelineno-0-409"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-410"><a id="__codelineno-0-410" name="__codelineno-0-410"></a><span class="sd">            A tuple consisting of (i) the ordered list of coefficients and (ii)</span>
-</span><span id="__span-0-411"><a id="__codelineno-0-411" name="__codelineno-0-411"></a><span class="sd">            the term's constant.</span>
+</span><span id="__span-0-411"><a id="__codelineno-0-411" name="__codelineno-0-411"></a><span class="sd">                the term's constant.</span>
 </span><span id="__span-0-412"><a id="__codelineno-0-412" name="__codelineno-0-412"></a><span class="sd">        """</span>
 </span><span id="__span-0-413"><a id="__codelineno-0-413" name="__codelineno-0-413"></a>        <span class="n">coeffs</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="__span-0-414"><a id="__codelineno-0-414" name="__codelineno-0-414"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variable_list</span><span class="p">:</span>  <span class="c1"># noqa: VNE002</span>
@@ -2561,7 +2561,7 @@ the constraints are of the form <span class="arithmatex">\(\sum_{i} a_i x_i \le 
 </span><span id="__span-0-451"><a id="__codelineno-0-451" name="__codelineno-0-451"></a>
 </span><span id="__span-0-452"><a id="__codelineno-0-452" name="__codelineno-0-452"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-453"><a id="__codelineno-0-453" name="__codelineno-0-453"></a><span class="sd">            A dictionary mapping variables to their solutions. The solutions are</span>
-</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">            expressed as PolyhedralTerm instances.</span>
+</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">                expressed as PolyhedralTerm instances.</span>
 </span><span id="__span-0-455"><a id="__codelineno-0-455" name="__codelineno-0-455"></a><span class="sd">        """</span>
 </span><span id="__span-0-456"><a id="__codelineno-0-456" name="__codelineno-0-456"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"GetVals: </span><span class="si">%s</span><span class="s2"> Vars: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">)</span>
 </span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a>        <span class="n">vars_to_solve</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">)</span>
@@ -2869,17 +2869,8 @@ expression <span class="arithmatex">\(2x + 3y \le 3\)</span>.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p><code>True</code> if the syntax of the term refers to the given variable;</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code>bool</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p><code>False</code> otherwise.</p>
+              <p><code>True</code> if the syntax of the term refers to the given variable;
+<code>False</code> otherwise.</p>
             </div>
           </td>
         </tr>
@@ -2908,7 +2899,7 @@ expression <span class="arithmatex">\(2x + 3y \le 3\)</span>.</p>
 </span><span id="__span-0-146"><a id="__codelineno-0-146" name="__codelineno-0-146"></a>
 </span><span id="__span-0-147"><a id="__codelineno-0-147" name="__codelineno-0-147"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-148"><a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">        `True` if the syntax of the term refers to the given variable;</span>
-</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">        `False` otherwise.</span>
+</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">            `False` otherwise.</span>
 </span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150"></a><span class="sd">    """</span>
 </span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151"></a>    <span class="k">return</span> <span class="n">var_to_seek</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span>
 </span></code></pre></div></td></tr></table></div>
@@ -3157,27 +3148,9 @@ values indicating the polarity of the given variable.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>If all variables in the term match the polarities specified in the</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../reference/pacti/iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>argument, the routine returns the matching variables.  Otherwise,</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../reference/pacti/iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>it returns an empty list.</p>
+              <p>If all variables in the term match the polarities specified in the
+argument, the routine returns the matching variables.  Otherwise,
+it returns an empty list.</p>
             </div>
           </td>
         </tr>
@@ -3253,8 +3226,8 @@ values indicating the polarity of the given variable.</p>
 </span><span id="__span-0-232"><a id="__codelineno-0-232" name="__codelineno-0-232"></a>
 </span><span id="__span-0-233"><a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-234"><a id="__codelineno-0-234" name="__codelineno-0-234"></a><span class="sd">        If all variables in the term match the polarities specified in the</span>
-</span><span id="__span-0-235"><a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">        argument, the routine returns the matching variables.  Otherwise,</span>
-</span><span id="__span-0-236"><a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">        it returns an empty list.</span>
+</span><span id="__span-0-235"><a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">            argument, the routine returns the matching variables.  Otherwise,</span>
+</span><span id="__span-0-236"><a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">            it returns an empty list.</span>
 </span><span id="__span-0-237"><a id="__codelineno-0-237" name="__codelineno-0-237"></a><span class="sd">    """</span>
 </span><span id="__span-0-238"><a id="__codelineno-0-238" name="__codelineno-0-238"></a>    <span class="n">variable_list</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="__span-0-239"><a id="__codelineno-0-239" name="__codelineno-0-239"></a>    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variable_polarity</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># noqa: VNE002</span>
@@ -3353,27 +3326,9 @@ positive polarities respectively.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p><code>True</code> if the variable's polarity matches <code>polarity</code> and</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code>bool</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p><code>False</code> otherwise. If the variable's coefficient in the term</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code>bool</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>is zero, return <code>True</code>.</p>
+              <p><code>True</code> if the variable's polarity matches <code>polarity</code> and
+<code>False</code> otherwise. If the variable's coefficient in the term
+is zero, return <code>True</code>.</p>
             </div>
           </td>
         </tr>
@@ -3417,8 +3372,8 @@ positive polarities respectively.</p>
 </span><span id="__span-0-179"><a id="__codelineno-0-179" name="__codelineno-0-179"></a>
 </span><span id="__span-0-180"><a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-181"><a id="__codelineno-0-181" name="__codelineno-0-181"></a><span class="sd">        `True` if the variable's polarity matches `polarity` and</span>
-</span><span id="__span-0-182"><a id="__codelineno-0-182" name="__codelineno-0-182"></a><span class="sd">        `False` otherwise. If the variable's coefficient in the term</span>
-</span><span id="__span-0-183"><a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">        is zero, return `True`.</span>
+</span><span id="__span-0-182"><a id="__codelineno-0-182" name="__codelineno-0-182"></a><span class="sd">            `False` otherwise. If the variable's coefficient in the term</span>
+</span><span id="__span-0-183"><a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">            is zero, return `True`.</span>
 </span><span id="__span-0-184"><a id="__codelineno-0-184" name="__codelineno-0-184"></a><span class="sd">    """</span>
 </span><span id="__span-0-185"><a id="__codelineno-0-185" name="__codelineno-0-185"></a>    <span class="k">if</span> <span class="n">polarity</span><span class="p">:</span>
 </span><span id="__span-0-186"><a id="__codelineno-0-186" name="__codelineno-0-186"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
@@ -3613,17 +3568,8 @@ notation we express as <span class="arithmatex">\(0.5 y &lt;= -3\)</span>.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A new term which corresponds to the isolation of the indicated</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>variable.</p>
+              <p>A new term which corresponds to the isolation of the indicated
+variable.</p>
             </div>
           </td>
         </tr>
@@ -3696,7 +3642,7 @@ notation we express as <span class="arithmatex">\(0.5 y &lt;= -3\)</span>.</p>
 </span><span id="__span-0-318"><a id="__codelineno-0-318" name="__codelineno-0-318"></a>
 </span><span id="__span-0-319"><a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-320"><a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">        A new term which corresponds to the isolation of the indicated</span>
-</span><span id="__span-0-321"><a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">        variable.</span>
+</span><span id="__span-0-321"><a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">            variable.</span>
 </span><span id="__span-0-322"><a id="__codelineno-0-322" name="__codelineno-0-322"></a>
 </span><span id="__span-0-323"><a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="sd">    Raises:</span>
 </span><span id="__span-0-324"><a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">        ValueError: the indicated variable is not contained in the term.</span>
@@ -4292,17 +4238,8 @@ contained in the terms.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A dictionary mapping variables to their solutions. The solutions are</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code>dict</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>expressed as PolyhedralTerm instances.</p>
+              <p>A dictionary mapping variables to their solutions. The solutions are
+expressed as PolyhedralTerm instances.</p>
             </div>
           </td>
         </tr>
@@ -4357,7 +4294,7 @@ contained in the terms.</p>
 </span><span id="__span-0-451"><a id="__codelineno-0-451" name="__codelineno-0-451"></a>
 </span><span id="__span-0-452"><a id="__codelineno-0-452" name="__codelineno-0-452"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-453"><a id="__codelineno-0-453" name="__codelineno-0-453"></a><span class="sd">        A dictionary mapping variables to their solutions. The solutions are</span>
-</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">        expressed as PolyhedralTerm instances.</span>
+</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">            expressed as PolyhedralTerm instances.</span>
 </span><span id="__span-0-455"><a id="__codelineno-0-455" name="__codelineno-0-455"></a><span class="sd">    """</span>
 </span><span id="__span-0-456"><a id="__codelineno-0-456" name="__codelineno-0-456"></a>    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"GetVals: </span><span class="si">%s</span><span class="s2"> Vars: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">)</span>
 </span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a>    <span class="n">vars_to_solve</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">)</span>
@@ -4458,17 +4395,8 @@ substituting term is understood as an equality.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A new term in which the variable is substituted with the given term</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>understood as an equality.</p>
+              <p>A new term in which the variable is substituted with the given term
+understood as an equality.</p>
             </div>
           </td>
         </tr>
@@ -4515,7 +4443,7 @@ substituting term is understood as an equality.</p>
 </span><span id="__span-0-294"><a id="__codelineno-0-294" name="__codelineno-0-294"></a>
 </span><span id="__span-0-295"><a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-296"><a id="__codelineno-0-296" name="__codelineno-0-296"></a><span class="sd">        A new term in which the variable is substituted with the given term</span>
-</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">        understood as an equality.</span>
+</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">            understood as an equality.</span>
 </span><span id="__span-0-298"><a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="sd">    """</span>
 </span><span id="__span-0-299"><a id="__codelineno-0-299" name="__codelineno-0-299"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_var</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
 </span><span id="__span-0-300"><a id="__codelineno-0-300" name="__codelineno-0-300"></a>        <span class="n">term</span> <span class="o">=</span> <span class="n">subst_with_term</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
@@ -4612,21 +4540,12 @@ variable coefficients.</p>
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<span title="pacti.terms.polyhedra.polyhedra.numeric">numeric</span>]</code>
+                <code><span title="typing.Tuple">Tuple</span>[<span title="typing.List">List</span>[<span title="pacti.terms.polyhedra.polyhedra.numeric">numeric</span>], <span title="pacti.terms.polyhedra.polyhedra.numeric">numeric</span>]</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A tuple consisting of (i) the ordered list of coefficients and (ii)</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><span title="pacti.terms.polyhedra.polyhedra.numeric">numeric</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the term's constant.</p>
+              <p>A tuple consisting of (i) the ordered list of coefficients and (ii)
+the term's constant.</p>
             </div>
           </td>
         </tr>
@@ -4674,7 +4593,7 @@ variable coefficients.</p>
 </span><span id="__span-0-408"><a id="__codelineno-0-408" name="__codelineno-0-408"></a>
 </span><span id="__span-0-409"><a id="__codelineno-0-409" name="__codelineno-0-409"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-410"><a id="__codelineno-0-410" name="__codelineno-0-410"></a><span class="sd">        A tuple consisting of (i) the ordered list of coefficients and (ii)</span>
-</span><span id="__span-0-411"><a id="__codelineno-0-411" name="__codelineno-0-411"></a><span class="sd">        the term's constant.</span>
+</span><span id="__span-0-411"><a id="__codelineno-0-411" name="__codelineno-0-411"></a><span class="sd">            the term's constant.</span>
 </span><span id="__span-0-412"><a id="__codelineno-0-412" name="__codelineno-0-412"></a><span class="sd">    """</span>
 </span><span id="__span-0-413"><a id="__codelineno-0-413" name="__codelineno-0-413"></a>    <span class="n">coeffs</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="__span-0-414"><a id="__codelineno-0-414" name="__codelineno-0-414"></a>    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variable_list</span><span class="p">:</span>  <span class="c1"># noqa: VNE002</span>
@@ -4712,7 +4631,7 @@ variable coefficients.</p>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    term = PolyhedralTerm(variables, constant) expression =
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    PolyhedralTerm.to_symbolic(term)
 </span></code></pre></div>
-<p>yields the expression <span class="arithmatex">\(-2x + 3y\)</span>.</p>
+<p>yields the expression <span class="arithmatex">\(-2x + 3y - 4\)</span>.</p>
 </details>
 
 
@@ -4813,7 +4732,7 @@ to sympy's data structure.</p>
 </span><span id="__span-0-346"><a id="__codelineno-0-346" name="__codelineno-0-346"></a><span class="sd">            PolyhedralTerm.to_symbolic(term)</span>
 </span><span id="__span-0-347"><a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="sd">        ```</span>
 </span><span id="__span-0-348"><a id="__codelineno-0-348" name="__codelineno-0-348"></a>
-</span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">        yields the expression $-2x + 3y$.</span>
+</span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">        yields the expression $-2x + 3y - 4$.</span>
 </span><span id="__span-0-350"><a id="__codelineno-0-350" name="__codelineno-0-350"></a>
 </span><span id="__span-0-351"><a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">    Args:</span>
 </span><span id="__span-0-352"><a id="__codelineno-0-352" name="__codelineno-0-352"></a><span class="sd">        term:</span>
@@ -5878,7 +5797,73 @@ to sympy's data structure.</p>
 <span class="normal"><a href="#__codelineno-0-1341">1341</a></span>
 <span class="normal"><a href="#__codelineno-0-1342">1342</a></span>
 <span class="normal"><a href="#__codelineno-0-1343">1343</a></span>
-<span class="normal"><a href="#__codelineno-0-1344">1344</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-469"><a id="__codelineno-0-469" name="__codelineno-0-469"></a><span class="k">class</span> <span class="nc">PolyhedralTermList</span><span class="p">(</span><span class="n">TermList</span><span class="p">):</span>  <span class="c1"># noqa: WPS338</span>
+<span class="normal"><a href="#__codelineno-0-1344">1344</a></span>
+<span class="normal"><a href="#__codelineno-0-1345">1345</a></span>
+<span class="normal"><a href="#__codelineno-0-1346">1346</a></span>
+<span class="normal"><a href="#__codelineno-0-1347">1347</a></span>
+<span class="normal"><a href="#__codelineno-0-1348">1348</a></span>
+<span class="normal"><a href="#__codelineno-0-1349">1349</a></span>
+<span class="normal"><a href="#__codelineno-0-1350">1350</a></span>
+<span class="normal"><a href="#__codelineno-0-1351">1351</a></span>
+<span class="normal"><a href="#__codelineno-0-1352">1352</a></span>
+<span class="normal"><a href="#__codelineno-0-1353">1353</a></span>
+<span class="normal"><a href="#__codelineno-0-1354">1354</a></span>
+<span class="normal"><a href="#__codelineno-0-1355">1355</a></span>
+<span class="normal"><a href="#__codelineno-0-1356">1356</a></span>
+<span class="normal"><a href="#__codelineno-0-1357">1357</a></span>
+<span class="normal"><a href="#__codelineno-0-1358">1358</a></span>
+<span class="normal"><a href="#__codelineno-0-1359">1359</a></span>
+<span class="normal"><a href="#__codelineno-0-1360">1360</a></span>
+<span class="normal"><a href="#__codelineno-0-1361">1361</a></span>
+<span class="normal"><a href="#__codelineno-0-1362">1362</a></span>
+<span class="normal"><a href="#__codelineno-0-1363">1363</a></span>
+<span class="normal"><a href="#__codelineno-0-1364">1364</a></span>
+<span class="normal"><a href="#__codelineno-0-1365">1365</a></span>
+<span class="normal"><a href="#__codelineno-0-1366">1366</a></span>
+<span class="normal"><a href="#__codelineno-0-1367">1367</a></span>
+<span class="normal"><a href="#__codelineno-0-1368">1368</a></span>
+<span class="normal"><a href="#__codelineno-0-1369">1369</a></span>
+<span class="normal"><a href="#__codelineno-0-1370">1370</a></span>
+<span class="normal"><a href="#__codelineno-0-1371">1371</a></span>
+<span class="normal"><a href="#__codelineno-0-1372">1372</a></span>
+<span class="normal"><a href="#__codelineno-0-1373">1373</a></span>
+<span class="normal"><a href="#__codelineno-0-1374">1374</a></span>
+<span class="normal"><a href="#__codelineno-0-1375">1375</a></span>
+<span class="normal"><a href="#__codelineno-0-1376">1376</a></span>
+<span class="normal"><a href="#__codelineno-0-1377">1377</a></span>
+<span class="normal"><a href="#__codelineno-0-1378">1378</a></span>
+<span class="normal"><a href="#__codelineno-0-1379">1379</a></span>
+<span class="normal"><a href="#__codelineno-0-1380">1380</a></span>
+<span class="normal"><a href="#__codelineno-0-1381">1381</a></span>
+<span class="normal"><a href="#__codelineno-0-1382">1382</a></span>
+<span class="normal"><a href="#__codelineno-0-1383">1383</a></span>
+<span class="normal"><a href="#__codelineno-0-1384">1384</a></span>
+<span class="normal"><a href="#__codelineno-0-1385">1385</a></span>
+<span class="normal"><a href="#__codelineno-0-1386">1386</a></span>
+<span class="normal"><a href="#__codelineno-0-1387">1387</a></span>
+<span class="normal"><a href="#__codelineno-0-1388">1388</a></span>
+<span class="normal"><a href="#__codelineno-0-1389">1389</a></span>
+<span class="normal"><a href="#__codelineno-0-1390">1390</a></span>
+<span class="normal"><a href="#__codelineno-0-1391">1391</a></span>
+<span class="normal"><a href="#__codelineno-0-1392">1392</a></span>
+<span class="normal"><a href="#__codelineno-0-1393">1393</a></span>
+<span class="normal"><a href="#__codelineno-0-1394">1394</a></span>
+<span class="normal"><a href="#__codelineno-0-1395">1395</a></span>
+<span class="normal"><a href="#__codelineno-0-1396">1396</a></span>
+<span class="normal"><a href="#__codelineno-0-1397">1397</a></span>
+<span class="normal"><a href="#__codelineno-0-1398">1398</a></span>
+<span class="normal"><a href="#__codelineno-0-1399">1399</a></span>
+<span class="normal"><a href="#__codelineno-0-1400">1400</a></span>
+<span class="normal"><a href="#__codelineno-0-1401">1401</a></span>
+<span class="normal"><a href="#__codelineno-0-1402">1402</a></span>
+<span class="normal"><a href="#__codelineno-0-1403">1403</a></span>
+<span class="normal"><a href="#__codelineno-0-1404">1404</a></span>
+<span class="normal"><a href="#__codelineno-0-1405">1405</a></span>
+<span class="normal"><a href="#__codelineno-0-1406">1406</a></span>
+<span class="normal"><a href="#__codelineno-0-1407">1407</a></span>
+<span class="normal"><a href="#__codelineno-0-1408">1408</a></span>
+<span class="normal"><a href="#__codelineno-0-1409">1409</a></span>
+<span class="normal"><a href="#__codelineno-0-1410">1410</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-469"><a id="__codelineno-0-469" name="__codelineno-0-469"></a><span class="k">class</span> <span class="nc">PolyhedralTermList</span><span class="p">(</span><span class="n">TermList</span><span class="p">):</span>  <span class="c1"># noqa: WPS338</span>
 </span><span id="__span-0-470"><a id="__codelineno-0-470" name="__codelineno-0-470"></a><span class="w">    </span><span class="sd">"""A TermList of PolyhedralTerm instances."""</span>
 </span><span id="__span-0-471"><a id="__codelineno-0-471" name="__codelineno-0-471"></a>
 </span><span id="__span-0-472"><a id="__codelineno-0-472" name="__codelineno-0-472"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">terms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">PolyhedralTerm</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -5944,7 +5929,7 @@ to sympy's data structure.</p>
 </span><span id="__span-0-532"><a id="__codelineno-0-532" name="__codelineno-0-532"></a>
 </span><span id="__span-0-533"><a id="__codelineno-0-533" name="__codelineno-0-533"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-534"><a id="__codelineno-0-534" name="__codelineno-0-534"></a><span class="sd">            A new PolyhedralTermList in which the variables have been</span>
-</span><span id="__span-0-535"><a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">            substituted with the values provided.</span>
+</span><span id="__span-0-535"><a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">                substituted with the values provided.</span>
 </span><span id="__span-0-536"><a id="__codelineno-0-536" name="__codelineno-0-536"></a>
 </span><span id="__span-0-537"><a id="__codelineno-0-537" name="__codelineno-0-537"></a><span class="sd">        Raises:</span>
 </span><span id="__span-0-538"><a id="__codelineno-0-538" name="__codelineno-0-538"></a><span class="sd">            ValueError: constraints are unsatisfiable under these valuation of variables.</span>
@@ -6007,9 +5992,9 @@ to sympy's data structure.</p>
 </span><span id="__span-0-595"><a id="__codelineno-0-595" name="__codelineno-0-595"></a><span class="sd">                Variables that should not appear in the resulting term.</span>
 </span><span id="__span-0-596"><a id="__codelineno-0-596" name="__codelineno-0-596"></a>
 </span><span id="__span-0-597"><a id="__codelineno-0-597" name="__codelineno-0-597"></a><span class="sd">        Returns:</span>
-</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a><span class="sd">            A list of terms not containing any variables in `vars_to_elim`</span>
-</span><span id="__span-0-599"><a id="__codelineno-0-599" name="__codelineno-0-599"></a><span class="sd">            and which, in the context provided, imply the terms contained in the</span>
-</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a><span class="sd">            calling termlist.</span>
+</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a><span class="sd">            A list of terms not containing any variables in `vars_to_elim` and</span>
+</span><span id="__span-0-599"><a id="__codelineno-0-599" name="__codelineno-0-599"></a><span class="sd">                which, in the context provided, imply the terms contained in the</span>
+</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a><span class="sd">                calling termlist.</span>
 </span><span id="__span-0-601"><a id="__codelineno-0-601" name="__codelineno-0-601"></a>
 </span><span id="__span-0-602"><a id="__codelineno-0-602" name="__codelineno-0-602"></a><span class="sd">        Raises:</span>
 </span><span id="__span-0-603"><a id="__codelineno-0-603" name="__codelineno-0-603"></a><span class="sd">            ValueError: Self has empty intersection with its context.</span>
@@ -6060,9 +6045,9 @@ to sympy's data structure.</p>
 </span><span id="__span-0-648"><a id="__codelineno-0-648" name="__codelineno-0-648"></a><span class="sd">                Variables that should not appear in the relaxed terms.</span>
 </span><span id="__span-0-649"><a id="__codelineno-0-649" name="__codelineno-0-649"></a>
 </span><span id="__span-0-650"><a id="__codelineno-0-650" name="__codelineno-0-650"></a><span class="sd">        Returns:</span>
-</span><span id="__span-0-651"><a id="__codelineno-0-651" name="__codelineno-0-651"></a><span class="sd">            A list of terms not containing any variables in `vars_to_elim`</span>
-</span><span id="__span-0-652"><a id="__codelineno-0-652" name="__codelineno-0-652"></a><span class="sd">            and which, in the context provided, are implied by the terms</span>
-</span><span id="__span-0-653"><a id="__codelineno-0-653" name="__codelineno-0-653"></a><span class="sd">            contained in the calling termlist.</span>
+</span><span id="__span-0-651"><a id="__codelineno-0-651" name="__codelineno-0-651"></a><span class="sd">            A list of terms not containing any variables in `vars_to_elim` and</span>
+</span><span id="__span-0-652"><a id="__codelineno-0-652" name="__codelineno-0-652"></a><span class="sd">                which, in the context provided, are implied by the terms</span>
+</span><span id="__span-0-653"><a id="__codelineno-0-653" name="__codelineno-0-653"></a><span class="sd">                contained in the calling termlist.</span>
 </span><span id="__span-0-654"><a id="__codelineno-0-654" name="__codelineno-0-654"></a>
 </span><span id="__span-0-655"><a id="__codelineno-0-655" name="__codelineno-0-655"></a><span class="sd">        Raises:</span>
 </span><span id="__span-0-656"><a id="__codelineno-0-656" name="__codelineno-0-656"></a><span class="sd">            ValueError: Constraints have empty intersection with context.</span>
@@ -6259,7 +6244,7 @@ to sympy's data structure.</p>
 </span><span id="__span-0-847"><a id="__codelineno-0-847" name="__codelineno-0-847"></a>
 </span><span id="__span-0-848"><a id="__codelineno-0-848" name="__codelineno-0-848"></a><span class="sd">        Returns:</span>
 </span><span id="__span-0-849"><a id="__codelineno-0-849" name="__codelineno-0-849"></a><span class="sd">            A tuple `variables, A, b, a_h, b_h` consisting of the variable</span>
-</span><span id="__span-0-850"><a id="__codelineno-0-850" name="__codelineno-0-850"></a><span class="sd">            order and the matrix-vector pairs for the terms and the context.</span>
+</span><span id="__span-0-850"><a id="__codelineno-0-850" name="__codelineno-0-850"></a><span class="sd">                order and the matrix-vector pairs for the terms and the context.</span>
 </span><span id="__span-0-851"><a id="__codelineno-0-851" name="__codelineno-0-851"></a><span class="sd">        """</span>
 </span><span id="__span-0-852"><a id="__codelineno-0-852" name="__codelineno-0-852"></a>        <span class="n">variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">list_union</span><span class="p">(</span><span class="n">terms</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">vars</span><span class="p">))</span>
 </span><span id="__span-0-853"><a id="__codelineno-0-853" name="__codelineno-0-853"></a>        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
@@ -6582,178 +6567,244 @@ to sympy's data structure.</p>
 </span><span id="__span-0-1170"><a id="__codelineno-0-1170" name="__codelineno-0-1170"></a>        <span class="k">return</span> <span class="n">matrix_row_terms</span><span class="p">,</span> <span class="n">forbidden_vars</span>
 </span><span id="__span-0-1171"><a id="__codelineno-0-1171" name="__codelineno-0-1171"></a>
 </span><span id="__span-0-1172"><a id="__codelineno-0-1172" name="__codelineno-0-1172"></a>    <span class="nd">@staticmethod</span>
-</span><span id="__span-0-1173"><a id="__codelineno-0-1173" name="__codelineno-0-1173"></a>    <span class="k">def</span> <span class="nf">_tactic_1</span><span class="p">(</span>
-</span><span id="__span-0-1174"><a id="__codelineno-0-1174" name="__codelineno-0-1174"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1173"><a id="__codelineno-0-1173" name="__codelineno-0-1173"></a>    <span class="k">def</span> <span class="nf">_context_reduction</span><span class="p">(</span>
+</span><span id="__span-0-1174"><a id="__codelineno-0-1174" name="__codelineno-0-1174"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">strategy</span><span class="p">:</span> <span class="nb">int</span>
 </span><span id="__span-0-1175"><a id="__codelineno-0-1175" name="__codelineno-0-1175"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
-</span><span id="__span-0-1176"><a id="__codelineno-0-1176" name="__codelineno-0-1176"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"********** Tactic 1"</span><span class="p">)</span>
+</span><span id="__span-0-1176"><a id="__codelineno-0-1176" name="__codelineno-0-1176"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"********** Context reduction"</span><span class="p">)</span>
 </span><span id="__span-0-1177"><a id="__codelineno-0-1177" name="__codelineno-0-1177"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
 </span><span id="__span-0-1178"><a id="__codelineno-0-1178" name="__codelineno-0-1178"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-1179"><a id="__codelineno-0-1179" name="__codelineno-0-1179"></a>            <span class="n">matrix_row_terms</span><span class="p">,</span> <span class="n">forbidden_vars</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_get_kaykobad_context</span><span class="p">(</span>
-</span><span id="__span-0-1180"><a id="__codelineno-0-1180" name="__codelineno-0-1180"></a>                <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span>
-</span><span id="__span-0-1181"><a id="__codelineno-0-1181" name="__codelineno-0-1181"></a>            <span class="p">)</span>
-</span><span id="__span-0-1182"><a id="__codelineno-0-1182" name="__codelineno-0-1182"></a>        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="__span-0-1183"><a id="__codelineno-0-1183" name="__codelineno-0-1183"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Could not transform </span><span class="si">%s</span><span class="s2"> using Tactic 1"</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
-</span><span id="__span-0-1184"><a id="__codelineno-0-1184" name="__codelineno-0-1184"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Could not transform term </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">term</span><span class="p">))</span>
-</span><span id="__span-0-1185"><a id="__codelineno-0-1185" name="__codelineno-0-1185"></a>        <span class="n">matrix_row_terms_tl</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">matrix_row_terms</span><span class="p">))</span>
-</span><span id="__span-0-1186"><a id="__codelineno-0-1186" name="__codelineno-0-1186"></a>        <span class="n">sols</span> <span class="o">=</span> <span class="n">PolyhedralTerm</span><span class="o">.</span><span class="n">solve_for_variables</span><span class="p">(</span><span class="n">matrix_row_terms_tl</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">forbidden_vars</span><span class="p">))</span>
-</span><span id="__span-0-1187"><a id="__codelineno-0-1187" name="__codelineno-0-1187"></a>        <span class="c1"># logging.debug("Sols %s", sols)</span>
-</span><span id="__span-0-1188"><a id="__codelineno-0-1188" name="__codelineno-0-1188"></a>
-</span><span id="__span-0-1189"><a id="__codelineno-0-1189" name="__codelineno-0-1189"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1190"><a id="__codelineno-0-1190" name="__codelineno-0-1190"></a>        <span class="c1"># logging.debug("Result is %s", result)</span>
-</span><span id="__span-0-1191"><a id="__codelineno-0-1191" name="__codelineno-0-1191"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">sols</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># noqa: VNE002</span>
-</span><span id="__span-0-1192"><a id="__codelineno-0-1192" name="__codelineno-0-1192"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">sols</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
-</span><span id="__span-0-1193"><a id="__codelineno-0-1193" name="__codelineno-0-1193"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Term </span><span class="si">%s</span><span class="s2"> transformed to </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-</span><span id="__span-0-1194"><a id="__codelineno-0-1194" name="__codelineno-0-1194"></a>
-</span><span id="__span-0-1195"><a id="__codelineno-0-1195" name="__codelineno-0-1195"></a>        <span class="k">return</span> <span class="n">result</span>
-</span><span id="__span-0-1196"><a id="__codelineno-0-1196" name="__codelineno-0-1196"></a>
-</span><span id="__span-0-1197"><a id="__codelineno-0-1197" name="__codelineno-0-1197"></a>    <span class="nd">@staticmethod</span>
-</span><span id="__span-0-1198"><a id="__codelineno-0-1198" name="__codelineno-0-1198"></a>    <span class="k">def</span> <span class="nf">_tactic_2</span><span class="p">(</span>  <span class="c1"># noqa: WPS231</span>
-</span><span id="__span-0-1199"><a id="__codelineno-0-1199" name="__codelineno-0-1199"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
-</span><span id="__span-0-1200"><a id="__codelineno-0-1200" name="__codelineno-0-1200"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
-</span><span id="__span-0-1201"><a id="__codelineno-0-1201" name="__codelineno-0-1201"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 2"</span><span class="p">)</span>
-</span><span id="__span-0-1202"><a id="__codelineno-0-1202" name="__codelineno-0-1202"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
-</span><span id="__span-0-1203"><a id="__codelineno-0-1203" name="__codelineno-0-1203"></a>        <span class="n">conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
-</span><span id="__span-0-1204"><a id="__codelineno-0-1204" name="__codelineno-0-1204"></a>        <span class="n">new_context_list</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-1205"><a id="__codelineno-0-1205" name="__codelineno-0-1205"></a>        <span class="c1"># Extract from context the terms that only contain forbidden vars</span>
-</span><span id="__span-0-1206"><a id="__codelineno-0-1206" name="__codelineno-0-1206"></a>        <span class="k">for</span> <span class="n">context_term</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">:</span>
-</span><span id="__span-0-1207"><a id="__codelineno-0-1207" name="__codelineno-0-1207"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">list_diff</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">):</span>
-</span><span id="__span-0-1208"><a id="__codelineno-0-1208" name="__codelineno-0-1208"></a>                <span class="k">if</span> <span class="n">context_term</span> <span class="o">!=</span> <span class="n">term</span><span class="p">:</span>
-</span><span id="__span-0-1209"><a id="__codelineno-0-1209" name="__codelineno-0-1209"></a>                    <span class="n">new_context_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-</span><span id="__span-0-1210"><a id="__codelineno-0-1210" name="__codelineno-0-1210"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"This is what we kept"</span><span class="p">)</span>
-</span><span id="__span-0-1211"><a id="__codelineno-0-1211" name="__codelineno-0-1211"></a>        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">new_context_list</span><span class="p">:</span>
-</span><span id="__span-0-1212"><a id="__codelineno-0-1212" name="__codelineno-0-1212"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
-</span><span id="__span-0-1213"><a id="__codelineno-0-1213" name="__codelineno-0-1213"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_context_list</span><span class="p">:</span>
-</span><span id="__span-0-1214"><a id="__codelineno-0-1214" name="__codelineno-0-1214"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No term contains only irrelevant variables"</span><span class="p">)</span>
-</span><span id="__span-0-1215"><a id="__codelineno-0-1215" name="__codelineno-0-1215"></a>        <span class="k">if</span> <span class="n">list_diff</span><span class="p">(</span><span class="n">conflict_vars</span><span class="p">,</span> <span class="n">PolyhedralTermList</span><span class="p">(</span><span class="n">new_context_list</span><span class="p">)</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
-</span><span id="__span-0-1216"><a id="__codelineno-0-1216" name="__codelineno-0-1216"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 2 unsuccessful"</span><span class="p">)</span>
-</span><span id="__span-0-1217"><a id="__codelineno-0-1217" name="__codelineno-0-1217"></a>        <span class="c1"># now optimize</span>
-</span><span id="__span-0-1218"><a id="__codelineno-0-1218" name="__codelineno-0-1218"></a>        <span class="n">retval</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">termlist_to_polytope</span><span class="p">(</span><span class="n">PolyhedralTermList</span><span class="p">(</span><span class="n">new_context_list</span><span class="p">),</span> <span class="n">PolyhedralTermList</span><span class="p">([]))</span>
-</span><span id="__span-0-1219"><a id="__codelineno-0-1219" name="__codelineno-0-1219"></a>        <span class="n">variables</span> <span class="o">=</span> <span class="n">retval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-0-1220"><a id="__codelineno-0-1220" name="__codelineno-0-1220"></a>        <span class="n">new_context_mat</span> <span class="o">=</span> <span class="n">retval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="__span-0-1221"><a id="__codelineno-0-1221" name="__codelineno-0-1221"></a>        <span class="n">new_context_cons</span> <span class="o">=</span> <span class="n">retval</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-</span><span id="__span-0-1222"><a id="__codelineno-0-1222" name="__codelineno-0-1222"></a>        <span class="n">polarity</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="__span-0-1223"><a id="__codelineno-0-1223" name="__codelineno-0-1223"></a>        <span class="k">if</span> <span class="n">refine</span><span class="p">:</span>
-</span><span id="__span-0-1224"><a id="__codelineno-0-1224" name="__codelineno-0-1224"></a>            <span class="n">polarity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-</span><span id="__span-0-1225"><a id="__codelineno-0-1225" name="__codelineno-0-1225"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="p">[</span><span class="n">polarity</span> <span class="o">*</span> <span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">]</span>
-</span><span id="__span-0-1226"><a id="__codelineno-0-1226" name="__codelineno-0-1226"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">new_context_mat</span><span class="p">)</span>
-</span><span id="__span-0-1227"><a id="__codelineno-0-1227" name="__codelineno-0-1227"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">new_context_cons</span><span class="p">)</span>
-</span><span id="__span-0-1228"><a id="__codelineno-0-1228" name="__codelineno-0-1228"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">objective</span><span class="p">)</span>
-</span><span id="__span-0-1229"><a id="__codelineno-0-1229" name="__codelineno-0-1229"></a>        <span class="n">res</span> <span class="o">=</span> <span class="n">linprog</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span> <span class="n">A_ub</span><span class="o">=</span><span class="n">new_context_mat</span><span class="p">,</span> <span class="n">b_ub</span><span class="o">=</span><span class="n">new_context_cons</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-</span><span id="__span-0-1230"><a id="__codelineno-0-1230" name="__codelineno-0-1230"></a>        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-</span><span id="__span-0-1231"><a id="__codelineno-0-1231" name="__codelineno-0-1231"></a>            <span class="c1"># unbounded</span>
-</span><span id="__span-0-1232"><a id="__codelineno-0-1232" name="__codelineno-0-1232"></a>            <span class="c1"># return term.copy()</span>
-</span><span id="__span-0-1233"><a id="__codelineno-0-1233" name="__codelineno-0-1233"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 2 did not succeed"</span><span class="p">)</span>
-</span><span id="__span-0-1234"><a id="__codelineno-0-1234" name="__codelineno-0-1234"></a>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">polarity</span> <span class="o">*</span> <span class="n">res</span><span class="p">[</span><span class="s2">"fun"</span><span class="p">]</span>
-</span><span id="__span-0-1235"><a id="__codelineno-0-1235" name="__codelineno-0-1235"></a>        <span class="c1"># replace the irrelevant variables with new findings in term</span>
-</span><span id="__span-0-1236"><a id="__codelineno-0-1236" name="__codelineno-0-1236"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1237"><a id="__codelineno-0-1237" name="__codelineno-0-1237"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">vars_to_elim</span><span class="p">:</span>  <span class="c1"># noqa: VNE002</span>
-</span><span id="__span-0-1238"><a id="__codelineno-0-1238" name="__codelineno-0-1238"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">remove_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-</span><span id="__span-0-1239"><a id="__codelineno-0-1239" name="__codelineno-0-1239"></a>        <span class="n">result</span><span class="o">.</span><span class="n">constant</span> <span class="o">-=</span> <span class="n">replacement</span>
-</span><span id="__span-0-1240"><a id="__codelineno-0-1240" name="__codelineno-0-1240"></a>        <span class="c1"># check vacuity</span>
-</span><span id="__span-0-1241"><a id="__codelineno-0-1241" name="__codelineno-0-1241"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
-</span><span id="__span-0-1242"><a id="__codelineno-0-1242" name="__codelineno-0-1242"></a>            <span class="k">return</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1243"><a id="__codelineno-0-1243" name="__codelineno-0-1243"></a>        <span class="k">return</span> <span class="n">result</span>
-</span><span id="__span-0-1244"><a id="__codelineno-0-1244" name="__codelineno-0-1244"></a>
-</span><span id="__span-0-1245"><a id="__codelineno-0-1245" name="__codelineno-0-1245"></a>    <span class="nd">@staticmethod</span>
-</span><span id="__span-0-1246"><a id="__codelineno-0-1246" name="__codelineno-0-1246"></a>    <span class="k">def</span> <span class="nf">_tactic_3</span><span class="p">(</span>
-</span><span id="__span-0-1247"><a id="__codelineno-0-1247" name="__codelineno-0-1247"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
-</span><span id="__span-0-1248"><a id="__codelineno-0-1248" name="__codelineno-0-1248"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
-</span><span id="__span-0-1249"><a id="__codelineno-0-1249" name="__codelineno-0-1249"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 3"</span><span class="p">)</span>
-</span><span id="__span-0-1250"><a id="__codelineno-0-1250" name="__codelineno-0-1250"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
-</span><span id="__span-0-1251"><a id="__codelineno-0-1251" name="__codelineno-0-1251"></a>        <span class="n">conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
-</span><span id="__span-0-1252"><a id="__codelineno-0-1252" name="__codelineno-0-1252"></a>        <span class="n">conflict_coeff</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">conflict_vars</span><span class="p">}</span>
-</span><span id="__span-0-1253"><a id="__codelineno-0-1253" name="__codelineno-0-1253"></a>        <span class="n">new_term</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1254"><a id="__codelineno-0-1254" name="__codelineno-0-1254"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">conflict_vars</span><span class="p">:</span>  <span class="c1"># noqa: VNE002 variable name 'var' should be clarified</span>
-</span><span id="__span-0-1255"><a id="__codelineno-0-1255" name="__codelineno-0-1255"></a>            <span class="n">new_term</span> <span class="o">=</span> <span class="n">new_term</span><span class="o">.</span><span class="n">remove_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-</span><span id="__span-0-1256"><a id="__codelineno-0-1256" name="__codelineno-0-1256"></a>        <span class="n">new_term</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">Var</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="__span-0-1257"><a id="__codelineno-0-1257" name="__codelineno-0-1257"></a>        <span class="c1"># modify the context</span>
-</span><span id="__span-0-1258"><a id="__codelineno-0-1258" name="__codelineno-0-1258"></a>        <span class="n">subst_term_vars</span> <span class="o">=</span> <span class="p">{</span><span class="n">Var</span><span class="p">(</span><span class="s2">"_"</span><span class="p">):</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">conflict_coeff</span><span class="p">[</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]]}</span>
-</span><span id="__span-0-1259"><a id="__codelineno-0-1259" name="__codelineno-0-1259"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">conflict_vars</span><span class="p">:</span>  <span class="c1"># noqa: VNE002 variable name 'var' should be clarified</span>
-</span><span id="__span-0-1260"><a id="__codelineno-0-1260" name="__codelineno-0-1260"></a>            <span class="k">if</span> <span class="n">var</span> <span class="o">!=</span> <span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-</span><span id="__span-0-1261"><a id="__codelineno-0-1261" name="__codelineno-0-1261"></a>                <span class="n">subst_term_vars</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">conflict_coeff</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">/</span> <span class="n">conflict_coeff</span><span class="p">[</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-</span><span id="__span-0-1262"><a id="__codelineno-0-1262" name="__codelineno-0-1262"></a>        <span class="n">subst_term</span> <span class="o">=</span> <span class="n">PolyhedralTerm</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="n">subst_term_vars</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="__span-0-1263"><a id="__codelineno-0-1263" name="__codelineno-0-1263"></a>        <span class="n">new_context</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="p">(</span>
-</span><span id="__span-0-1264"><a id="__codelineno-0-1264" name="__codelineno-0-1264"></a>            <span class="p">[</span><span class="n">el</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subst_term</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">]</span>
-</span><span id="__span-0-1265"><a id="__codelineno-0-1265" name="__codelineno-0-1265"></a>        <span class="p">)</span>
-</span><span id="__span-0-1266"><a id="__codelineno-0-1266" name="__codelineno-0-1266"></a>        <span class="c1"># now we use tactic 1</span>
-</span><span id="__span-0-1267"><a id="__codelineno-0-1267" name="__codelineno-0-1267"></a>        <span class="n">new_elims</span> <span class="o">=</span> <span class="n">list_diff</span><span class="p">(</span><span class="n">list_union</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="p">[</span><span class="n">Var</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)]),</span> <span class="p">[</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-</span><span id="__span-0-1268"><a id="__codelineno-0-1268" name="__codelineno-0-1268"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-1269"><a id="__codelineno-0-1269" name="__codelineno-0-1269"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_1</span><span class="p">(</span><span class="n">new_term</span><span class="p">,</span> <span class="n">new_context</span><span class="p">,</span> <span class="n">new_elims</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
-</span><span id="__span-0-1270"><a id="__codelineno-0-1270" name="__codelineno-0-1270"></a>        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa: WPS329 Found useless `except` case</span>
-</span><span id="__span-0-1271"><a id="__codelineno-0-1271" name="__codelineno-0-1271"></a>            <span class="k">raise</span> <span class="n">e</span>
-</span><span id="__span-0-1272"><a id="__codelineno-0-1272" name="__codelineno-0-1272"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Leaving Tactic 3"</span><span class="p">)</span>
-</span><span id="__span-0-1273"><a id="__codelineno-0-1273" name="__codelineno-0-1273"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
-</span><span id="__span-0-1274"><a id="__codelineno-0-1274" name="__codelineno-0-1274"></a>        <span class="k">return</span> <span class="n">result</span>
-</span><span id="__span-0-1275"><a id="__codelineno-0-1275" name="__codelineno-0-1275"></a>
-</span><span id="__span-0-1276"><a id="__codelineno-0-1276" name="__codelineno-0-1276"></a>    <span class="nd">@staticmethod</span>
-</span><span id="__span-0-1277"><a id="__codelineno-0-1277" name="__codelineno-0-1277"></a>    <span class="k">def</span> <span class="nf">_tactic_4</span><span class="p">(</span>  <span class="c1"># noqa: WPS231</span>
-</span><span id="__span-0-1278"><a id="__codelineno-0-1278" name="__codelineno-0-1278"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">no_vars</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Var</span><span class="p">]</span>
-</span><span id="__span-0-1279"><a id="__codelineno-0-1279" name="__codelineno-0-1279"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
-</span><span id="__span-0-1280"><a id="__codelineno-0-1280" name="__codelineno-0-1280"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 4"</span><span class="p">)</span>
-</span><span id="__span-0-1281"><a id="__codelineno-0-1281" name="__codelineno-0-1281"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
-</span><span id="__span-0-1282"><a id="__codelineno-0-1282" name="__codelineno-0-1282"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">refine</span><span class="p">:</span>
-</span><span id="__span-0-1283"><a id="__codelineno-0-1283" name="__codelineno-0-1283"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Only refinement is supported"</span><span class="p">)</span>
-</span><span id="__span-0-1284"><a id="__codelineno-0-1284" name="__codelineno-0-1284"></a>        <span class="n">conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
-</span><span id="__span-0-1285"><a id="__codelineno-0-1285" name="__codelineno-0-1285"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">conflict_vars</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="__span-0-1286"><a id="__codelineno-0-1286" name="__codelineno-0-1286"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 4 unsuccessful"</span><span class="p">)</span>
-</span><span id="__span-0-1287"><a id="__codelineno-0-1287" name="__codelineno-0-1287"></a>        <span class="n">var_to_elim</span> <span class="o">=</span> <span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-0-1288"><a id="__codelineno-0-1288" name="__codelineno-0-1288"></a>        <span class="n">goal_context</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PolyhedralTerm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-1289"><a id="__codelineno-0-1289" name="__codelineno-0-1289"></a>        <span class="n">useful_context</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PolyhedralTerm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-1290"><a id="__codelineno-0-1290" name="__codelineno-0-1290"></a>        <span class="n">polarity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-</span><span id="__span-0-1291"><a id="__codelineno-0-1291" name="__codelineno-0-1291"></a>        <span class="k">if</span> <span class="n">refine</span><span class="p">:</span>
-</span><span id="__span-0-1292"><a id="__codelineno-0-1292" name="__codelineno-0-1292"></a>            <span class="n">polarity</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="__span-0-1293"><a id="__codelineno-0-1293" name="__codelineno-0-1293"></a>        <span class="k">for</span> <span class="n">context_term</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">:</span>
-</span><span id="__span-0-1294"><a id="__codelineno-0-1294" name="__codelineno-0-1294"></a>            <span class="k">if</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">no_vars</span><span class="p">):</span>
-</span><span id="__span-0-1295"><a id="__codelineno-0-1295" name="__codelineno-0-1295"></a>                <span class="k">continue</span>
-</span><span id="__span-0-1296"><a id="__codelineno-0-1296" name="__codelineno-0-1296"></a>            <span class="n">coeff</span> <span class="o">=</span> <span class="n">context_term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span>
-</span><span id="__span-0-1297"><a id="__codelineno-0-1297" name="__codelineno-0-1297"></a>            <span class="k">if</span> <span class="n">coeff</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">polarity</span> <span class="o">*</span> <span class="n">coeff</span> <span class="o">*</span> <span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="__span-0-1298"><a id="__codelineno-0-1298" name="__codelineno-0-1298"></a>                <span class="n">temp_conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">)</span>
-</span><span id="__span-0-1299"><a id="__codelineno-0-1299" name="__codelineno-0-1299"></a>                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_conflict_vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="__span-0-1300"><a id="__codelineno-0-1300" name="__codelineno-0-1300"></a>                    <span class="n">goal_context</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-</span><span id="__span-0-1301"><a id="__codelineno-0-1301" name="__codelineno-0-1301"></a>                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_conflict_vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-</span><span id="__span-0-1302"><a id="__codelineno-0-1302" name="__codelineno-0-1302"></a>                    <span class="n">useful_context</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-</span><span id="__span-0-1303"><a id="__codelineno-0-1303" name="__codelineno-0-1303"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">useful_context</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">goal_context</span><span class="p">:</span>
-</span><span id="__span-0-1304"><a id="__codelineno-0-1304" name="__codelineno-0-1304"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 4 unsuccessful"</span><span class="p">)</span>
-</span><span id="__span-0-1305"><a id="__codelineno-0-1305" name="__codelineno-0-1305"></a>        <span class="k">if</span> <span class="n">goal_context</span><span class="p">:</span>
-</span><span id="__span-0-1306"><a id="__codelineno-0-1306" name="__codelineno-0-1306"></a>            <span class="k">return</span> <span class="n">term</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">,</span> <span class="n">goal_context</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isolate_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">))</span>
-</span><span id="__span-0-1307"><a id="__codelineno-0-1307" name="__codelineno-0-1307"></a>        <span class="c1">############</span>
-</span><span id="__span-0-1308"><a id="__codelineno-0-1308" name="__codelineno-0-1308"></a>        <span class="k">for</span> <span class="n">useful_term</span> <span class="ow">in</span> <span class="n">useful_context</span><span class="p">:</span>
-</span><span id="__span-0-1309"><a id="__codelineno-0-1309" name="__codelineno-0-1309"></a>            <span class="n">new_context</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1310"><a id="__codelineno-0-1310" name="__codelineno-0-1310"></a>            <span class="n">new_context</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">useful_term</span><span class="p">)</span>
-</span><span id="__span-0-1311"><a id="__codelineno-0-1311" name="__codelineno-0-1311"></a>            <span class="n">new_term</span> <span class="o">=</span> <span class="n">useful_term</span><span class="o">.</span><span class="n">isolate_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span>
-</span><span id="__span-0-1312"><a id="__codelineno-0-1312" name="__codelineno-0-1312"></a>            <span class="n">new_no_vars</span> <span class="o">=</span> <span class="n">no_vars</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1313"><a id="__codelineno-0-1313" name="__codelineno-0-1313"></a>            <span class="n">new_no_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span>
-</span><span id="__span-0-1314"><a id="__codelineno-0-1314" name="__codelineno-0-1314"></a>            <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-1315"><a id="__codelineno-0-1315" name="__codelineno-0-1315"></a>                <span class="n">return_term</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_4</span><span class="p">(</span><span class="n">new_term</span><span class="p">,</span> <span class="n">new_context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">,</span> <span class="n">new_no_vars</span><span class="p">)</span>
-</span><span id="__span-0-1316"><a id="__codelineno-0-1316" name="__codelineno-0-1316"></a>            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="__span-0-1317"><a id="__codelineno-0-1317" name="__codelineno-0-1317"></a>                <span class="k">continue</span>
-</span><span id="__span-0-1318"><a id="__codelineno-0-1318" name="__codelineno-0-1318"></a>            <span class="k">return</span> <span class="n">term</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">,</span> <span class="n">return_term</span><span class="p">)</span>
-</span><span id="__span-0-1319"><a id="__codelineno-0-1319" name="__codelineno-0-1319"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 4 unsuccessful"</span><span class="p">)</span>
-</span><span id="__span-0-1320"><a id="__codelineno-0-1320" name="__codelineno-0-1320"></a>
-</span><span id="__span-0-1321"><a id="__codelineno-0-1321" name="__codelineno-0-1321"></a>    <span class="nd">@staticmethod</span>
-</span><span id="__span-0-1322"><a id="__codelineno-0-1322" name="__codelineno-0-1322"></a>    <span class="k">def</span> <span class="nf">_transform_term</span><span class="p">(</span>
-</span><span id="__span-0-1323"><a id="__codelineno-0-1323" name="__codelineno-0-1323"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
-</span><span id="__span-0-1324"><a id="__codelineno-0-1324" name="__codelineno-0-1324"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
-</span><span id="__span-0-1325"><a id="__codelineno-0-1325" name="__codelineno-0-1325"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">):</span>
-</span><span id="__span-0-1326"><a id="__codelineno-0-1326" name="__codelineno-0-1326"></a>            <span class="k">return</span> <span class="n">term</span>
-</span><span id="__span-0-1327"><a id="__codelineno-0-1327" name="__codelineno-0-1327"></a>
-</span><span id="__span-0-1328"><a id="__codelineno-0-1328" name="__codelineno-0-1328"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Transforming term: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
-</span><span id="__span-0-1329"><a id="__codelineno-0-1329" name="__codelineno-0-1329"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Context: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
-</span><span id="__span-0-1330"><a id="__codelineno-0-1330" name="__codelineno-0-1330"></a>
-</span><span id="__span-0-1331"><a id="__codelineno-0-1331" name="__codelineno-0-1331"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-1332"><a id="__codelineno-0-1332" name="__codelineno-0-1332"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_1</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
-</span><span id="__span-0-1333"><a id="__codelineno-0-1333" name="__codelineno-0-1333"></a>        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="__span-0-1334"><a id="__codelineno-0-1334" name="__codelineno-0-1334"></a>            <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS505</span>
-</span><span id="__span-0-1335"><a id="__codelineno-0-1335" name="__codelineno-0-1335"></a>                <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_3</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
-</span><span id="__span-0-1336"><a id="__codelineno-0-1336" name="__codelineno-0-1336"></a>            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="__span-0-1337"><a id="__codelineno-0-1337" name="__codelineno-0-1337"></a>                <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS505 Found nested `try` block</span>
-</span><span id="__span-0-1338"><a id="__codelineno-0-1338" name="__codelineno-0-1338"></a>                    <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_2</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
-</span><span id="__span-0-1339"><a id="__codelineno-0-1339" name="__codelineno-0-1339"></a>                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="__span-0-1340"><a id="__codelineno-0-1340" name="__codelineno-0-1340"></a>                    <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS505 Found nested `try` block</span>
-</span><span id="__span-0-1341"><a id="__codelineno-0-1341" name="__codelineno-0-1341"></a>                        <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_4</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">,</span> <span class="p">[])</span>
-</span><span id="__span-0-1342"><a id="__codelineno-0-1342" name="__codelineno-0-1342"></a>                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="__span-0-1343"><a id="__codelineno-0-1343" name="__codelineno-0-1343"></a>                        <span class="n">result</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-1344"><a id="__codelineno-0-1344" name="__codelineno-0-1344"></a>        <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-0-1179"><a id="__codelineno-0-1179" name="__codelineno-0-1179"></a>            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-0-1180"><a id="__codelineno-0-1180" name="__codelineno-0-1180"></a>                <span class="n">matrix_row_terms</span><span class="p">,</span> <span class="n">forbidden_vars</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_get_kaykobad_context</span><span class="p">(</span>
+</span><span id="__span-0-1181"><a id="__codelineno-0-1181" name="__codelineno-0-1181"></a>                    <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span>
+</span><span id="__span-0-1182"><a id="__codelineno-0-1182" name="__codelineno-0-1182"></a>                <span class="p">)</span>
+</span><span id="__span-0-1183"><a id="__codelineno-0-1183" name="__codelineno-0-1183"></a>            <span class="k">elif</span> <span class="n">strategy</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+</span><span id="__span-0-1184"><a id="__codelineno-0-1184" name="__codelineno-0-1184"></a>                <span class="n">matrix_row_terms</span><span class="p">,</span> <span class="n">forbidden_vars</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_get_tlp_context</span><span class="p">(</span>
+</span><span id="__span-0-1185"><a id="__codelineno-0-1185" name="__codelineno-0-1185"></a>                    <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span>
+</span><span id="__span-0-1186"><a id="__codelineno-0-1186" name="__codelineno-0-1186"></a>                <span class="p">)</span>
+</span><span id="__span-0-1187"><a id="__codelineno-0-1187" name="__codelineno-0-1187"></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-1188"><a id="__codelineno-0-1188" name="__codelineno-0-1188"></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unknown strategy"</span><span class="p">)</span>
+</span><span id="__span-0-1189"><a id="__codelineno-0-1189" name="__codelineno-0-1189"></a>        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="__span-0-1190"><a id="__codelineno-0-1190" name="__codelineno-0-1190"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Could not transform </span><span class="si">%s</span><span class="s2"> using Context reduction"</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
+</span><span id="__span-0-1191"><a id="__codelineno-0-1191" name="__codelineno-0-1191"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Could not transform term </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">term</span><span class="p">))</span>
+</span><span id="__span-0-1192"><a id="__codelineno-0-1192" name="__codelineno-0-1192"></a>        <span class="n">matrix_row_terms_tl</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">matrix_row_terms</span><span class="p">))</span>
+</span><span id="__span-0-1193"><a id="__codelineno-0-1193" name="__codelineno-0-1193"></a>        <span class="n">sols</span> <span class="o">=</span> <span class="n">PolyhedralTerm</span><span class="o">.</span><span class="n">solve_for_variables</span><span class="p">(</span><span class="n">matrix_row_terms_tl</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">forbidden_vars</span><span class="p">))</span>
+</span><span id="__span-0-1194"><a id="__codelineno-0-1194" name="__codelineno-0-1194"></a>        <span class="c1"># logging.debug("Sols %s", sols)</span>
+</span><span id="__span-0-1195"><a id="__codelineno-0-1195" name="__codelineno-0-1195"></a>
+</span><span id="__span-0-1196"><a id="__codelineno-0-1196" name="__codelineno-0-1196"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1197"><a id="__codelineno-0-1197" name="__codelineno-0-1197"></a>        <span class="c1"># logging.debug("Result is %s", result)</span>
+</span><span id="__span-0-1198"><a id="__codelineno-0-1198" name="__codelineno-0-1198"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">sols</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># noqa: VNE002</span>
+</span><span id="__span-0-1199"><a id="__codelineno-0-1199" name="__codelineno-0-1199"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">sols</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+</span><span id="__span-0-1200"><a id="__codelineno-0-1200" name="__codelineno-0-1200"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Term </span><span class="si">%s</span><span class="s2"> transformed to </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</span><span id="__span-0-1201"><a id="__codelineno-0-1201" name="__codelineno-0-1201"></a>
+</span><span id="__span-0-1202"><a id="__codelineno-0-1202" name="__codelineno-0-1202"></a>        <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-0-1203"><a id="__codelineno-0-1203" name="__codelineno-0-1203"></a>
+</span><span id="__span-0-1204"><a id="__codelineno-0-1204" name="__codelineno-0-1204"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1205"><a id="__codelineno-0-1205" name="__codelineno-0-1205"></a>    <span class="k">def</span> <span class="nf">_tactic_1</span><span class="p">(</span>
+</span><span id="__span-0-1206"><a id="__codelineno-0-1206" name="__codelineno-0-1206"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1207"><a id="__codelineno-0-1207" name="__codelineno-0-1207"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
+</span><span id="__span-0-1208"><a id="__codelineno-0-1208" name="__codelineno-0-1208"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"********** Tactic 1"</span><span class="p">)</span>
+</span><span id="__span-0-1209"><a id="__codelineno-0-1209" name="__codelineno-0-1209"></a>        <span class="k">return</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_context_reduction</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-0-1210"><a id="__codelineno-0-1210" name="__codelineno-0-1210"></a>
+</span><span id="__span-0-1211"><a id="__codelineno-0-1211" name="__codelineno-0-1211"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1212"><a id="__codelineno-0-1212" name="__codelineno-0-1212"></a>    <span class="k">def</span> <span class="nf">_tactic_2</span><span class="p">(</span>  <span class="c1"># noqa: WPS231</span>
+</span><span id="__span-0-1213"><a id="__codelineno-0-1213" name="__codelineno-0-1213"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1214"><a id="__codelineno-0-1214" name="__codelineno-0-1214"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
+</span><span id="__span-0-1215"><a id="__codelineno-0-1215" name="__codelineno-0-1215"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 2"</span><span class="p">)</span>
+</span><span id="__span-0-1216"><a id="__codelineno-0-1216" name="__codelineno-0-1216"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+</span><span id="__span-0-1217"><a id="__codelineno-0-1217" name="__codelineno-0-1217"></a>        <span class="n">conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+</span><span id="__span-0-1218"><a id="__codelineno-0-1218" name="__codelineno-0-1218"></a>        <span class="n">new_context_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-1219"><a id="__codelineno-0-1219" name="__codelineno-0-1219"></a>        <span class="c1"># Extract from context the terms that only contain forbidden vars</span>
+</span><span id="__span-0-1220"><a id="__codelineno-0-1220" name="__codelineno-0-1220"></a>        <span class="k">for</span> <span class="n">context_term</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">:</span>
+</span><span id="__span-0-1221"><a id="__codelineno-0-1221" name="__codelineno-0-1221"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">list_diff</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">):</span>
+</span><span id="__span-0-1222"><a id="__codelineno-0-1222" name="__codelineno-0-1222"></a>                <span class="k">if</span> <span class="n">context_term</span> <span class="o">!=</span> <span class="n">term</span><span class="p">:</span>
+</span><span id="__span-0-1223"><a id="__codelineno-0-1223" name="__codelineno-0-1223"></a>                    <span class="n">new_context_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+</span><span id="__span-0-1224"><a id="__codelineno-0-1224" name="__codelineno-0-1224"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"This is what we kept"</span><span class="p">)</span>
+</span><span id="__span-0-1225"><a id="__codelineno-0-1225" name="__codelineno-0-1225"></a>        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">new_context_list</span><span class="p">:</span>
+</span><span id="__span-0-1226"><a id="__codelineno-0-1226" name="__codelineno-0-1226"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+</span><span id="__span-0-1227"><a id="__codelineno-0-1227" name="__codelineno-0-1227"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_context_list</span><span class="p">:</span>
+</span><span id="__span-0-1228"><a id="__codelineno-0-1228" name="__codelineno-0-1228"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No term contains only irrelevant variables"</span><span class="p">)</span>
+</span><span id="__span-0-1229"><a id="__codelineno-0-1229" name="__codelineno-0-1229"></a>        <span class="k">if</span> <span class="n">list_diff</span><span class="p">(</span><span class="n">conflict_vars</span><span class="p">,</span> <span class="n">PolyhedralTermList</span><span class="p">(</span><span class="n">new_context_list</span><span class="p">)</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
+</span><span id="__span-0-1230"><a id="__codelineno-0-1230" name="__codelineno-0-1230"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 2 unsuccessful"</span><span class="p">)</span>
+</span><span id="__span-0-1231"><a id="__codelineno-0-1231" name="__codelineno-0-1231"></a>        <span class="c1"># now optimize</span>
+</span><span id="__span-0-1232"><a id="__codelineno-0-1232" name="__codelineno-0-1232"></a>        <span class="n">retval</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">termlist_to_polytope</span><span class="p">(</span><span class="n">PolyhedralTermList</span><span class="p">(</span><span class="n">new_context_list</span><span class="p">),</span> <span class="n">PolyhedralTermList</span><span class="p">([]))</span>
+</span><span id="__span-0-1233"><a id="__codelineno-0-1233" name="__codelineno-0-1233"></a>        <span class="n">variables</span> <span class="o">=</span> <span class="n">retval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-0-1234"><a id="__codelineno-0-1234" name="__codelineno-0-1234"></a>        <span class="n">new_context_mat</span> <span class="o">=</span> <span class="n">retval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-0-1235"><a id="__codelineno-0-1235" name="__codelineno-0-1235"></a>        <span class="n">new_context_cons</span> <span class="o">=</span> <span class="n">retval</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-0-1236"><a id="__codelineno-0-1236" name="__codelineno-0-1236"></a>        <span class="n">polarity</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-0-1237"><a id="__codelineno-0-1237" name="__codelineno-0-1237"></a>        <span class="k">if</span> <span class="n">refine</span><span class="p">:</span>
+</span><span id="__span-0-1238"><a id="__codelineno-0-1238" name="__codelineno-0-1238"></a>            <span class="n">polarity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-0-1239"><a id="__codelineno-0-1239" name="__codelineno-0-1239"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="p">[</span><span class="n">polarity</span> <span class="o">*</span> <span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">]</span>
+</span><span id="__span-0-1240"><a id="__codelineno-0-1240" name="__codelineno-0-1240"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">new_context_mat</span><span class="p">)</span>
+</span><span id="__span-0-1241"><a id="__codelineno-0-1241" name="__codelineno-0-1241"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">new_context_cons</span><span class="p">)</span>
+</span><span id="__span-0-1242"><a id="__codelineno-0-1242" name="__codelineno-0-1242"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">objective</span><span class="p">)</span>
+</span><span id="__span-0-1243"><a id="__codelineno-0-1243" name="__codelineno-0-1243"></a>        <span class="n">res</span> <span class="o">=</span> <span class="n">linprog</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span> <span class="n">A_ub</span><span class="o">=</span><span class="n">new_context_mat</span><span class="p">,</span> <span class="n">b_ub</span><span class="o">=</span><span class="n">new_context_cons</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+</span><span id="__span-0-1244"><a id="__codelineno-0-1244" name="__codelineno-0-1244"></a>        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+</span><span id="__span-0-1245"><a id="__codelineno-0-1245" name="__codelineno-0-1245"></a>            <span class="c1"># unbounded</span>
+</span><span id="__span-0-1246"><a id="__codelineno-0-1246" name="__codelineno-0-1246"></a>            <span class="c1"># return term.copy()</span>
+</span><span id="__span-0-1247"><a id="__codelineno-0-1247" name="__codelineno-0-1247"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 2 did not succeed"</span><span class="p">)</span>
+</span><span id="__span-0-1248"><a id="__codelineno-0-1248" name="__codelineno-0-1248"></a>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">polarity</span> <span class="o">*</span> <span class="n">res</span><span class="p">[</span><span class="s2">"fun"</span><span class="p">]</span>
+</span><span id="__span-0-1249"><a id="__codelineno-0-1249" name="__codelineno-0-1249"></a>        <span class="c1"># replace the irrelevant variables with new findings in term</span>
+</span><span id="__span-0-1250"><a id="__codelineno-0-1250" name="__codelineno-0-1250"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1251"><a id="__codelineno-0-1251" name="__codelineno-0-1251"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">vars_to_elim</span><span class="p">:</span>  <span class="c1"># noqa: VNE002</span>
+</span><span id="__span-0-1252"><a id="__codelineno-0-1252" name="__codelineno-0-1252"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">remove_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+</span><span id="__span-0-1253"><a id="__codelineno-0-1253" name="__codelineno-0-1253"></a>        <span class="n">result</span><span class="o">.</span><span class="n">constant</span> <span class="o">-=</span> <span class="n">replacement</span>
+</span><span id="__span-0-1254"><a id="__codelineno-0-1254" name="__codelineno-0-1254"></a>        <span class="c1"># check vacuity</span>
+</span><span id="__span-0-1255"><a id="__codelineno-0-1255" name="__codelineno-0-1255"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
+</span><span id="__span-0-1256"><a id="__codelineno-0-1256" name="__codelineno-0-1256"></a>            <span class="k">return</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1257"><a id="__codelineno-0-1257" name="__codelineno-0-1257"></a>        <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-0-1258"><a id="__codelineno-0-1258" name="__codelineno-0-1258"></a>
+</span><span id="__span-0-1259"><a id="__codelineno-0-1259" name="__codelineno-0-1259"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1260"><a id="__codelineno-0-1260" name="__codelineno-0-1260"></a>    <span class="k">def</span> <span class="nf">_tactic_3</span><span class="p">(</span>
+</span><span id="__span-0-1261"><a id="__codelineno-0-1261" name="__codelineno-0-1261"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1262"><a id="__codelineno-0-1262" name="__codelineno-0-1262"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
+</span><span id="__span-0-1263"><a id="__codelineno-0-1263" name="__codelineno-0-1263"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 3"</span><span class="p">)</span>
+</span><span id="__span-0-1264"><a id="__codelineno-0-1264" name="__codelineno-0-1264"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+</span><span id="__span-0-1265"><a id="__codelineno-0-1265" name="__codelineno-0-1265"></a>        <span class="n">conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+</span><span id="__span-0-1266"><a id="__codelineno-0-1266" name="__codelineno-0-1266"></a>        <span class="n">conflict_coeff</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">conflict_vars</span><span class="p">}</span>
+</span><span id="__span-0-1267"><a id="__codelineno-0-1267" name="__codelineno-0-1267"></a>        <span class="n">new_term</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1268"><a id="__codelineno-0-1268" name="__codelineno-0-1268"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">conflict_vars</span><span class="p">:</span>  <span class="c1"># noqa: VNE002 variable name 'var' should be clarified</span>
+</span><span id="__span-0-1269"><a id="__codelineno-0-1269" name="__codelineno-0-1269"></a>            <span class="n">new_term</span> <span class="o">=</span> <span class="n">new_term</span><span class="o">.</span><span class="n">remove_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+</span><span id="__span-0-1270"><a id="__codelineno-0-1270" name="__codelineno-0-1270"></a>        <span class="n">new_term</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">Var</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-0-1271"><a id="__codelineno-0-1271" name="__codelineno-0-1271"></a>        <span class="c1"># modify the context</span>
+</span><span id="__span-0-1272"><a id="__codelineno-0-1272" name="__codelineno-0-1272"></a>        <span class="n">subst_term_vars</span> <span class="o">=</span> <span class="p">{</span><span class="n">Var</span><span class="p">(</span><span class="s2">"_"</span><span class="p">):</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">conflict_coeff</span><span class="p">[</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]]}</span>
+</span><span id="__span-0-1273"><a id="__codelineno-0-1273" name="__codelineno-0-1273"></a>        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">conflict_vars</span><span class="p">:</span>  <span class="c1"># noqa: VNE002 variable name 'var' should be clarified</span>
+</span><span id="__span-0-1274"><a id="__codelineno-0-1274" name="__codelineno-0-1274"></a>            <span class="k">if</span> <span class="n">var</span> <span class="o">!=</span> <span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+</span><span id="__span-0-1275"><a id="__codelineno-0-1275" name="__codelineno-0-1275"></a>                <span class="n">subst_term_vars</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">conflict_coeff</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">/</span> <span class="n">conflict_coeff</span><span class="p">[</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</span><span id="__span-0-1276"><a id="__codelineno-0-1276" name="__codelineno-0-1276"></a>        <span class="n">subst_term</span> <span class="o">=</span> <span class="n">PolyhedralTerm</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="n">subst_term_vars</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-0-1277"><a id="__codelineno-0-1277" name="__codelineno-0-1277"></a>        <span class="n">new_context</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="p">(</span>
+</span><span id="__span-0-1278"><a id="__codelineno-0-1278" name="__codelineno-0-1278"></a>            <span class="p">[</span><span class="n">el</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subst_term</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">]</span>
+</span><span id="__span-0-1279"><a id="__codelineno-0-1279" name="__codelineno-0-1279"></a>        <span class="p">)</span>
+</span><span id="__span-0-1280"><a id="__codelineno-0-1280" name="__codelineno-0-1280"></a>        <span class="c1"># now we use tactic 1</span>
+</span><span id="__span-0-1281"><a id="__codelineno-0-1281" name="__codelineno-0-1281"></a>        <span class="n">new_elims</span> <span class="o">=</span> <span class="n">list_diff</span><span class="p">(</span><span class="n">list_union</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="p">[</span><span class="n">Var</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)]),</span> <span class="p">[</span><span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+</span><span id="__span-0-1282"><a id="__codelineno-0-1282" name="__codelineno-0-1282"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-1283"><a id="__codelineno-0-1283" name="__codelineno-0-1283"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_1</span><span class="p">(</span><span class="n">new_term</span><span class="p">,</span> <span class="n">new_context</span><span class="p">,</span> <span class="n">new_elims</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
+</span><span id="__span-0-1284"><a id="__codelineno-0-1284" name="__codelineno-0-1284"></a>        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa: WPS329 Found useless `except` case</span>
+</span><span id="__span-0-1285"><a id="__codelineno-0-1285" name="__codelineno-0-1285"></a>            <span class="k">raise</span> <span class="n">e</span>
+</span><span id="__span-0-1286"><a id="__codelineno-0-1286" name="__codelineno-0-1286"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Leaving Tactic 3"</span><span class="p">)</span>
+</span><span id="__span-0-1287"><a id="__codelineno-0-1287" name="__codelineno-0-1287"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+</span><span id="__span-0-1288"><a id="__codelineno-0-1288" name="__codelineno-0-1288"></a>        <span class="k">return</span> <span class="n">result</span>
+</span><span id="__span-0-1289"><a id="__codelineno-0-1289" name="__codelineno-0-1289"></a>
+</span><span id="__span-0-1290"><a id="__codelineno-0-1290" name="__codelineno-0-1290"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1291"><a id="__codelineno-0-1291" name="__codelineno-0-1291"></a>    <span class="k">def</span> <span class="nf">_tactic_4</span><span class="p">(</span>  <span class="c1"># noqa: WPS231</span>
+</span><span id="__span-0-1292"><a id="__codelineno-0-1292" name="__codelineno-0-1292"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">no_vars</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Var</span><span class="p">]</span>
+</span><span id="__span-0-1293"><a id="__codelineno-0-1293" name="__codelineno-0-1293"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
+</span><span id="__span-0-1294"><a id="__codelineno-0-1294" name="__codelineno-0-1294"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 4"</span><span class="p">)</span>
+</span><span id="__span-0-1295"><a id="__codelineno-0-1295" name="__codelineno-0-1295"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Vars_to_elim </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Term </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Context </span><span class="si">%s</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+</span><span id="__span-0-1296"><a id="__codelineno-0-1296" name="__codelineno-0-1296"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">refine</span><span class="p">:</span>
+</span><span id="__span-0-1297"><a id="__codelineno-0-1297" name="__codelineno-0-1297"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Only refinement is supported"</span><span class="p">)</span>
+</span><span id="__span-0-1298"><a id="__codelineno-0-1298" name="__codelineno-0-1298"></a>        <span class="n">conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+</span><span id="__span-0-1299"><a id="__codelineno-0-1299" name="__codelineno-0-1299"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">conflict_vars</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-0-1300"><a id="__codelineno-0-1300" name="__codelineno-0-1300"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 4 unsuccessful"</span><span class="p">)</span>
+</span><span id="__span-0-1301"><a id="__codelineno-0-1301" name="__codelineno-0-1301"></a>        <span class="n">var_to_elim</span> <span class="o">=</span> <span class="n">conflict_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-0-1302"><a id="__codelineno-0-1302" name="__codelineno-0-1302"></a>        <span class="n">goal_context</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PolyhedralTerm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-1303"><a id="__codelineno-0-1303" name="__codelineno-0-1303"></a>        <span class="n">useful_context</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PolyhedralTerm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-1304"><a id="__codelineno-0-1304" name="__codelineno-0-1304"></a>        <span class="n">polarity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-0-1305"><a id="__codelineno-0-1305" name="__codelineno-0-1305"></a>        <span class="k">if</span> <span class="n">refine</span><span class="p">:</span>
+</span><span id="__span-0-1306"><a id="__codelineno-0-1306" name="__codelineno-0-1306"></a>            <span class="n">polarity</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-0-1307"><a id="__codelineno-0-1307" name="__codelineno-0-1307"></a>        <span class="k">for</span> <span class="n">context_term</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">:</span>
+</span><span id="__span-0-1308"><a id="__codelineno-0-1308" name="__codelineno-0-1308"></a>            <span class="k">if</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">no_vars</span><span class="p">):</span>
+</span><span id="__span-0-1309"><a id="__codelineno-0-1309" name="__codelineno-0-1309"></a>                <span class="k">continue</span>
+</span><span id="__span-0-1310"><a id="__codelineno-0-1310" name="__codelineno-0-1310"></a>            <span class="n">coeff</span> <span class="o">=</span> <span class="n">context_term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span>
+</span><span id="__span-0-1311"><a id="__codelineno-0-1311" name="__codelineno-0-1311"></a>            <span class="k">if</span> <span class="n">coeff</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">polarity</span> <span class="o">*</span> <span class="n">coeff</span> <span class="o">*</span> <span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-0-1312"><a id="__codelineno-0-1312" name="__codelineno-0-1312"></a>                <span class="n">temp_conflict_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">)</span>
+</span><span id="__span-0-1313"><a id="__codelineno-0-1313" name="__codelineno-0-1313"></a>                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_conflict_vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-0-1314"><a id="__codelineno-0-1314" name="__codelineno-0-1314"></a>                    <span class="n">goal_context</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+</span><span id="__span-0-1315"><a id="__codelineno-0-1315" name="__codelineno-0-1315"></a>                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_conflict_vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="__span-0-1316"><a id="__codelineno-0-1316" name="__codelineno-0-1316"></a>                    <span class="n">useful_context</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+</span><span id="__span-0-1317"><a id="__codelineno-0-1317" name="__codelineno-0-1317"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">useful_context</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">goal_context</span><span class="p">:</span>
+</span><span id="__span-0-1318"><a id="__codelineno-0-1318" name="__codelineno-0-1318"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 4 unsuccessful"</span><span class="p">)</span>
+</span><span id="__span-0-1319"><a id="__codelineno-0-1319" name="__codelineno-0-1319"></a>        <span class="k">if</span> <span class="n">goal_context</span><span class="p">:</span>
+</span><span id="__span-0-1320"><a id="__codelineno-0-1320" name="__codelineno-0-1320"></a>            <span class="k">return</span> <span class="n">term</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">,</span> <span class="n">goal_context</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isolate_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">))</span>
+</span><span id="__span-0-1321"><a id="__codelineno-0-1321" name="__codelineno-0-1321"></a>        <span class="c1">############</span>
+</span><span id="__span-0-1322"><a id="__codelineno-0-1322" name="__codelineno-0-1322"></a>        <span class="k">for</span> <span class="n">useful_term</span> <span class="ow">in</span> <span class="n">useful_context</span><span class="p">:</span>
+</span><span id="__span-0-1323"><a id="__codelineno-0-1323" name="__codelineno-0-1323"></a>            <span class="n">new_context</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1324"><a id="__codelineno-0-1324" name="__codelineno-0-1324"></a>            <span class="n">new_context</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">useful_term</span><span class="p">)</span>
+</span><span id="__span-0-1325"><a id="__codelineno-0-1325" name="__codelineno-0-1325"></a>            <span class="n">new_term</span> <span class="o">=</span> <span class="n">useful_term</span><span class="o">.</span><span class="n">isolate_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span>
+</span><span id="__span-0-1326"><a id="__codelineno-0-1326" name="__codelineno-0-1326"></a>            <span class="n">new_no_vars</span> <span class="o">=</span> <span class="n">no_vars</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1327"><a id="__codelineno-0-1327" name="__codelineno-0-1327"></a>            <span class="n">new_no_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">)</span>
+</span><span id="__span-0-1328"><a id="__codelineno-0-1328" name="__codelineno-0-1328"></a>            <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-1329"><a id="__codelineno-0-1329" name="__codelineno-0-1329"></a>                <span class="n">return_term</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_4</span><span class="p">(</span><span class="n">new_term</span><span class="p">,</span> <span class="n">new_context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">,</span> <span class="n">new_no_vars</span><span class="p">)</span>
+</span><span id="__span-0-1330"><a id="__codelineno-0-1330" name="__codelineno-0-1330"></a>            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="__span-0-1331"><a id="__codelineno-0-1331" name="__codelineno-0-1331"></a>                <span class="k">continue</span>
+</span><span id="__span-0-1332"><a id="__codelineno-0-1332" name="__codelineno-0-1332"></a>            <span class="k">return</span> <span class="n">term</span><span class="o">.</span><span class="n">substitute_variable</span><span class="p">(</span><span class="n">var_to_elim</span><span class="p">,</span> <span class="n">return_term</span><span class="p">)</span>
+</span><span id="__span-0-1333"><a id="__codelineno-0-1333" name="__codelineno-0-1333"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tactic 4 unsuccessful"</span><span class="p">)</span>
+</span><span id="__span-0-1334"><a id="__codelineno-0-1334" name="__codelineno-0-1334"></a>
+</span><span id="__span-0-1335"><a id="__codelineno-0-1335" name="__codelineno-0-1335"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1336"><a id="__codelineno-0-1336" name="__codelineno-0-1336"></a>    <span class="k">def</span> <span class="nf">_get_tlp_context</span><span class="p">(</span>  <span class="c1"># noqa: WPS231</span>
+</span><span id="__span-0-1337"><a id="__codelineno-0-1337" name="__codelineno-0-1337"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1338"><a id="__codelineno-0-1338" name="__codelineno-0-1338"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">PolyhedralTerm</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Var</span><span class="p">]]:</span>
+</span><span id="__span-0-1339"><a id="__codelineno-0-1339" name="__codelineno-0-1339"></a>        <span class="n">forbidden_vars</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+</span><span id="__span-0-1340"><a id="__codelineno-0-1340" name="__codelineno-0-1340"></a>        <span class="n">matrix_row_terms</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-1341"><a id="__codelineno-0-1341" name="__codelineno-0-1341"></a>
+</span><span id="__span-0-1342"><a id="__codelineno-0-1342" name="__codelineno-0-1342"></a>        <span class="n">var_list</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">termlist_to_polytope</span><span class="p">(</span>  <span class="c1"># noqa: WPS236, N806</span>
+</span><span id="__span-0-1343"><a id="__codelineno-0-1343" name="__codelineno-0-1343"></a>            <span class="n">terms</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">PolyhedralTermList</span><span class="p">([])</span>
+</span><span id="__span-0-1344"><a id="__codelineno-0-1344" name="__codelineno-0-1344"></a>        <span class="p">)</span>
+</span><span id="__span-0-1345"><a id="__codelineno-0-1345" name="__codelineno-0-1345"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">term</span><span class="o">.</span><span class="n">get_coefficient</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">forbidden_vars</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">])</span>
+</span><span id="__span-0-1346"><a id="__codelineno-0-1346" name="__codelineno-0-1346"></a>        <span class="k">if</span> <span class="n">refine</span><span class="p">:</span>
+</span><span id="__span-0-1347"><a id="__codelineno-0-1347" name="__codelineno-0-1347"></a>            <span class="n">objective</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-0-1348"><a id="__codelineno-0-1348" name="__codelineno-0-1348"></a>
+</span><span id="__span-0-1349"><a id="__codelineno-0-1349" name="__codelineno-0-1349"></a>        <span class="n">res</span> <span class="o">=</span> <span class="n">linprog</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span> <span class="n">A_ub</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">b_ub</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+</span><span id="__span-0-1350"><a id="__codelineno-0-1350" name="__codelineno-0-1350"></a>        <span class="c1"># Linprog's status values</span>
+</span><span id="__span-0-1351"><a id="__codelineno-0-1351" name="__codelineno-0-1351"></a>        <span class="c1"># 0 : Optimization proceeding nominally.</span>
+</span><span id="__span-0-1352"><a id="__codelineno-0-1352" name="__codelineno-0-1352"></a>        <span class="c1"># 1 : Iteration limit reached.</span>
+</span><span id="__span-0-1353"><a id="__codelineno-0-1353" name="__codelineno-0-1353"></a>        <span class="c1"># 2 : Problem appears to be infeasible.</span>
+</span><span id="__span-0-1354"><a id="__codelineno-0-1354" name="__codelineno-0-1354"></a>        <span class="c1"># 3 : Problem appears to be unbounded.</span>
+</span><span id="__span-0-1355"><a id="__codelineno-0-1355" name="__codelineno-0-1355"></a>        <span class="c1"># 4 : Numerical difficulties encountered.</span>
+</span><span id="__span-0-1356"><a id="__codelineno-0-1356" name="__codelineno-0-1356"></a>        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+</span><span id="__span-0-1357"><a id="__codelineno-0-1357" name="__codelineno-0-1357"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unbounded"</span><span class="p">)</span>
+</span><span id="__span-0-1358"><a id="__codelineno-0-1358" name="__codelineno-0-1358"></a>        <span class="k">elif</span> <span class="n">res</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-0-1359"><a id="__codelineno-0-1359" name="__codelineno-0-1359"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Constraints are unfeasible"</span><span class="p">)</span>
+</span><span id="__span-0-1360"><a id="__codelineno-0-1360" name="__codelineno-0-1360"></a>
+</span><span id="__span-0-1361"><a id="__codelineno-0-1361" name="__codelineno-0-1361"></a>        <span class="n">num_vars_to_elim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">forbidden_vars</span><span class="p">)</span>
+</span><span id="__span-0-1362"><a id="__codelineno-0-1362" name="__codelineno-0-1362"></a>        <span class="n">slack</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s2">"slack"</span><span class="p">]</span>
+</span><span id="__span-0-1363"><a id="__codelineno-0-1363" name="__codelineno-0-1363"></a>        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">slack</span><span class="p">,</span> <span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-0-1364"><a id="__codelineno-0-1364" name="__codelineno-0-1364"></a>
+</span><span id="__span-0-1365"><a id="__codelineno-0-1365" name="__codelineno-0-1365"></a>        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">num_vars_to_elim</span>
+</span><span id="__span-0-1366"><a id="__codelineno-0-1366" name="__codelineno-0-1366"></a>        <span class="n">terms_added</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-0-1367"><a id="__codelineno-0-1367" name="__codelineno-0-1367"></a>        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+</span><span id="__span-0-1368"><a id="__codelineno-0-1368" name="__codelineno-0-1368"></a>            <span class="n">context_term</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">terms</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="__span-0-1369"><a id="__codelineno-0-1369" name="__codelineno-0-1369"></a>            <span class="k">if</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">context_term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">forbidden_vars</span><span class="p">):</span>
+</span><span id="__span-0-1370"><a id="__codelineno-0-1370" name="__codelineno-0-1370"></a>                <span class="n">matrix_row_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context_term</span><span class="p">)</span>
+</span><span id="__span-0-1371"><a id="__codelineno-0-1371" name="__codelineno-0-1371"></a>                <span class="n">terms_added</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="__span-0-1372"><a id="__codelineno-0-1372" name="__codelineno-0-1372"></a>                <span class="k">if</span> <span class="n">terms_added</span> <span class="o">==</span> <span class="n">num_vars_to_elim</span><span class="p">:</span>
+</span><span id="__span-0-1373"><a id="__codelineno-0-1373" name="__codelineno-0-1373"></a>                    <span class="k">break</span>
+</span><span id="__span-0-1374"><a id="__codelineno-0-1374" name="__codelineno-0-1374"></a>
+</span><span id="__span-0-1375"><a id="__codelineno-0-1375" name="__codelineno-0-1375"></a>        <span class="k">if</span> <span class="n">terms_added</span> <span class="o">&lt;</span> <span class="n">num_vars_to_elim</span><span class="p">:</span>
+</span><span id="__span-0-1376"><a id="__codelineno-0-1376" name="__codelineno-0-1376"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Context has insufficient information"</span><span class="p">)</span>
+</span><span id="__span-0-1377"><a id="__codelineno-0-1377" name="__codelineno-0-1377"></a>
+</span><span id="__span-0-1378"><a id="__codelineno-0-1378" name="__codelineno-0-1378"></a>        <span class="k">return</span> <span class="n">matrix_row_terms</span><span class="p">,</span> <span class="n">forbidden_vars</span>
+</span><span id="__span-0-1379"><a id="__codelineno-0-1379" name="__codelineno-0-1379"></a>
+</span><span id="__span-0-1380"><a id="__codelineno-0-1380" name="__codelineno-0-1380"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1381"><a id="__codelineno-0-1381" name="__codelineno-0-1381"></a>    <span class="k">def</span> <span class="nf">_tactic_5</span><span class="p">(</span>  <span class="c1"># noqa: WPS231</span>
+</span><span id="__span-0-1382"><a id="__codelineno-0-1382" name="__codelineno-0-1382"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1383"><a id="__codelineno-0-1383" name="__codelineno-0-1383"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
+</span><span id="__span-0-1384"><a id="__codelineno-0-1384" name="__codelineno-0-1384"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"************ Tactic 5"</span><span class="p">)</span>
+</span><span id="__span-0-1385"><a id="__codelineno-0-1385" name="__codelineno-0-1385"></a>        <span class="k">return</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_context_reduction</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-0-1386"><a id="__codelineno-0-1386" name="__codelineno-0-1386"></a>
+</span><span id="__span-0-1387"><a id="__codelineno-0-1387" name="__codelineno-0-1387"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span-0-1388"><a id="__codelineno-0-1388" name="__codelineno-0-1388"></a>    <span class="k">def</span> <span class="nf">_transform_term</span><span class="p">(</span>
+</span><span id="__span-0-1389"><a id="__codelineno-0-1389" name="__codelineno-0-1389"></a>        <span class="n">term</span><span class="p">:</span> <span class="n">PolyhedralTerm</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">PolyhedralTermList</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">refine</span><span class="p">:</span> <span class="nb">bool</span>
+</span><span id="__span-0-1390"><a id="__codelineno-0-1390" name="__codelineno-0-1390"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralTerm</span><span class="p">:</span>
+</span><span id="__span-0-1391"><a id="__codelineno-0-1391" name="__codelineno-0-1391"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">):</span>
+</span><span id="__span-0-1392"><a id="__codelineno-0-1392" name="__codelineno-0-1392"></a>            <span class="k">return</span> <span class="n">term</span>
+</span><span id="__span-0-1393"><a id="__codelineno-0-1393" name="__codelineno-0-1393"></a>
+</span><span id="__span-0-1394"><a id="__codelineno-0-1394" name="__codelineno-0-1394"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Transforming term: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
+</span><span id="__span-0-1395"><a id="__codelineno-0-1395" name="__codelineno-0-1395"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Context: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</span><span id="__span-0-1396"><a id="__codelineno-0-1396" name="__codelineno-0-1396"></a>
+</span><span id="__span-0-1397"><a id="__codelineno-0-1397" name="__codelineno-0-1397"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-1398"><a id="__codelineno-0-1398" name="__codelineno-0-1398"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_1</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
+</span><span id="__span-0-1399"><a id="__codelineno-0-1399" name="__codelineno-0-1399"></a>        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="__span-0-1400"><a id="__codelineno-0-1400" name="__codelineno-0-1400"></a>            <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS505</span>
+</span><span id="__span-0-1401"><a id="__codelineno-0-1401" name="__codelineno-0-1401"></a>                <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_3</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
+</span><span id="__span-0-1402"><a id="__codelineno-0-1402" name="__codelineno-0-1402"></a>            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="__span-0-1403"><a id="__codelineno-0-1403" name="__codelineno-0-1403"></a>                <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS505 Found nested `try` block</span>
+</span><span id="__span-0-1404"><a id="__codelineno-0-1404" name="__codelineno-0-1404"></a>                    <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_2</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">)</span>
+</span><span id="__span-0-1405"><a id="__codelineno-0-1405" name="__codelineno-0-1405"></a>                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="__span-0-1406"><a id="__codelineno-0-1406" name="__codelineno-0-1406"></a>                    <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS505 Found nested `try` block</span>
+</span><span id="__span-0-1407"><a id="__codelineno-0-1407" name="__codelineno-0-1407"></a>                        <span class="n">result</span> <span class="o">=</span> <span class="n">PolyhedralTermList</span><span class="o">.</span><span class="n">_tactic_4</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">vars_to_elim</span><span class="p">,</span> <span class="n">refine</span><span class="p">,</span> <span class="p">[])</span>
+</span><span id="__span-0-1408"><a id="__codelineno-0-1408" name="__codelineno-0-1408"></a>                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="__span-0-1409"><a id="__codelineno-0-1409" name="__codelineno-0-1409"></a>                        <span class="n">result</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="__span-0-1410"><a id="__codelineno-0-1410" name="__codelineno-0-1410"></a>        <span class="k">return</span> <span class="n">result</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
 
@@ -7141,27 +7192,9 @@ refined to <span class="arithmatex">\(\{x \le 1\}\)</span> because <span class="
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A list of terms not containing any variables in <code>vars_to_elim</code></p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>and which, in the context provided, imply the terms contained in the</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>calling termlist.</p>
+              <p>A list of terms not containing any variables in <code>vars_to_elim</code> and
+which, in the context provided, imply the terms contained in the
+calling termlist.</p>
             </div>
           </td>
         </tr>
@@ -7254,9 +7287,9 @@ refined to <span class="arithmatex">\(\{x \le 1\}\)</span> because <span class="
 </span><span id="__span-0-595"><a id="__codelineno-0-595" name="__codelineno-0-595"></a><span class="sd">            Variables that should not appear in the resulting term.</span>
 </span><span id="__span-0-596"><a id="__codelineno-0-596" name="__codelineno-0-596"></a>
 </span><span id="__span-0-597"><a id="__codelineno-0-597" name="__codelineno-0-597"></a><span class="sd">    Returns:</span>
-</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a><span class="sd">        A list of terms not containing any variables in `vars_to_elim`</span>
-</span><span id="__span-0-599"><a id="__codelineno-0-599" name="__codelineno-0-599"></a><span class="sd">        and which, in the context provided, imply the terms contained in the</span>
-</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a><span class="sd">        calling termlist.</span>
+</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a><span class="sd">        A list of terms not containing any variables in `vars_to_elim` and</span>
+</span><span id="__span-0-599"><a id="__codelineno-0-599" name="__codelineno-0-599"></a><span class="sd">            which, in the context provided, imply the terms contained in the</span>
+</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a><span class="sd">            calling termlist.</span>
 </span><span id="__span-0-601"><a id="__codelineno-0-601" name="__codelineno-0-601"></a>
 </span><span id="__span-0-602"><a id="__codelineno-0-602" name="__codelineno-0-602"></a><span class="sd">    Raises:</span>
 </span><span id="__span-0-603"><a id="__codelineno-0-603" name="__codelineno-0-603"></a><span class="sd">        ValueError: Self has empty intersection with its context.</span>
@@ -7369,27 +7402,9 @@ relaxed to <span class="arithmatex">\(\{x \le 11\}\)</span> because <span class=
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A list of terms not containing any variables in <code>vars_to_elim</code></p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>and which, in the context provided, are implied by the terms</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>contained in the calling termlist.</p>
+              <p>A list of terms not containing any variables in <code>vars_to_elim</code> and
+which, in the context provided, are implied by the terms
+contained in the calling termlist.</p>
             </div>
           </td>
         </tr>
@@ -7487,9 +7502,9 @@ relaxed to <span class="arithmatex">\(\{x \le 11\}\)</span> because <span class=
 </span><span id="__span-0-648"><a id="__codelineno-0-648" name="__codelineno-0-648"></a><span class="sd">            Variables that should not appear in the relaxed terms.</span>
 </span><span id="__span-0-649"><a id="__codelineno-0-649" name="__codelineno-0-649"></a>
 </span><span id="__span-0-650"><a id="__codelineno-0-650" name="__codelineno-0-650"></a><span class="sd">    Returns:</span>
-</span><span id="__span-0-651"><a id="__codelineno-0-651" name="__codelineno-0-651"></a><span class="sd">        A list of terms not containing any variables in `vars_to_elim`</span>
-</span><span id="__span-0-652"><a id="__codelineno-0-652" name="__codelineno-0-652"></a><span class="sd">        and which, in the context provided, are implied by the terms</span>
-</span><span id="__span-0-653"><a id="__codelineno-0-653" name="__codelineno-0-653"></a><span class="sd">        contained in the calling termlist.</span>
+</span><span id="__span-0-651"><a id="__codelineno-0-651" name="__codelineno-0-651"></a><span class="sd">        A list of terms not containing any variables in `vars_to_elim` and</span>
+</span><span id="__span-0-652"><a id="__codelineno-0-652" name="__codelineno-0-652"></a><span class="sd">            which, in the context provided, are implied by the terms</span>
+</span><span id="__span-0-653"><a id="__codelineno-0-653" name="__codelineno-0-653"></a><span class="sd">            contained in the calling termlist.</span>
 </span><span id="__span-0-654"><a id="__codelineno-0-654" name="__codelineno-0-654"></a>
 </span><span id="__span-0-655"><a id="__codelineno-0-655" name="__codelineno-0-655"></a><span class="sd">    Raises:</span>
 </span><span id="__span-0-656"><a id="__codelineno-0-656" name="__codelineno-0-656"></a><span class="sd">        ValueError: Constraints have empty intersection with context.</span>
@@ -7585,17 +7600,8 @@ relaxed to <span class="arithmatex">\(\{x \le 11\}\)</span> because <span class=
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A new PolyhedralTermList in which the variables have been</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../reference/pacti/terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>substituted with the values provided.</p>
+              <p>A new PolyhedralTermList in which the variables have been
+substituted with the values provided.</p>
             </div>
           </td>
         </tr>
@@ -7667,7 +7673,7 @@ relaxed to <span class="arithmatex">\(\{x \le 11\}\)</span> because <span class=
 </span><span id="__span-0-532"><a id="__codelineno-0-532" name="__codelineno-0-532"></a>
 </span><span id="__span-0-533"><a id="__codelineno-0-533" name="__codelineno-0-533"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-534"><a id="__codelineno-0-534" name="__codelineno-0-534"></a><span class="sd">        A new PolyhedralTermList in which the variables have been</span>
-</span><span id="__span-0-535"><a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">        substituted with the values provided.</span>
+</span><span id="__span-0-535"><a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">            substituted with the values provided.</span>
 </span><span id="__span-0-536"><a id="__codelineno-0-536" name="__codelineno-0-536"></a>
 </span><span id="__span-0-537"><a id="__codelineno-0-537" name="__codelineno-0-537"></a><span class="sd">    Raises:</span>
 </span><span id="__span-0-538"><a id="__codelineno-0-538" name="__codelineno-0-538"></a><span class="sd">        ValueError: constraints are unsatisfiable under these valuation of variables.</span>
@@ -9090,21 +9096,12 @@ current TermList and <span class="arithmatex">\(A_{c} = \left( \begin{smallmatri
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../reference/pacti/iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>]</code>
+                <code><span title="typing.Tuple">Tuple</span>[<span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../reference/pacti/iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>], <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A tuple <code>variables, A, b, a_h, b_h</code> consisting of the variable</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>order and the matrix-vector pairs for the terms and the context.</p>
+              <p>A tuple <code>variables, A, b, a_h, b_h</code> consisting of the variable
+order and the matrix-vector pairs for the terms and the context.</p>
             </div>
           </td>
         </tr>
@@ -9191,7 +9188,7 @@ current TermList and <span class="arithmatex">\(A_{c} = \left( \begin{smallmatri
 </span><span id="__span-0-847"><a id="__codelineno-0-847" name="__codelineno-0-847"></a>
 </span><span id="__span-0-848"><a id="__codelineno-0-848" name="__codelineno-0-848"></a><span class="sd">    Returns:</span>
 </span><span id="__span-0-849"><a id="__codelineno-0-849" name="__codelineno-0-849"></a><span class="sd">        A tuple `variables, A, b, a_h, b_h` consisting of the variable</span>
-</span><span id="__span-0-850"><a id="__codelineno-0-850" name="__codelineno-0-850"></a><span class="sd">        order and the matrix-vector pairs for the terms and the context.</span>
+</span><span id="__span-0-850"><a id="__codelineno-0-850" name="__codelineno-0-850"></a><span class="sd">            order and the matrix-vector pairs for the terms and the context.</span>
 </span><span id="__span-0-851"><a id="__codelineno-0-851" name="__codelineno-0-851"></a><span class="sd">    """</span>
 </span><span id="__span-0-852"><a id="__codelineno-0-852" name="__codelineno-0-852"></a>    <span class="n">variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">list_union</span><span class="p">(</span><span class="n">terms</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">vars</span><span class="p">))</span>
 </span><span id="__span-0-853"><a id="__codelineno-0-853" name="__codelineno-0-853"></a>    <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
