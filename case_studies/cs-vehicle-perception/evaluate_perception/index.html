@@ -1282,7 +1282,7 @@ In this case study, we address this question using assume-guarantee contract ope
 </span></code></pre></div>
 <p><img alt="png" src="../evaluate_perception_files/evaluate_perception_8_0.png"></p>
 <p>Now, we construct the controller contracts for each object class using Polyhedral contracts and constructing it from string. We end up with three contracts—<span class="arithmatex">\(\mathcal{C}_{ped}\)</span>, <span class="arithmatex">\(\mathcal{C}_{obj}\)</span>, and <span class="arithmatex">\(\mathcal{C}_{emp}\)</span>, respectively for the <span class="arithmatex">\(\textit{pedestrian}\)</span>, <span class="arithmatex">\(\textit{object}\)</span>, and <span class="arithmatex">\(\textit{background}\)</span> classes. Each contract is constructed from the lower bounds evaluated for probabilities of satisfication of specifications as shown in the Figures above.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># First we construct each contract individually, and then merge the controller contract:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># First we construct each contract individually, and then compose the controller contracts:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">## Control contract for pedestrian class</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">def</span> <span class="nf">control_contract_ped</span><span class="p">(</span><span class="n">lbounds_ped</span><span class="p">):</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">lb_m</span><span class="p">,</span> <span class="n">lb_c</span> <span class="o">=</span> <span class="n">lbounds_ped</span>
@@ -1365,17 +1365,17 @@ G: [
   -P_emp + 0.2005 tp_emp &lt;= -0.7997
 ]
 </code></pre></div>
-<p>We use the merge operator to. Then, the control contracts are merged as follows to get the full contract describing the assumptions and guarantees of the controller:</p>
+<p>Then, the control contracts are composed as follows to get the full contract describing the assumptions and guarantees of the controller:</p>
 <div class="arithmatex">\[
-\mathcal{C}_{control} = \mathcal{C}_{ped} \bullet \mathcal{C}_{obj} \bullet \mathcal{C}_{emp}
+\mathcal{C}_{control} = \mathcal{C}_{ped} \parallel \mathcal{C}_{obj} \parallel \mathcal{C}_{emp}
 \]</div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Construct merger of contracts:</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">C_controller</span> <span class="o">=</span> <span class="n">Cped</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">Cobj</span><span class="p">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">C_controller</span> <span class="o">=</span> <span class="n">C_controller</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">Cemp</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Construct composition of contracts:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">C_controller</span> <span class="o">=</span> <span class="n">Cped</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">Cobj</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">C_controller</span> <span class="o">=</span> <span class="n">C_controller</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">Cemp</span><span class="p">)</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Merged Controller Contract for all object classes:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">C_controller</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Composed Controller Contract for all object classes:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">C_controller</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Merged Controller Contract for all object classes:
+<div class="language-text highlight"><pre><span></span><code>Composed Controller Contract for all object classes:
 InVars: [tp_ped, tp_obj, tp_emp]
 OutVars:[P_ped, P_obj, P_emp]
 A: [
@@ -1441,7 +1441,7 @@ G: [
 ]
 </code></pre></div>
 <h2 id="part-4-object-detection-contract-found-using-quotient">Part 4: Object Detection Contract found using quotient<a class="headerlink" href="#part-4-object-detection-contract-found-using-quotient" title="Permanent link">¶</a></h2>
-<p>Finally, to derive specifications on the object detection module, we derive lower bounds on the required <span class="arithmatex">\(\textit{true positive rate}\)</span> for each class. To do this, we take the quotient of the merged controller contract from the overall system contract,</p>
+<p>Finally, to derive specifications on the object detection module, we derive lower bounds on the required <span class="arithmatex">\(\textit{true positive rate}\)</span> for each class. To do this, we take the quotient of the composed controller contract from the overall system contract,</p>
 <div class="arithmatex">\[
 \mathcal{C}_{det} = \mathcal{C}_{sys}/\mathcal{C}_{control}
 \]</div>
