@@ -1240,7 +1240,7 @@
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">)</span>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="kn">from</span> <span class="nn">pacti.iocontract</span> <span class="kn">import</span> <span class="n">Var</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="n">PolyhedralContractCompound</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="kn">from</span> <span class="nn">pacti.contracts</span> <span class="kn">import</span> <span class="n">PolyhedralIoContractCompound</span>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 </span></code></pre></div>
 <h3 id="create-gridworld-and-robots">Create gridworld and robots<a class="headerlink" href="#create-gridworld-and-robots" title="Permanent link">¶</a></h3>
@@ -1298,7 +1298,7 @@ t_{i+1} - t_i = 1
 \]</div>
 <p>Note that we need one dynamics contract for each robot, as the contract can only describe the dynamics for the robot whose behavior it describes. We are extending the input and output variables to include the variables for the other robots and the other contracts that we will use later, but each robot's dynamics contract only specifies the guarantees for its respecive robot's coordinates for the next timestep. In the code the subscript <span class="arithmatex">\(0\)</span> corresponds to timestep <span class="arithmatex">\(i\)</span> and the subscript <span class="arithmatex">\(1\)</span> corresponds to timestep <span class="arithmatex">\(i+1\)</span>.</p>
 <p>This contract implementing the constraints explained above is defined in the following function:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="nf">get_dynamics_contract_robot</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">init_pos</span><span class="p">:</span> <span class="n">Coord</span><span class="p">,</span> <span class="n">timestep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContractCompound</span><span class="p">:</span>  <span class="c1"># noqa: WPS210</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="nf">get_dynamics_contract_robot</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">init_pos</span><span class="p">:</span> <span class="n">Coord</span><span class="p">,</span> <span class="n">timestep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContractCompound</span><span class="p">:</span>  <span class="c1"># noqa: WPS210</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sd">    Function to set up the contract encoding the dynamics for a single robot for the next timestep.</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
@@ -1317,7 +1317,7 @@ t_{i+1} - t_i = 1
 </span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">t_0</span> <span class="o">=</span> <span class="s1">'t_0'</span>
 </span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">t_1</span> <span class="o">=</span> <span class="s1">'t_1'</span>
 </span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="n">contract</span> <span class="o">=</span> <span class="n">PolyhedralContractCompound</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="n">contract</span> <span class="o">=</span> <span class="n">PolyhedralIoContractCompound</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span>
 </span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="n">x_str_0</span><span class="p">,</span> <span class="n">y_str_0</span><span class="p">,</span> <span class="n">t_0</span><span class="p">],</span>
 </span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="n">x_str_1</span><span class="p">,</span> <span class="n">y_str_1</span><span class="p">,</span> <span class="n">t_1</span><span class="p">],</span>
 </span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>        <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
@@ -1346,7 +1346,7 @@ t_{i+1} - t_i = 1
 <h3 id="collision-conflict-contract">Collision Conflict Contract<a class="headerlink" href="#collision-conflict-contract" title="Permanent link">¶</a></h3>
 <p>Next we describe the contracts that will ensure that our robots do not collide. For this we will place constraints on the distance between a pair of robots, and ensure that is will always be larger or equal to one cell - meaning two robots will never share the same cell (i.e. collide).</p>
 <p>To describe the this requirement in linear inequalities, we need to break up the collision requirement into four inequalities. Each inequality will place constraints on both robots for a specific configuration with regards to each other (for example robot A is to the top right of robot B). </p>
-<p>As the guarantees of these contracts are mutually exclusive (robots can only be in one configuration at a time - Robot A cannot be to the right and to the left of robot B at the same time), we need to consider each of these collision quadrants separately in our analysis. To achieve this, we are using a <code>PolyhedralContractCompound</code> which allows for disjoint guarantees (and disjoint assumptions if desired).</p>
+<p>As the guarantees of these contracts are mutually exclusive (robots can only be in one configuration at a time - Robot A cannot be to the right and to the left of robot B at the same time), we need to consider each of these collision quadrants separately in our analysis. To achieve this, we are using a <code>PolyhedralIoContractCompound</code> which allows for disjoint guarantees (and disjoint assumptions if desired).</p>
 <p>The linear inequalities ensuring no collision for two robots <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> are defined as follows.</p>
 <p>We assume that the two robots do not collide:</p>
 <div class="arithmatex">\[
@@ -1361,14 +1361,14 @@ t_{i+1} - t_i = 1
 &amp;x^A_1 + x^B_1 - y^A_1 + y^B_1 \leq -1
 \end{align*}
 \]</div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">collision_contract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContractCompound</span><span class="p">:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">collision_contract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContractCompound</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sd">    Function to ensure no collisions between two robots.</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">    Returns:</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">        Resulting contract compound that ensures no collisions.</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">    """</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">contract</span> <span class="o">=</span> <span class="n">PolyhedralContractCompound</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">contract</span> <span class="o">=</span> <span class="n">PolyhedralIoContractCompound</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"current_distance"</span><span class="p">],</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="n">output_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"x_A_1"</span><span class="p">,</span> <span class="s2">"y_A_1"</span><span class="p">,</span> <span class="s2">"x_B_1"</span><span class="p">,</span> <span class="s2">"y_B_1"</span><span class="p">],</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="n">assumptions</span><span class="o">=</span><span class="p">[[</span><span class="s2">"-current_distance &lt;= -1"</span><span class="p">]],</span>
@@ -1392,14 +1392,14 @@ t_{i+1} - t_i = 1
 \]</div>
 <p>Of course this contract also assumes no collision.</p>
 <p>We manipulated the variables for this contract to reduce the number of disjoint polyhedra, instead of encoding the requirement as another set of docjoint guarantees on the positions.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span> <span class="nf">swapping_contract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContractCompound</span><span class="p">:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span> <span class="nf">swapping_contract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContractCompound</span><span class="p">:</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="sd">    Function to ensure no swapping between two robots.</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    Returns:</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sd">        Resulting contract compound that ensures no swapping.</span>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    """</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">contract</span> <span class="o">=</span> <span class="n">PolyhedralContractCompound</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">contract</span> <span class="o">=</span> <span class="n">PolyhedralIoContractCompound</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="n">input_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"delta_x"</span><span class="p">,</span> <span class="s2">"delta_y"</span><span class="p">,</span> <span class="s2">"current_distance"</span><span class="p">],</span>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="n">output_vars</span><span class="o">=</span><span class="p">[],</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="n">assumptions</span><span class="o">=</span><span class="p">[</span>
@@ -1430,68 +1430,68 @@ t_{i+1} - t_i = 1
  InVars: [x_A_0, y_A_0, t_0]
 OutVars:[x_A_1, y_A_1, t_1]
 A: [
-  x_A_0 = 0.0
-  y_A_0 = 0.0
-  t_0 = 0.0
+  x_A_0 = -0
+  y_A_0 = -0
+  t_0 = -0
 ]
 G: [
-  -t_0 + t_1 = 1.0
-  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1.0
-  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1.0
-  x_A_1 &lt;= 5.0
-  y_A_1 &lt;= 2.0
-  -x_A_1 &lt;= 0.0
-  -y_A_1 &lt;= 0.0
+  -t_0 + t_1 = 1
+  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1
+  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1
+  x_A_1 &lt;= 5
+  y_A_1 &lt;= 2
+  -x_A_1 &lt;= -0
+  -y_A_1 &lt;= -0
 ]
 
 Dynamics Contract Robot B:
  InVars: [x_B_0, y_B_0, t_0]
 OutVars:[x_B_1, y_B_1, t_1]
 A: [
-  x_B_0 = 0.0
-  y_B_0 = 2.0
-  t_0 = 0.0
+  x_B_0 = -0
+  y_B_0 = 2
+  t_0 = -0
 ]
 G: [
-  -t_0 + t_1 = 1.0
-  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1.0
-  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1.0
-  x_B_1 &lt;= 5.0
-  y_B_1 &lt;= 2.0
-  -x_B_1 &lt;= 0.0
-  -y_B_1 &lt;= 0.0
+  -t_0 + t_1 = 1
+  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1
+  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1
+  x_B_1 &lt;= 5
+  y_B_1 &lt;= 2
+  -x_B_1 &lt;= -0
+  -y_B_1 &lt;= -0
 ]
 
 Collision Contract:
  InVars: [current_distance]
 OutVars:[x_A_1, y_A_1, x_B_1, y_B_1]
 A: [
-  -current_distance &lt;= -1.0
+  -current_distance &lt;= -1
 ]
 G: [
-  x_A_1 - x_B_1 + y_A_1 - y_B_1 &lt;= -1.0
+  x_A_1 - x_B_1 + y_A_1 - y_B_1 &lt;= -1
 ]
 or 
 [
-  -x_A_1 + x_B_1 - y_A_1 + y_B_1 &lt;= -1.0
+  -x_A_1 + x_B_1 - y_A_1 + y_B_1 &lt;= -1
 ]
 or 
 [
-  x_A_1 - x_B_1 - y_A_1 + y_B_1 &lt;= -1.0
+  x_A_1 - x_B_1 - y_A_1 + y_B_1 &lt;= -1
 ]
 or 
 [
-  -x_A_1 + x_B_1 + y_A_1 - y_B_1 &lt;= -1.0
+  -x_A_1 + x_B_1 + y_A_1 - y_B_1 &lt;= -1
 ]
 
 Swapping Contract:
  InVars: [delta_x, delta_y, current_distance]
 OutVars:[]
 A: [
-  -current_distance &lt;= -1.0
+  -current_distance &lt;= -1
 ]
 G: [
-  -delta_x - delta_y &lt;= -1.0
+  -delta_x - delta_y &lt;= -1
 ]
 </code></pre></div>
 <h3 id="merging-the-contracts">Merging the contracts<a class="headerlink" href="#merging-the-contracts" title="Permanent link">¶</a></h3>
@@ -1502,26 +1502,26 @@ G: [
 <div class="language-text highlight"><pre><span></span><code>InVars: [x_A_0, y_A_0, t_0, x_B_0, y_B_0]
 OutVars:[x_A_1, y_A_1, t_1, x_B_1, y_B_1]
 A: [
-  x_A_0 = 0.0
-  y_A_0 = 0.0
-  t_0 = 0.0
-  x_B_0 = 0.0
-  y_B_0 = 2.0
+  x_A_0 = -0
+  y_A_0 = -0
+  t_0 = -0
+  x_B_0 = -0
+  y_B_0 = 2
 ]
 G: [
-  -t_0 + t_1 = 1.0
-  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1.0
-  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1.0
-  x_A_1 &lt;= 5.0
-  y_A_1 &lt;= 2.0
-  -x_A_1 &lt;= 0.0
-  -y_A_1 &lt;= 0.0
-  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1.0
-  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1.0
-  x_B_1 &lt;= 5.0
-  y_B_1 &lt;= 2.0
-  -x_B_1 &lt;= 0.0
-  -y_B_1 &lt;= 0.0
+  -t_0 + t_1 = 1
+  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1
+  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1
+  x_A_1 &lt;= 5
+  y_A_1 &lt;= 2
+  -x_A_1 &lt;= -0
+  -y_A_1 &lt;= -0
+  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1
+  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1
+  x_B_1 &lt;= 5
+  y_B_1 &lt;= 2
+  -x_B_1 &lt;= -0
+  -y_B_1 &lt;= -0
 ]
 </code></pre></div>
 <p>Next we will merge the collision and swapping conflict contracts with each other and then with the combined dynamics contract <code>c_combined_dynamics</code> to make sure that the robots will never collide and adhere to their dynamics.</p>
@@ -1532,87 +1532,87 @@ G: [
 <div class="language-text highlight"><pre><span></span><code>InVars: [x_A_0, y_A_0, t_0, x_B_0, y_B_0, current_distance, delta_x, delta_y]
 OutVars:[x_A_1, y_A_1, t_1, x_B_1, y_B_1]
 A: [
-  x_A_0 = 0.0
-  y_A_0 = 0.0
-  t_0 = 0.0
-  x_B_0 = 0.0
-  y_B_0 = 2.0
-  -current_distance &lt;= -1.0
+  x_A_0 = -0
+  y_A_0 = -0
+  t_0 = -0
+  x_B_0 = -0
+  y_B_0 = 2
+  -current_distance &lt;= -1
 ]
 G: [
-  -t_0 + t_1 = 1.0
-  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1.0
-  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1.0
-  x_A_1 &lt;= 5.0
-  y_A_1 &lt;= 2.0
-  -x_A_1 &lt;= 0.0
-  -y_A_1 &lt;= 0.0
-  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1.0
-  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1.0
-  x_B_1 &lt;= 5.0
-  y_B_1 &lt;= 2.0
-  -x_B_1 &lt;= 0.0
-  -y_B_1 &lt;= 0.0
-  x_A_1 - x_B_1 + y_A_1 - y_B_1 &lt;= -1.0
-  -delta_x - delta_y &lt;= -1.0
+  -t_0 + t_1 = 1
+  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1
+  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1
+  x_A_1 &lt;= 5
+  y_A_1 &lt;= 2
+  -x_A_1 &lt;= -0
+  -y_A_1 &lt;= -0
+  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1
+  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1
+  x_B_1 &lt;= 5
+  y_B_1 &lt;= 2
+  -x_B_1 &lt;= -0
+  -y_B_1 &lt;= -0
+  x_A_1 - x_B_1 + y_A_1 - y_B_1 &lt;= -1
+  -delta_x - delta_y &lt;= -1
 ]
 or 
 [
-  -t_0 + t_1 = 1.0
-  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1.0
-  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1.0
-  x_A_1 &lt;= 5.0
-  y_A_1 &lt;= 2.0
-  -x_A_1 &lt;= 0.0
-  -y_A_1 &lt;= 0.0
-  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1.0
-  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1.0
-  x_B_1 &lt;= 5.0
-  y_B_1 &lt;= 2.0
-  -x_B_1 &lt;= 0.0
-  -y_B_1 &lt;= 0.0
-  -x_A_1 + x_B_1 - y_A_1 + y_B_1 &lt;= -1.0
-  -delta_x - delta_y &lt;= -1.0
+  -t_0 + t_1 = 1
+  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1
+  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1
+  x_A_1 &lt;= 5
+  y_A_1 &lt;= 2
+  -x_A_1 &lt;= -0
+  -y_A_1 &lt;= -0
+  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1
+  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1
+  x_B_1 &lt;= 5
+  y_B_1 &lt;= 2
+  -x_B_1 &lt;= -0
+  -y_B_1 &lt;= -0
+  -x_A_1 + x_B_1 - y_A_1 + y_B_1 &lt;= -1
+  -delta_x - delta_y &lt;= -1
 ]
 or 
 [
-  -t_0 + t_1 = 1.0
-  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1.0
-  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1.0
-  x_A_1 &lt;= 5.0
-  y_A_1 &lt;= 2.0
-  -x_A_1 &lt;= 0.0
-  -y_A_1 &lt;= 0.0
-  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1.0
-  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1.0
-  x_B_1 &lt;= 5.0
-  y_B_1 &lt;= 2.0
-  -x_B_1 &lt;= 0.0
-  -y_B_1 &lt;= 0.0
-  x_A_1 - x_B_1 - y_A_1 + y_B_1 &lt;= -1.0
-  -delta_x - delta_y &lt;= -1.0
+  -t_0 + t_1 = 1
+  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1
+  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1
+  x_A_1 &lt;= 5
+  y_A_1 &lt;= 2
+  -x_A_1 &lt;= -0
+  -y_A_1 &lt;= -0
+  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1
+  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1
+  x_B_1 &lt;= 5
+  y_B_1 &lt;= 2
+  -x_B_1 &lt;= -0
+  -y_B_1 &lt;= -0
+  x_A_1 - x_B_1 - y_A_1 + y_B_1 &lt;= -1
+  -delta_x - delta_y &lt;= -1
 ]
 or 
 [
-  -t_0 + t_1 = 1.0
-  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1.0
-  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1.0
-  x_A_1 &lt;= 5.0
-  y_A_1 &lt;= 2.0
-  -x_A_1 &lt;= 0.0
-  -y_A_1 &lt;= 0.0
-  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1.0
-  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1.0
-  x_B_1 &lt;= 5.0
-  y_B_1 &lt;= 2.0
-  -x_B_1 &lt;= 0.0
-  -y_B_1 &lt;= 0.0
-  -x_A_1 + x_B_1 + y_A_1 - y_B_1 &lt;= -1.0
-  -delta_x - delta_y &lt;= -1.0
+  -t_0 + t_1 = 1
+  |-x_A_0 + x_A_1 - y_A_0 + y_A_1| &lt;= 1
+  |-x_A_0 + x_A_1 + y_A_0 - y_A_1| &lt;= 1
+  x_A_1 &lt;= 5
+  y_A_1 &lt;= 2
+  -x_A_1 &lt;= -0
+  -y_A_1 &lt;= -0
+  |-x_B_0 + x_B_1 - y_B_0 + y_B_1| &lt;= 1
+  |-x_B_0 + x_B_1 + y_B_0 - y_B_1| &lt;= 1
+  x_B_1 &lt;= 5
+  y_B_1 &lt;= 2
+  -x_B_1 &lt;= -0
+  -y_B_1 &lt;= -0
+  -x_A_1 + x_B_1 + y_A_1 - y_B_1 &lt;= -1
+  -delta_x - delta_y &lt;= -1
 ]
 </code></pre></div>
 <p>Now we can evaluate the resulting contract <code>c_dynamics_no_conflicts</code> to find all possible moves that the robots can take which will satisfy our specification. From this list we can implement any desired strategy that will lead the robots to their goal.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span> <span class="nf">find_move_candidates</span><span class="p">(</span><span class="n">robot1</span><span class="p">:</span> <span class="n">Robot</span><span class="p">,</span> <span class="n">robot2</span><span class="p">:</span> <span class="n">Robot</span><span class="p">,</span> <span class="n">T_0</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contract</span><span class="p">:</span> <span class="n">PolyhedralContractCompound</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># noqa: N803,WPS210</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span> <span class="nf">find_move_candidates</span><span class="p">(</span><span class="n">robot1</span><span class="p">:</span> <span class="n">Robot</span><span class="p">,</span> <span class="n">robot2</span><span class="p">:</span> <span class="n">Robot</span><span class="p">,</span> <span class="n">T_0</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contract</span><span class="p">:</span> <span class="n">PolyhedralIoContractCompound</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># noqa: N803,WPS210</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sd">    Function to find the possible next positions for the next timestep.</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>

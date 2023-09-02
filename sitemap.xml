@@ -161,6 +161,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://www.pacti.org/reference/pacti/contracts/</loc>
+         <lastmod>2023-09-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.pacti.org/reference/pacti/contracts/polyhedral_iocontract/</loc>
+         <lastmod>2023-09-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://www.pacti.org/reference/pacti/iocontract/</loc>
          <lastmod>2023-09-02</lastmod>
          <changefreq>daily</changefreq>
@@ -186,17 +196,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://www.pacti.org/reference/pacti/terms/polyhedra/plots/</loc>
-         <lastmod>2023-09-02</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://www.pacti.org/reference/pacti/terms/polyhedra/polyhedra/</loc>
-         <lastmod>2023-09-02</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://www.pacti.org/reference/pacti/terms/polyhedra/polyhedral_contract/</loc>
          <lastmod>2023-09-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -237,6 +237,11 @@
     </url>
     <url>
          <loc>https://www.pacti.org/reference/pacti/utils/lists/</loc>
+         <lastmod>2023-09-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.pacti.org/reference/pacti/utils/plots/</loc>
          <lastmod>2023-09-02</lastmod>
          <changefreq>daily</changefreq>
     </url>

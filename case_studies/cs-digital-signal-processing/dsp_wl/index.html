@@ -1511,7 +1511,7 @@ For example, a fixed-point number with word length <span class="arithmatex">\((5
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span> <span class="nn">tool</span> <span class="kn">import</span> <span class="n">PortWordLength</span><span class="p">,</span> <span class="n">float_to_bin</span><span class="p">,</span> <span class="n">port_add</span><span class="p">,</span> <span class="n">port_mult</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">pacti.terms.polyhedra</span> <span class="kn">import</span> <span class="n">PolyhedralContract</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">pacti.contracts</span> <span class="kn">import</span> <span class="n">PolyhedralIoContract</span>
 </span></code></pre></div>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Definition of value_num method in PortWordLength class</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">#    def value_num(self):</span>
@@ -2088,7 +2088,7 @@ The "_a" variables are used as the variable for the actual value going through t
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="n">p3</span> <span class="o">=</span> <span class="n">PortWordLength</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"p3"</span><span class="p">)</span>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="n">c1</span> <span class="o">=</span> <span class="n">form_contract_add</span><span class="p">(</span><span class="n">in_port1</span><span class="o">=</span><span class="n">p1</span><span class="p">,</span> <span class="n">in_port2</span><span class="o">=</span><span class="n">p2</span><span class="p">,</span> <span class="n">out_port</span><span class="o">=</span><span class="n">p3</span><span class="p">)</span>
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">contract1</span><span class="p">))</span>
 </span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
 </span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    <span class="n">e5</span> <span class="o">=</span> <span class="mf">0.03</span>
@@ -2096,7 +2096,7 @@ The "_a" variables are used as the variable for the actual value going through t
 </span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>    <span class="n">p5</span> <span class="o">=</span> <span class="n">PortWordLength</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="n">e5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">"11011"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"p5"</span><span class="p">)</span>  <span class="c1"># const</span>
 </span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>    <span class="n">p6</span> <span class="o">=</span> <span class="n">PortWordLength</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"p6"</span><span class="p">)</span>
 </span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>    <span class="n">c2</span> <span class="o">=</span> <span class="n">form_contract_mult_const</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">p4</span><span class="p">,</span> <span class="n">in_port_const</span><span class="o">=</span><span class="n">p5</span><span class="p">,</span> <span class="n">out_port</span><span class="o">=</span><span class="n">p6</span><span class="p">)</span>
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
 </span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">contract2</span><span class="p">))</span>
 </span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>
 </span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>
@@ -2106,24 +2106,24 @@ The "_a" variables are used as the variable for the actual value going through t
 InVars: [p1_a, p1_e, p2_a, p2_e]
 OutVars:[p3_a, p3_e]
 A: [
-  p1_a + p2_a &lt;= 8.0
+  p1_a + p2_a &lt;= 8
 ]
 G: [
   -p1_e - p2_e + p3_e &lt;= 0.1875
   p3_a &lt;= 7.75
-  -p1_a - p2_a + p3_a &lt;= 0.0
+  -p1_a - p2_a + p3_a &lt;= 0
 ]
 8.0
 Port: , (n, p) = (12, 5), e = 0, a = 31.9921875
 InVars: [p4_a, p4_e]
 OutVars:[p6_a, p6_e]
 A: [
-  3.375 p4_a &lt;= 8.0
+  3.375 p4_a &lt;= 8
 ]
 G: [
-  -0.03 p4_a - 3.345 p4_e + p6_e &lt;= 0.2421875
+  -0.03 p4_a - 3.345 p4_e + p6_e &lt;= 0.2422
   p6_a &lt;= 7.75
-  -3.375 p4_a + p6_a &lt;= 0.0
+  -3.375 p4_a + p6_a &lt;= 0
 ]
 </code></pre></div>
 <h4 id="example-1">Example 1<a class="headerlink" href="#example-1" title="Permanent link">¶</a></h4>
@@ -2148,8 +2148,8 @@ We will show how Pacti can be applied to get the error bound for the word length
 </span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="n">p5</span> <span class="o">=</span> <span class="n">PortWordLength</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"p5"</span><span class="p">)</span>
 </span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>    <span class="n">c2</span> <span class="o">=</span> <span class="n">form_contract_add</span><span class="p">(</span><span class="n">in_port1</span><span class="o">=</span><span class="n">p3</span><span class="p">,</span> <span class="n">in_port2</span><span class="o">=</span><span class="n">p4</span><span class="p">,</span> <span class="n">out_port</span><span class="o">=</span><span class="n">p5</span><span class="p">)</span>
 </span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>
-</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
-</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
 </span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>    <span class="n">contracts</span> <span class="o">=</span> <span class="p">[</span><span class="n">contract1</span><span class="p">,</span> <span class="n">contract2</span><span class="p">]</span>
 </span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>    <span class="n">ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">]</span>
 </span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>    <span class="k">return</span> <span class="n">contracts</span><span class="p">,</span> <span class="n">ports</span>
@@ -2172,35 +2172,35 @@ We will show how Pacti can be applied to get the error bound for the word length
 InVars: [p1_a, p1_e, p2_a, p2_e]
 OutVars:[p3_a, p3_e]
 A: [
-  p1_a + p2_a &lt;= 8.0
+  p1_a + p2_a &lt;= 8
 ]
 G: [
   -p1_e - p2_e + p3_e &lt;= 0.125
   p3_a &lt;= 7.75
-  -p1_a - p2_a + p3_a &lt;= 0.0
+  -p1_a - p2_a + p3_a &lt;= 0
 ]
 Contract 2:
 InVars: [p3_a, p3_e, p4_a, p4_e]
 OutVars:[p5_a, p5_e]
 A: [
-  p3_a + p4_a &lt;= 8.0
+  p3_a + p4_a &lt;= 8
 ]
 G: [
   -p3_e - p4_e + p5_e &lt;= 0.0625
   p5_a &lt;= 7.875
-  -p3_a - p4_a + p5_a &lt;= 0.0
+  -p3_a - p4_a + p5_a &lt;= 0
 ]
 Contract Sys:
 InVars: [p1_a, p1_e, p2_a, p2_e, p4_a, p4_e]
 OutVars:[p5_a, p5_e]
 A: [
   p4_a &lt;= 0.25
-  p1_a + p2_a &lt;= 8.0
+  p1_a + p2_a &lt;= 8
 ]
 G: [
   -p1_e - p2_e - p4_e + p5_e &lt;= 0.1875
   -p4_a + p5_a &lt;= 7.75
-  -p1_a - p2_a - p4_a + p5_a &lt;= 0.0
+  -p1_a - p2_a - p4_a + p5_a &lt;= 0
   p5_a &lt;= 7.875
 ]
 </code></pre></div>
@@ -2234,13 +2234,13 @@ Let's see what will happen to the composition if we compose the contracts with t
 </span><span id="__span-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>    <span class="k">return</span> <span class="n">ret_contract</span>
 </span></code></pre></div>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span> <span class="nf">composition_with_inputs</span><span class="p">(</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">contracts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PolyhedralContract</span><span class="p">],</span> <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PortWordLength</span><span class="p">]</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">contracts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PolyhedralIoContract</span><span class="p">],</span> <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PortWordLength</span><span class="p">]</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContract</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="sd">    Composition of the two adder system considering input infomation</span>
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="sd">    Args:</span>
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="sd">        contracts: list of PolyhedralContract for the adders</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="sd">        contracts: list of PolyhedralIoContract for the adders</span>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="sd">        ports: list of port wordlengths for the ports</span>
 </span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
 </span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="sd">    Returns:</span>
@@ -2256,9 +2256,9 @@ Let's see what will happen to the composition if we compose the contracts with t
 </span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>    <span class="n">c_p2</span> <span class="o">=</span> <span class="n">form_contract_input</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">p2</span><span class="p">)</span>
 </span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>    <span class="n">c_p4</span> <span class="o">=</span> <span class="n">form_contract_input</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">p4</span><span class="p">)</span>
 </span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a>
-</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>    <span class="n">contract_p1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p1</span><span class="p">)</span>
-</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a>    <span class="n">contract_p2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p2</span><span class="p">)</span>
-</span><span id="__span-19-26"><a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a>    <span class="n">contract_p4</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p4</span><span class="p">)</span>
+</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>    <span class="n">contract_p1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p1</span><span class="p">)</span>
+</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a>    <span class="n">contract_p2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p2</span><span class="p">)</span>
+</span><span id="__span-19-26"><a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a>    <span class="n">contract_p4</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p4</span><span class="p">)</span>
 </span><span id="__span-19-27"><a id="__codelineno-19-27" name="__codelineno-19-27" href="#__codelineno-19-27"></a>
 </span><span id="__span-19-28"><a id="__codelineno-19-28" name="__codelineno-19-28" href="#__codelineno-19-28"></a>    <span class="c1"># compose the system</span>
 </span><span id="__span-19-29"><a id="__codelineno-19-29" name="__codelineno-19-29" href="#__codelineno-19-29"></a>    <span class="k">try</span><span class="p">:</span>
@@ -2299,7 +2299,7 @@ Let's see what will happen to the composition if we compose the contracts with t
 </span><span id="__span-19-64"><a id="__codelineno-19-64" name="__codelineno-19-64" href="#__codelineno-19-64"></a><span class="n">example_composition_without_input_bounds</span><span class="p">()</span>
 </span></code></pre></div>
 <div class="language-text highlight"><pre><span></span><code>Composition Error
-Could not eliminate variables ['p2_a']
+Could not eliminate variables ['p2_a', 'p2_e', 'p5_a', 'p5_e']
 by refining the assumptions 
 [
   p2_a &lt;= 4.125
@@ -2307,8 +2307,8 @@ by refining the assumptions
 using guarantees 
 [
   p2_a &lt;= 7.75
-  -p2_a &lt;= 0.0
-  p2_e = 0.0
+  -p2_a &lt;= 0
+  p2_e = 0
 ]
 </code></pre></div>
 <p>Then we consider the case where additional upper bound constraints are known for the inputs:</p>
@@ -2333,7 +2333,7 @@ A: [
 
 ]
 G: [
-  p5_a &lt;= 5.8125
+  p5_a &lt;= 5.812
   p5_e &lt;= 0.1875
 ]
 </code></pre></div>
@@ -2351,7 +2351,7 @@ In this example, we try to reduce the word length of <span class="arithmatex">\(
 </span></code></pre></div>
 which requires the upper bound error of the output <span class="arithmatex">\(P_5\)</span> to be smaller than 0.1.
 <p>We can invoke Pacti to compute the quotient to get the subsystem contract:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">def</span> <span class="nf">get_desired_system_contract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span><span class="p">:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">def</span> <span class="nf">get_desired_system_contract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContract</span><span class="p">:</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="sd">    Generate contracts for the top-level specification</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
@@ -2363,7 +2363,7 @@ which requires the upper bound error of the output <span class="arithmatex">\(P_
 </span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>    <span class="n">ret_contract</span><span class="p">[</span><span class="s2">"output_vars"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"p5_a"</span><span class="p">,</span> <span class="s2">"p5_e"</span><span class="p">]</span>
 </span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>    <span class="n">ret_contract</span><span class="p">[</span><span class="s2">"assumptions"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="n">ret_contract</span><span class="p">[</span><span class="s2">"guarantees"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"coefficients"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"p5_e"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="s2">"constant"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}]</span>
-</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    <span class="k">return</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ret_contract</span><span class="p">)</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    <span class="k">return</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ret_contract</span><span class="p">)</span>
 </span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>
 </span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>
 </span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a><span class="k">def</span> <span class="nf">example_show_top_level_spec</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2385,7 +2385,7 @@ G: [
   p5_e &lt;= 0.1
 ]
 </code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">def</span> <span class="nf">quotient_example1</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralContract</span><span class="p">:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">def</span> <span class="nf">quotient_example1</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContract</span><span class="p">:</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="sd">    Generate quotient based on the top-level specification and the system.</span>
 </span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
@@ -2405,9 +2405,9 @@ G: [
 </span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>    <span class="n">c_p2</span> <span class="o">=</span> <span class="n">form_contract_input</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">p2</span><span class="p">)</span>
 </span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>    <span class="n">c_p4</span> <span class="o">=</span> <span class="n">form_contract_input</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">p4</span><span class="p">)</span>
 </span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>
-</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>    <span class="n">contract_p1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p1</span><span class="p">)</span>
-</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>    <span class="n">contract_p2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p2</span><span class="p">)</span>
-</span><span id="__span-23-23"><a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>    <span class="n">contract_p4</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p4</span><span class="p">)</span>
+</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>    <span class="n">contract_p1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p1</span><span class="p">)</span>
+</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>    <span class="n">contract_p2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p2</span><span class="p">)</span>
+</span><span id="__span-23-23"><a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>    <span class="n">contract_p4</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c_p4</span><span class="p">)</span>
 </span><span id="__span-23-24"><a id="__codelineno-23-24" name="__codelineno-23-24" href="#__codelineno-23-24"></a>
 </span><span id="__span-23-25"><a id="__codelineno-23-25" name="__codelineno-23-25" href="#__codelineno-23-25"></a>    <span class="n">tmp_c1</span> <span class="o">=</span> <span class="n">contract_spec</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">contract_p1</span><span class="p">)</span>
 </span><span id="__span-23-26"><a id="__codelineno-23-26" name="__codelineno-23-26" href="#__codelineno-23-26"></a>
@@ -2428,18 +2428,18 @@ G: [
 InVars: [p1_a, p1_e, p2_a, p2_e, p4_a, p4_e]
 OutVars:[p5_a, p5_e]
 A: [
-  p1_a &lt;= 2.0
-  -p1_a &lt;= 0.0
-  p1_e = 0.0
+  p1_a &lt;= 2
+  -p1_a &lt;= 0
+  p1_e = 0
   p2_a &lt;= 3.75
-  -p2_a &lt;= 0.0
-  p2_e = 0.0
+  -p2_a &lt;= 0
+  p2_e = 0
   p4_a &lt;= 0.0625
-  -p4_a &lt;= 0.0
-  p4_e = 0.0
+  -p4_a &lt;= 0
+  p4_e = 0
 ]
 G: [
-  p5_e &lt;= 0.10000000000000009
+  p5_e &lt;= 0.1
 ]
 </code></pre></div>
 <p>The above contracts show the specification for the subsystem of two adders to meet such that the system contract can be implemented correctly. 
@@ -2471,8 +2471,8 @@ As a result, we perform an exhaustive search to find the word length that meets 
 </span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a>    <span class="n">p2</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">"01111"</span>
 </span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a>    <span class="n">p4</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">"0000000"</span>
 </span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a>
-</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
-</span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26" href="#__codelineno-24-26"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+</span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26" href="#__codelineno-24-26"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
 </span><span id="__span-24-27"><a id="__codelineno-24-27" name="__codelineno-24-27" href="#__codelineno-24-27"></a>    <span class="c1"># print("Contract 1:\n" + str(contract1))</span>
 </span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a>    <span class="c1"># print("Contract 2:\n" + str(contract2))</span>
 </span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a>    <span class="n">contracts</span> <span class="o">=</span> <span class="p">[</span><span class="n">contract1</span><span class="p">,</span> <span class="n">contract2</span><span class="p">]</span>
@@ -2560,16 +2560,16 @@ We can obtain the upper bound error of the output as the previous example:</p>
 </span><span id="__span-25-34"><a id="__codelineno-25-34" name="__codelineno-25-34" href="#__codelineno-25-34"></a>    <span class="n">ci2</span> <span class="o">=</span> <span class="n">form_contract_input</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">in2</span><span class="p">)</span>
 </span><span id="__span-25-35"><a id="__codelineno-25-35" name="__codelineno-25-35" href="#__codelineno-25-35"></a>    <span class="n">ci3</span> <span class="o">=</span> <span class="n">form_contract_input</span><span class="p">(</span><span class="n">in_port</span><span class="o">=</span><span class="n">in3</span><span class="p">)</span>
 </span><span id="__span-25-36"><a id="__codelineno-25-36" name="__codelineno-25-36" href="#__codelineno-25-36"></a>
-</span><span id="__span-25-37"><a id="__codelineno-25-37" name="__codelineno-25-37" href="#__codelineno-25-37"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
-</span><span id="__span-25-38"><a id="__codelineno-25-38" name="__codelineno-25-38" href="#__codelineno-25-38"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
-</span><span id="__span-25-39"><a id="__codelineno-25-39" name="__codelineno-25-39" href="#__codelineno-25-39"></a>    <span class="n">contract3</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c3</span><span class="p">)</span>
-</span><span id="__span-25-40"><a id="__codelineno-25-40" name="__codelineno-25-40" href="#__codelineno-25-40"></a>    <span class="n">contract_i1</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ci1</span><span class="p">)</span>
-</span><span id="__span-25-41"><a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a>    <span class="n">contract_i2</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ci2</span><span class="p">)</span>
-</span><span id="__span-25-42"><a id="__codelineno-25-42" name="__codelineno-25-42" href="#__codelineno-25-42"></a>    <span class="n">contract_i3</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ci3</span><span class="p">)</span>
+</span><span id="__span-25-37"><a id="__codelineno-25-37" name="__codelineno-25-37" href="#__codelineno-25-37"></a>    <span class="n">contract1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+</span><span id="__span-25-38"><a id="__codelineno-25-38" name="__codelineno-25-38" href="#__codelineno-25-38"></a>    <span class="n">contract2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</span><span id="__span-25-39"><a id="__codelineno-25-39" name="__codelineno-25-39" href="#__codelineno-25-39"></a>    <span class="n">contract3</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c3</span><span class="p">)</span>
+</span><span id="__span-25-40"><a id="__codelineno-25-40" name="__codelineno-25-40" href="#__codelineno-25-40"></a>    <span class="n">contract_i1</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ci1</span><span class="p">)</span>
+</span><span id="__span-25-41"><a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a>    <span class="n">contract_i2</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ci2</span><span class="p">)</span>
+</span><span id="__span-25-42"><a id="__codelineno-25-42" name="__codelineno-25-42" href="#__codelineno-25-42"></a>    <span class="n">contract_i3</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">ci3</span><span class="p">)</span>
 </span><span id="__span-25-43"><a id="__codelineno-25-43" name="__codelineno-25-43" href="#__codelineno-25-43"></a>    <span class="n">c4</span> <span class="o">=</span> <span class="n">form_contract_add</span><span class="p">(</span><span class="n">in_port1</span><span class="o">=</span><span class="n">mult_out1</span><span class="p">,</span> <span class="n">in_port2</span><span class="o">=</span><span class="n">mult_out2</span><span class="p">,</span> <span class="n">out_port</span><span class="o">=</span><span class="n">add_out1</span><span class="p">)</span>
 </span><span id="__span-25-44"><a id="__codelineno-25-44" name="__codelineno-25-44" href="#__codelineno-25-44"></a>    <span class="n">c5</span> <span class="o">=</span> <span class="n">form_contract_add</span><span class="p">(</span><span class="n">in_port1</span><span class="o">=</span><span class="n">add_out1</span><span class="p">,</span> <span class="n">in_port2</span><span class="o">=</span><span class="n">mult_out3</span><span class="p">,</span> <span class="n">out_port</span><span class="o">=</span><span class="n">add_out2</span><span class="p">)</span>
-</span><span id="__span-25-45"><a id="__codelineno-25-45" name="__codelineno-25-45" href="#__codelineno-25-45"></a>    <span class="n">contract4</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c4</span><span class="p">)</span>
-</span><span id="__span-25-46"><a id="__codelineno-25-46" name="__codelineno-25-46" href="#__codelineno-25-46"></a>    <span class="n">contract5</span> <span class="o">=</span> <span class="n">PolyhedralContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c5</span><span class="p">)</span>
+</span><span id="__span-25-45"><a id="__codelineno-25-45" name="__codelineno-25-45" href="#__codelineno-25-45"></a>    <span class="n">contract4</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c4</span><span class="p">)</span>
+</span><span id="__span-25-46"><a id="__codelineno-25-46" name="__codelineno-25-46" href="#__codelineno-25-46"></a>    <span class="n">contract5</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">c5</span><span class="p">)</span>
 </span><span id="__span-25-47"><a id="__codelineno-25-47" name="__codelineno-25-47" href="#__codelineno-25-47"></a>
 </span><span id="__span-25-48"><a id="__codelineno-25-48" name="__codelineno-25-48" href="#__codelineno-25-48"></a>    <span class="n">contract_system</span> <span class="o">=</span> <span class="n">contract_i1</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract1</span><span class="p">)</span>
 </span><span id="__span-25-49"><a id="__codelineno-25-49" name="__codelineno-25-49" href="#__codelineno-25-49"></a>    <span class="n">contract_system</span> <span class="o">=</span> <span class="n">contract_system</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">contract_i2</span><span class="p">)</span>
@@ -2595,8 +2595,8 @@ A: [
 
 ]
 G: [
-  add_out2_e &lt;= 0.076904296875
-  add_out2_a &lt;= 0.95361328125
+  add_out2_e &lt;= 0.0769
+  add_out2_a &lt;= 0.9536
 ]
 </code></pre></div>
 <p>The result shows that the upper bound error of the output <code>add_out_e</code> is 0.07690.</p>
