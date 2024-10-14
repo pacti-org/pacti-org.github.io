@@ -15,7 +15,7 @@
       
       
       <link rel="icon" href="../../../../pacti_small_icon.svg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.21">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/_markdown_exec_ansi.css">
+      <link rel="stylesheet" href="../../../../assets/_markdown_exec_pyodide.css">
     
       <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
     
@@ -1042,14 +1042,14 @@
       
         <li class="md-nav__item">
   <a href="#pacti.utils.fileio.read_contracts_from_file" class="md-nav__link">
-    read_contracts_from_file()
+    read_contracts_from_file
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#pacti.utils.fileio.write_contracts_to_file" class="md-nav__link">
-    write_contracts_to_file()
+    write_contracts_to_file
   </a>
   
 </li>
@@ -1079,14 +1079,13 @@
 
 
 <a id="pacti.utils.fileio"></a>
-  <div class="doc doc-contents first">
-  
-      <p>File IO for Pacti.</p>
+    <div class="doc doc-contents first">
 
-  
+        <p>File IO for Pacti.</p>
+
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -1099,99 +1098,94 @@
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.utils.fileio.read_contracts_from_file" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">read_contracts_from_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">read_contracts_from_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span></code>
 
 <a href="#pacti.utils.fileio.read_contracts_from_file" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Read contracts from a file.</p>
+    <div class="doc doc-contents ">
+
+        <p>Read contracts from a file.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>file_name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Name of file to read.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>file_name</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of file to read.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Unsupported contract attempted to be read.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unsupported contract attempted to be read.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.IoContract" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.IoContract">IoContract</a>], <span title="typing.List">List</span>[str]]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A list of contracts with the elements of the file.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.IoContract" href="../../../../iocontract/#pacti.iocontract.iocontract.IoContract">IoContract</a>], <span title="typing.List">List</span>[str]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of contracts with the elements of the file.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\utils\fileio.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-12">12</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\utils\fileio.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-12">12</a></span>
 <span class="normal"><a href="#__codelineno-0-13">13</a></span>
 <span class="normal"><a href="#__codelineno-0-14">14</a></span>
 <span class="normal"><a href="#__codelineno-0-15">15</a></span>
@@ -1277,126 +1271,121 @@
 </span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 </span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="k">return</span> <span class="n">contracts</span><span class="p">,</span> <span class="n">names</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.utils.fileio.write_contracts_to_file" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">write_contracts_to_file</span><span class="p">(</span><span class="n">contracts</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">machine_representation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">write_contracts_to_file</span><span class="p">(</span><span class="n">contracts</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">machine_representation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 <a href="#pacti.utils.fileio.write_contracts_to_file" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Write contracts to a file.</p>
+    <div class="doc doc-contents ">
+
+        <p>Write contracts to a file.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>contracts</code></td>
-          <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.IoContract" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.IoContract">IoContract</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The contracts to write.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr>
-          <td><code>names</code></td>
-          <td>
-                <code><span title="typing.List">List</span>[str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The names of the contracts to keep in written file.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>file_name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Name of file to write.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>machine_representation</code></td>
-          <td>
-                <code>bool</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Whether the resulting file should be optimized for machine processing.</p>
-            </div>
-          </td>
-          <td>
-                <code>False</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>contracts</code></td>
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.IoContract" href="../../../../iocontract/#pacti.iocontract.iocontract.IoContract">IoContract</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The contracts to write.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>names</code></td>
+            <td>
+                  <code><span title="typing.List">List</span>[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The names of the contracts to keep in written file.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>file_name</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of file to write.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>machine_representation</code></td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether the resulting file should be optimized for machine processing.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Unsupported contract type.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unsupported contract type.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\utils\fileio.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\utils\fileio.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
 <span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
 <span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
@@ -1484,8 +1473,8 @@
 </span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 </span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -1493,7 +1482,7 @@
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
@@ -1524,7 +1513,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 - <script>document.write(new Date().getFullYear())</script> Caltech &amp UC Berkeley - <a href="#__consent">Change cookie settings</a>
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> University of Michigan - <a href="#__consent">Change cookie settings</a>
     </div>
   
   
@@ -1622,6 +1611,10 @@
     
     
       <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
+        
       
         
           <script src="../../../../javascripts/mathjax.js"></script>

@@ -15,7 +15,7 @@
       
       
       <link rel="icon" href="../../../../pacti_small_icon.svg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.21">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/_markdown_exec_ansi.css">
+      <link rel="stylesheet" href="../../../../assets/_markdown_exec_pyodide.css">
     
       <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
     
@@ -1042,28 +1042,28 @@
       
         <li class="md-nav__item">
   <a href="#pacti.utils.plots.constraints_to_vertices" class="md-nav__link">
-    constraints_to_vertices()
+    constraints_to_vertices
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#pacti.utils.plots.get_path" class="md-nav__link">
-    get_path()
+    get_path
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#pacti.utils.plots.plot_assumptions" class="md-nav__link">
-    plot_assumptions()
+    plot_assumptions
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#pacti.utils.plots.plot_guarantees" class="md-nav__link">
-    plot_guarantees()
+    plot_guarantees
   </a>
   
 </li>
@@ -1093,14 +1093,13 @@
 
 
 <a id="pacti.utils.plots"></a>
-  <div class="doc doc-contents first">
-  
-      <p>Plotting functionality for polyhedral contracts.</p>
+    <div class="doc doc-contents first">
 
-  
+        <p>Plotting functionality for polyhedral contracts.</p>
+
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -1113,169 +1112,164 @@
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.utils.plots.constraints_to_vertices" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">constraints_to_vertices</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">y_var</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="n">x_lims</span><span class="p">,</span> <span class="n">y_lims</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">constraints_to_vertices</span><span class="p">(</span><span class="n">constraints</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">y_var</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="n">x_lims</span><span class="p">,</span> <span class="n">y_lims</span><span class="p">)</span></code>
 
 <a href="#pacti.utils.plots.constraints_to_vertices" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Return the bounding vertices of a set of constraints.</p>
+    <div class="doc doc-contents ">
+
+        <p>Return the bounding vertices of a set of constraints.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>constraints</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../../terms/polyhedra/polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the set of constraints.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr>
-          <td><code>x_var</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The variable among those in the constraints that will be used as the horizontal variable.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_var</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The variable among those in the constraints that will be used as the vertical variable.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>var_values</code></td>
-          <td>
-                <code><span title="typing.Dict">Dict</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Values to which the rest of the variables in the constraints are set.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>x_lims</code></td>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Horizontal limits of polyhedron.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_lims</code></td>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Vertical limits of polyhedron.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>constraints</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTermList" href="../../../../Polyhedral/#pacti.terms.polyhedra.polyhedra.PolyhedralTermList">PolyhedralTermList</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the set of constraints.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_var</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The variable among those in the constraints that will be used as the horizontal variable.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_var</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The variable among those in the constraints that will be used as the vertical variable.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>var_values</code></td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Values to which the rest of the variables in the constraints are set.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_lims</code></td>
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Horizontal limits of polyhedron.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_lims</code></td>
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Vertical limits of polyhedron.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="typing.Tuple">Tuple</span>, <span title="typing.Tuple">Tuple</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A tuple of x and y tuples correponding to the vertices.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="typing.Tuple">Tuple</span>, <span title="typing.Tuple">Tuple</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A tuple of x and y tuples correponding to the vertices.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Arguments do not meet expectations, i.e., other variables are not set to constant values, etc.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Arguments do not meet expectations, i.e., other variables are not set to constant values, etc.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-242">242</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-242">242</a></span>
 <span class="normal"><a href="#__codelineno-0-243">243</a></span>
 <span class="normal"><a href="#__codelineno-0-244">244</a></span>
 <span class="normal"><a href="#__codelineno-0-245">245</a></span>
@@ -1371,168 +1365,163 @@
 </span><span id="__span-0-288"><a id="__codelineno-0-288" name="__codelineno-0-288"></a>
 </span><span id="__span-0-289"><a id="__codelineno-0-289" name="__codelineno-0-289"></a>    <span class="k">return</span> <span class="n">_get_bounding_vertices</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.utils.plots.get_path" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">get_path</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x_transform</span><span class="p">,</span> <span class="n">y_transform</span><span class="p">,</span> <span class="n">number_of_points</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">get_path</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x_transform</span><span class="p">,</span> <span class="n">y_transform</span><span class="p">,</span> <span class="n">number_of_points</span><span class="p">)</span></code>
 
 <a href="#pacti.utils.plots.get_path" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Transform a path in original coordinates.</p>
+    <div class="doc doc-contents ">
+
+        <p>Transform a path in original coordinates.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>x0</code></td>
-          <td>
-                <code><span title="pacti.utils.plots.numeric">numeric</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>x-value of the starting point of the path to transform.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr>
-          <td><code>x1</code></td>
-          <td>
-                <code><span title="pacti.utils.plots.numeric">numeric</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>x-value of the final point of the path to transform.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y0</code></td>
-          <td>
-                <code><span title="pacti.utils.plots.numeric">numeric</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>y-value of the starting point of the path to transform.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y1</code></td>
-          <td>
-                <code><span title="pacti.utils.plots.numeric">numeric</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>y-value of the final point of the path to transform.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>x_transform</code></td>
-          <td>
-                <code><span title="typing.Callable">Callable</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>function to map (x,y) values to new horizontal variable.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_transform</code></td>
-          <td>
-                <code><span title="typing.Callable">Callable</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>function to map (x,y) values to new vertical variable.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>number_of_points</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>number of points to transform on each side of (x,y) polyhedron.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>x0</code></td>
+            <td>
+                  <code><span title="pacti.utils.plots.numeric">numeric</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>x-value of the starting point of the path to transform.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x1</code></td>
+            <td>
+                  <code><span title="pacti.utils.plots.numeric">numeric</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>x-value of the final point of the path to transform.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y0</code></td>
+            <td>
+                  <code><span title="pacti.utils.plots.numeric">numeric</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>y-value of the starting point of the path to transform.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y1</code></td>
+            <td>
+                  <code><span title="pacti.utils.plots.numeric">numeric</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>y-value of the final point of the path to transform.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_transform</code></td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>function to map (x,y) values to new horizontal variable.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_transform</code></td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>function to map (x,y) values to new vertical variable.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>number_of_points</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>number of points to transform on each side of (x,y) polyhedron.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="typing.List">List</span>, <span title="typing.List">List</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A tuple of x tuples and y tuples corresponding to the transformed path.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="typing.List">List</span>, <span title="typing.List">List</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A tuple of x tuples and y tuples corresponding to the transformed path.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-321">321</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-321">321</a></span>
 <span class="normal"><a href="#__codelineno-0-322">322</a></span>
 <span class="normal"><a href="#__codelineno-0-323">323</a></span>
 <span class="normal"><a href="#__codelineno-0-324">324</a></span>
@@ -1590,193 +1579,187 @@
 </span><span id="__span-0-348"><a id="__codelineno-0-348" name="__codelineno-0-348"></a>    <span class="n">y_tranform_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">y_transform</span><span class="p">)</span>
 </span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a>    <span class="k">return</span> <span class="n">x_tranform_vec</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">y_tranform_vec</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.utils.plots.plot_assumptions" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">plot_assumptions</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">y_var</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="n">x_lims</span><span class="p">,</span> <span class="n">y_lims</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">plot_assumptions</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">y_var</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="n">x_lims</span><span class="p">,</span> <span class="n">y_lims</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 <a href="#pacti.utils.plots.plot_assumptions" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Plots the assumptions of an IoContract with polyhedral terms.</p>
+    <div class="doc doc-contents ">
+
+        <p>Plots the assumptions of an IoContract with polyhedral terms.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>contract</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.contracts.PolyhedralIoContract" href="../../contracts/polyhedral_iocontract/#pacti.contracts.polyhedral_iocontract.PolyhedralIoContract">PolyhedralIoContract</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the contract whose assumptions will be plotted.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr>
-          <td><code>x_var</code></td>
-          <td>
-                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>variable mapped to the x-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_var</code></td>
-          <td>
-                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>variable mapped to the y-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>var_values</code></td>
-          <td>
-                <code><span title="typing.Dict">Dict</span>[<span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str], <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>values of other variables appearing in the assumptions.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>x_lims</code></td>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>range of values in the x-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_lims</code></td>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>range of values in the y-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>show</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[bool]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>If <code>True</code> (default), the figure is displayed.
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>contract</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.contracts.PolyhedralIoContract" href="../../contracts/polyhedral_iocontract/#pacti.contracts.polyhedral_iocontract.PolyhedralIoContract">PolyhedralIoContract</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the contract whose assumptions will be plotted.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_var</code></td>
+            <td>
+                  <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>variable mapped to the x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_var</code></td>
+            <td>
+                  <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>variable mapped to the y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>var_values</code></td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str], <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>values of other variables appearing in the assumptions.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_lims</code></td>
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>range of values in the x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_lims</code></td>
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>range of values in the y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>show</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[bool]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>True</code> (default), the figure is displayed.
   If <code>False</code> the display is suppressed.</p>
-            </div>
-          </td>
-          <td>
-                <code>True</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="matplotlib.figure.Figure">Figure</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Figure element with a single "axes" object showing the feasible region for the assumptions.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="matplotlib.figure.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Figure element with a single "axes" object showing the feasible region for the assumptions.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>arguments provided failed sanity checks.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>arguments provided failed sanity checks.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-48">48</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-48">48</a></span>
 <span class="normal"><a href="#__codelineno-0-49">49</a></span>
 <span class="normal"><a href="#__codelineno-0-50">50</a></span>
 <span class="normal"><a href="#__codelineno-0-51">51</a></span>
@@ -1862,263 +1845,257 @@
 </span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Assumptions"</span><span class="p">)</span>
 </span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="k">return</span> <span class="n">fig</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.utils.plots.plot_guarantees" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">y_var</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="n">x_lims</span><span class="p">,</span> <span class="n">y_lims</span><span class="p">,</span> <span class="n">new_x_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_y_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x_transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number_of_points</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">plot_guarantees</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">y_var</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="n">x_lims</span><span class="p">,</span> <span class="n">y_lims</span><span class="p">,</span> <span class="n">new_x_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_y_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x_transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number_of_points</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 <a href="#pacti.utils.plots.plot_guarantees" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Plots the guarantees and assumptions of an IoContract with polyhedral terms.</p>
+    <div class="doc doc-contents ">
+
+        <p>Plots the guarantees and assumptions of an IoContract with polyhedral terms.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>contract</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.contracts.PolyhedralIoContract" href="../../contracts/polyhedral_iocontract/#pacti.contracts.polyhedral_iocontract.PolyhedralIoContract">PolyhedralIoContract</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the contract whose assumptions &amp; guarantees will be plotted.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr>
-          <td><code>x_var</code></td>
-          <td>
-                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>variable mapped to the x-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_var</code></td>
-          <td>
-                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>variable mapped to the y-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>var_values</code></td>
-          <td>
-                <code><span title="typing.Dict">Dict</span>[<span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../iocontract/iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str], <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>values of other variables appearing in the assumptions &amp; guarantees.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>x_lims</code></td>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>range of values in the x-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_lims</code></td>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>range of values in the y-axis.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>new_x_var</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>name of horizontal transformed variable.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>new_y_var</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[str]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>name of vertical transformed variable.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>x_transform</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>], <span title="pacti.utils.plots.numeric">numeric</span>]]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>function to map (x,y) values to new horizontal variable.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>y_transform</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>], <span title="pacti.utils.plots.numeric">numeric</span>]]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>function to map (x,y) values to new vertical variable.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>number_of_points</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[int]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>number of points to transform on each side of (x,y) polyhedron.</p>
-            </div>
-          </td>
-          <td>
-                <code>30</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>show</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[bool]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>If <code>True</code> (default), the figure is displayed.
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>contract</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.contracts.PolyhedralIoContract" href="../../contracts/polyhedral_iocontract/#pacti.contracts.polyhedral_iocontract.PolyhedralIoContract">PolyhedralIoContract</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the contract whose assumptions &amp; guarantees will be plotted.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_var</code></td>
+            <td>
+                  <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>variable mapped to the x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_var</code></td>
+            <td>
+                  <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>variable mapped to the y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>var_values</code></td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="pacti.iocontract.Var" href="../../../../iocontract/#pacti.iocontract.iocontract.Var">Var</a>, str], <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>values of other variables appearing in the assumptions &amp; guarantees.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_lims</code></td>
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>range of values in the x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_lims</code></td>
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>range of values in the y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>new_x_var</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>name of horizontal transformed variable.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>new_y_var</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>name of vertical transformed variable.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>x_transform</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>], <span title="pacti.utils.plots.numeric">numeric</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>function to map (x,y) values to new horizontal variable.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>y_transform</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="pacti.utils.plots.numeric">numeric</span>, <span title="pacti.utils.plots.numeric">numeric</span>], <span title="pacti.utils.plots.numeric">numeric</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>function to map (x,y) values to new vertical variable.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>number_of_points</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[int]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>number of points to transform on each side of (x,y) polyhedron.</p>
+              </div>
+            </td>
+            <td>
+                  <code>30</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>show</code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[bool]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>True</code> (default), the figure is displayed.
   If <code>False</code> the display is suppressed.</p>
-            </div>
-          </td>
-          <td>
-                <code>True</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="matplotlib.figure.Figure">Figure</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Figure element with a single "axes" object showing the feasible region for the assumptions &amp; guarantees.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="matplotlib.figure.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Figure element with a single "axes" object showing the feasible region for the assumptions &amp; guarantees.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>arguments provided failed sanity checks.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>arguments provided failed sanity checks.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\utils\plots.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
 <span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
 <span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
 <span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
@@ -2270,8 +2247,8 @@
 </span><span id="__span-0-167"><a id="__codelineno-0-167" name="__codelineno-0-167"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Guarantees"</span><span class="p">)</span>
 </span><span id="__span-0-168"><a id="__codelineno-0-168" name="__codelineno-0-168"></a>    <span class="k">return</span> <span class="n">fig</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -2279,7 +2256,7 @@
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
@@ -2310,7 +2287,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 - <script>document.write(new Date().getFullYear())</script> Caltech &amp UC Berkeley - <a href="#__consent">Change cookie settings</a>
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> University of Michigan - <a href="#__consent">Change cookie settings</a>
     </div>
   
   
@@ -2408,6 +2385,10 @@
     
     
       <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
+        
       
         
           <script src="../../../../javascripts/mathjax.js"></script>

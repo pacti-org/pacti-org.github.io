@@ -15,7 +15,7 @@
       
       
       <link rel="icon" href="../../../../../pacti_small_icon.svg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.21">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/_markdown_exec_ansi.css">
+      <link rel="stylesheet" href="../../../../../assets/_markdown_exec_pyodide.css">
     
       <link rel="stylesheet" href="../../../../../assets/_mkdocstrings.css">
     
@@ -1042,21 +1042,21 @@
       
         <li class="md-nav__item">
   <a href="#pacti.terms.polyhedra.serializer.polyhedral_term_list_to_strings" class="md-nav__link">
-    polyhedral_term_list_to_strings()
+    polyhedral_term_list_to_strings
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#pacti.terms.polyhedra.serializer.polyhedral_termlist_from_string" class="md-nav__link">
-    polyhedral_termlist_from_string()
+    polyhedral_termlist_from_string
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#pacti.terms.polyhedra.serializer.validate_contract_dict" class="md-nav__link">
-    validate_contract_dict()
+    validate_contract_dict
   </a>
   
 </li>
@@ -1086,14 +1086,13 @@
 
 
 <a id="pacti.terms.polyhedra.serializer"></a>
-  <div class="doc doc-contents first">
-  
-      <p>Transformations between polyhedral structures and strings.</p>
+    <div class="doc doc-contents first">
 
-  
+        <p>Transformations between polyhedral structures and strings.</p>
+
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -1106,75 +1105,71 @@
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.terms.polyhedra.serializer.polyhedral_term_list_to_strings" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">polyhedral_term_list_to_strings</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">polyhedral_term_list_to_strings</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span></code>
 
 <a href="#pacti.terms.polyhedra.serializer.polyhedral_term_list_to_strings" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Convert a list of polyhedral terms into a list of strings, one term at a time.</p>
+    <div class="doc doc-contents ">
+
+        <p>Convert a list of polyhedral terms into a list of strings, one term at a time.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>terms</code></td>
-          <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the list of terms.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>terms</code></td>
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../../../../../Polyhedral/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the list of terms.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="typing.Tuple">Tuple</span>[str, <span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a>]]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>String representation of the first constraint and list of items not yet serialized.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Tuple">Tuple</span>[str, <span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../../../../../Polyhedral/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>String representation of the first constraint and list of items not yet serialized.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\terms\polyhedra\serializer.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-146">146</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\terms\polyhedra\serializer.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-146">146</a></span>
 <span class="normal"><a href="#__codelineno-0-147">147</a></span>
 <span class="normal"><a href="#__codelineno-0-148">148</a></span>
 <span class="normal"><a href="#__codelineno-0-149">149</a></span>
@@ -1282,118 +1277,112 @@
 </span><span id="__span-0-198"><a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">_lhs_str</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" &lt;= "</span> <span class="o">+</span> <span class="n">_number_to_string</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">constant</span><span class="p">)</span>
 </span><span id="__span-0-199"><a id="__codelineno-0-199" name="__codelineno-0-199"></a>    <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">ts</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.terms.polyhedra.serializer.polyhedral_termlist_from_string" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">polyhedral_termlist_from_string</span><span class="p">(</span><span class="n">str_rep</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">polyhedral_termlist_from_string</span><span class="p">(</span><span class="n">str_rep</span><span class="p">)</span></code>
 
 <a href="#pacti.terms.polyhedra.serializer.polyhedral_termlist_from_string" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Transform a linear expression into a polyhedral termlist.</p>
+    <div class="doc doc-contents ">
+
+        <p>Transform a linear expression into a polyhedral termlist.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>str_rep</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The linear expression passed as a string.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>str_rep</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The linear expression passed as a string.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../polyhedra/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A PolyhedralTermList representing the input expression.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="pacti.terms.polyhedra.polyhedra.PolyhedralTerm" href="../../../../../Polyhedral/#pacti.terms.polyhedra.polyhedra.PolyhedralTerm">PolyhedralTerm</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A PolyhedralTermList representing the input expression.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.utils.errors.PolyhedralSyntaxException" href="../../../utils/errors/#pacti.utils.errors.PolyhedralSyntaxException">PolyhedralSyntaxException</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>constraint syntax error w.r.t the polyhedral term grammar.</p>
-            </div>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-        <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Number of tokens invalid.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.utils.errors.PolyhedralSyntaxException" href="../../../utils/errors/#pacti.utils.errors.PolyhedralSyntaxException">PolyhedralSyntaxException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>constraint syntax error w.r.t the polyhedral term grammar.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of tokens invalid.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\terms\polyhedra\serializer.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-310">310</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\terms\polyhedra\serializer.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-310">310</a></span>
 <span class="normal"><a href="#__codelineno-0-311">311</a></span>
 <span class="normal"><a href="#__codelineno-0-312">312</a></span>
 <span class="normal"><a href="#__codelineno-0-313">313</a></span>
@@ -1443,112 +1432,107 @@
 </span><span id="__span-0-333"><a id="__codelineno-0-333" name="__codelineno-0-333"></a>
 </span><span id="__span-0-334"><a id="__codelineno-0-334" name="__codelineno-0-334"></a>    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Polyhedral term syntax unrecognized in: </span><span class="si">{</span><span class="n">str_rep</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
-
 <h2 id="pacti.terms.polyhedra.serializer.validate_contract_dict" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">validate_contract_dict</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">machine_representation</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">validate_contract_dict</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">machine_representation</span><span class="p">)</span></code>
 
 <a href="#pacti.terms.polyhedra.serializer.validate_contract_dict" class="headerlink" title="Permanent link">¶</a></h2>
 
 
-  <div class="doc doc-contents ">
-  
-      <p>Tell whether a contract dictionary can be read as a polyhedral contract.</p>
+    <div class="doc doc-contents ">
+
+        <p>Tell whether a contract dictionary can be read as a polyhedral contract.</p>
 
 
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>contract</code></td>
-          <td>
-                <code><span title="typing.Dict">Dict</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>a dictionary to be analyzed.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>contract</code></td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>a dictionary to be analyzed.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>contract_name</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>a name for the contract (used for error reporting).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>machine_representation</code></td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the provided dictionary is machine-optimized.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
         <tr>
-          <td><code>contract_name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>a name for the contract (used for error reporting).</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-        <tr>
-          <td><code>machine_representation</code></td>
-          <td>
-                <code>bool</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the provided dictionary is machine-optimized.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="pacti.utils.errors.ContractFormatError" href="../../../utils/errors/#pacti.utils.errors.ContractFormatError">ContractFormatError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the provided contract is not well-formed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="pacti.utils.errors.ContractFormatError" href="../../../utils/errors/#pacti.utils.errors.ContractFormatError">ContractFormatError</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the provided contract is not well-formed.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-          <details class="quote">
-            <summary>Source code in <code>pacti\src\pacti\terms\polyhedra\serializer.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-24">24</a></span>
+            <details class="quote">
+              <summary>Source code in <code>pacti\src\pacti\terms\polyhedra\serializer.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-24">24</a></span>
 <span class="normal"><a href="#__codelineno-0-25">25</a></span>
 <span class="normal"><a href="#__codelineno-0-26">26</a></span>
 <span class="normal"><a href="#__codelineno-0-27">27</a></span>
@@ -1616,8 +1600,8 @@
 </span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a>            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">clause</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 </span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>                <span class="n">_check_clause</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">kw</span><span class="si">}{</span><span class="n">index</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -1625,7 +1609,7 @@
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
@@ -1656,7 +1640,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 - <script>document.write(new Date().getFullYear())</script> Caltech &amp UC Berkeley - <a href="#__consent">Change cookie settings</a>
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> University of Michigan - <a href="#__consent">Change cookie settings</a>
     </div>
   
   
@@ -1754,6 +1738,10 @@
     
     
       <script src="../../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../../../../../assets/_markdown_exec_pyodide.js"></script>
+        
       
         
           <script src="../../../../../javascripts/mathjax.js"></script>
