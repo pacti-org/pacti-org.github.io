@@ -89,7 +89,12 @@ template_data = {
 }
 template_text = dedent(
     """
-    We thank Athreyi Badithela for the wonderful artwork.
+    We gratefully acknowledge 
+    ASEE, NSF, DARPA, NASA, and AFOSR for funding parts of this project.
+    
+
+
+    We thank Athreyi Badithela for creating the artwork.
 
     The following projects were used to build `{{ project_name }}`:
 
