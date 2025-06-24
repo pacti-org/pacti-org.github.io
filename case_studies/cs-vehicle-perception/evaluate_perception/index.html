@@ -1,0 +1,1707 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Compositional system analysis and design using contracts.">
+      
+      
+      
+        <link rel="canonical" href="https://www.pacti.org/case_studies/cs-vehicle-perception/evaluate_perception/">
+      
+      
+        <link rel="prev" href="../../">
+      
+      
+        <link rel="next" href="../../cs-multiagent-planning/multiagent/">
+      
+      
+      <link rel="icon" href="../../../pacti_small_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.2.8">
+    
+    
+      
+        <title>Autonomous Systems - Pacti</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Libre Baskerville";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../css/material.css">
+    
+      <link rel="stylesheet" href="../../../css/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-27G2PM6M65"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-27G2PM6M65",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-27G2PM6M65",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="purple">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#evaluating-perception-with-respect-to-system-level-specifications" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+<!--
+  Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine base classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="../../.."
+      title="Pacti"
+      class="md-header__button md-logo"
+      aria-label="Pacti"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../logos/pacti_colorful.svg" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- Navigation tabs (sticky) -->
+    
+    
+        
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  Case Studies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../iocontract/" class="md-tabs__link">
+          
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../contributing/" class="md-tabs__link">
+          
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+    
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette -->
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pacti-org/pacti" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+</header>
+
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Pacti" class="md-nav__button md-logo" aria-label="Pacti" data-md-component="logo">
+      
+  <img src="../../../logos/pacti_colorful.svg" alt="logo">
+
+    </a>
+  </label>
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_1" id="__nav_1_label" tabindex="0">
+            Home
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/getting_started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_2" id="__nav_2_label" tabindex="0">
+            Case Studies
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Case Studies
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Autonomous Systems
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Autonomous Systems
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-example" class="md-nav__link">
+    Part 1: Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-controller-contracts" class="md-nav__link">
+    Part 2: Controller Contracts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-system-contract" class="md-nav__link">
+    Part 3: System Contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-object-detection-contract-found-using-quotient" class="md-nav__link">
+    Part 4: Object Detection Contract found using quotient
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-multiagent-planning/multiagent/" class="md-nav__link">
+        Multi-agent Coordination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-biocircuits/specification_based_synthetic_biology/" class="md-nav__link">
+        Synthetic Biology
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-digital-signal-processing/dsp_wl/" class="md-nav__link">
+        Signal Processing in Digital ICs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-uav-topologies/topologies/" class="md-nav__link">
+        UAV Topologies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            Space Mission Scenario
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Space Mission Scenario
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_power/" class="md-nav__link">
+        Power Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_science/" class="md-nav__link">
+        Science & Communication Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_navigation/" class="md-nav__link">
+        Navigation Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_thermal/" class="md-nav__link">
+        Thermal Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_3viewpoints/" class="md-nav__link">
+        Schedulability Analysis with 3 Viewpoints
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_7" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_7" id="__nav_2_7_7_label" tabindex="0">
+            Benchmarks for scenario generation
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for scenario generation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/scenario_generation_5steps/" class="md-nav__link">
+        Short scenario generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/scenario_generation_20steps/" class="md-nav__link">
+        Long scenario generation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_8" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_8" id="__nav_2_7_8_label" tabindex="0">
+            Benchmarks for schedulability analysis of generated scenarios
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for schedulability analysis of generated scenarios
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/schedulability_analysis_5steps/" class="md-nav__link">
+        Short scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/schedulability_analysis_20steps/" class="md-nav__link">
+        Long scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_9" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_9" id="__nav_2_7_9_label" tabindex="0">
+            Visualization of schedulable combinations
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_9">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of schedulable combinations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/analysis_results1-5steps/" class="md-nav__link">
+        Short scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/analysis_results1-20steps/" class="md-nav__link">
+        Long scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/mars_entry_descent_landing/mars_edl_2nd_encoding/" class="md-nav__link">
+        Mars 2020 Entry-Descent-Landing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_3" id="__nav_3_label" tabindex="0">
+            API
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../iocontract/" class="md-nav__link">
+        IoContract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Polyhedral/" class="md-nav__link">
+        PolyhedralTerms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../smt/" class="md-nav__link">
+        SmtTems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../polyhedral-contracts/" class="md-nav__link">
+        PolyhedralContracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../smt-contracts/" class="md-nav__link">
+        SmtContracts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_4" id="__nav_4_label" tabindex="0">
+            Development
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-example" class="md-nav__link">
+    Part 1: Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-controller-contracts" class="md-nav__link">
+    Part 2: Controller Contracts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-system-contract" class="md-nav__link">
+    Part 3: System Contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-object-detection-contract-found-using-quotient" class="md-nav__link">
+    Part 4: Object Detection Contract found using quotient
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="evaluating-perception-with-respect-to-system-level-specifications">Evaluating Perception with respect to System-level Specifications<a class="headerlink" href="#evaluating-perception-with-respect-to-system-level-specifications" title="Permanent link">¶</a></h1>
+<p>Consider the following example of an autonomous car driving on a road with an obstacle <span class="arithmatex">\(d\)</span> m away from the car. We require the car to be safe, with the quantitative metric of safety increasing as the distance to the obstacle <span class="arithmatex">\(d\)</span> decreases. Given that the car's controller chooses actions based on observations passed by the perception module, can we quantitatively characterize the desired performance of the perception module to ensure safe behavior?
+In this case study, we address this question using assume-guarantee contract operators in Pacti. In particular, we focus on the object detection and classification tasks of perception, and use confusion matrices to represent the statistically average performance of the detection model. In this notebook, we derive lower bounds on the elements of the confusion matrix given the system-level specifications and a discrete state abstraction of the controllers. Any learned detection model that respects these constraints together with the controller will satisfy the system-level quantitative requirements.</p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">¶</a></h2>
+<p>Temporal logic has been an effective formalism for specifying system-level requirements that correspond to safe operation of autonomous vehicles (<a href="#ref0">Baier &amp; Katoen</a>, <a href="#ref1">Piterman et al.</a>). Formally specifying these requirements in temporal logic has led to an effective paradigm for synthesizing correct controllers at a high-level of abstraction (as seen in <a href="#ref2">Wongpiromsarn et al. 2012</a>, <a href="#ref3">Kress-Gazit et al. 2009</a>,<a href="#ref4">Lahijanian et al. 2009</a>, <a href="#ref6">Kloetzer et al. 2008</a>). However, most of these control synthesis techniques assume perfect perception and do not account for perception errors. Consider the object detection task of the perception component---it is not possible to train a neural network that correctly detects every object due to the well-known precision-recall tradeoff (see <a href="#ref7">Geron 2019</a>, <a href="#ref5">Koyejo et al. 2015</a>, <a href="#ref12">Wang et al. 2019</a>, <a href="#ref10">Narasimhan et al. 2015</a>). Thus, the correctness guarantees of the synthesized controller, which are predicated on the correctness of object detection, will not always hold. </p>
+<p>In <a href="#ref8">BWM 21</a>, the authors presented the of use of the confusion matrix, a popular metric for evaluating object detection performance in the computer vision community, to quantitatively evaluate the end-to-end detection and planning stack with respect to system-level temporal logic requirements. </p>
+<p>To reduce conservativeness in this probabilistic analysis, the canonical confusion matrix was adapted to formally define new evaluation metrics for object detection by accounting for the structure of the downstream controller <a href="#ref9">BWM 22</a>.</p>
+<p>Since the confusion matrix can be seen as an evaluation metric for object detection, characterizing the elements of the confusion matrix (such as true positive rates for each class) can be a way to formally specify requirements on the object detection module.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Import libraries</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pkl</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pacti.contracts</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolyhedralIoContract</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pacti.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plots</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pacti.iocontract</span><span class="w"> </span><span class="kn">import</span> <span class="n">Var</span>
+</span></code></pre></div>
+<h2 id="part-1-example">Part 1: Example<a class="headerlink" href="#part-1-example" title="Permanent link">¶</a></h2>
+<p>In this case study, we construct lower bounds for elements of the confusion matrix. Consider the car pedestrian example examined in this case study. For the purposes of this jupyter notebook, the pedestrian is located 4 cells away from the car, which is starting at cell <span class="arithmatex">\(C_1\)</span> with an initial speed of 1 cell/step and a maximum possible speed of 2 cells/step. Figure 1 illustrates the assume-guarantee contracts for the perception and control components of the software autonomy stack. The true state of the environment is denoted by <span class="arithmatex">\(x_e\)</span>, the state of the car comprises of its position and speed <span class="arithmatex">\((x_c, v_c)\)</span>. The safety requirement on the car is that it "shall stop at the crosswalk if there is a waiting pedestrian, and not come to a stop, otherwise". The overall system specifications are formally expressed as safety specifications:</p>
+<ul>
+<li>If the true state of the environment is not a pedestrian, i.e. <span class="arithmatex">\(x_e \neq ped\)</span>, then the car must not stop at <span class="arithmatex">\(C_{k-1}\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+\varphi_{1}= \square\big((x_e \neq ped)\rightarrow \neg (x_c = C_{k-1} \wedge v_c = 0)\big),
+\]</div>
+<ul>
+<li>If <span class="arithmatex">\(x_e = ped\)</span>, the car must stop on <span class="arithmatex">\(C_{k-1}\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+\varphi_{2}  = \square\Big(x_e = ped\rightarrow \big( (x_c = C_{k-1} \wedge v_c = 0) \vee \neg (x_c = C_{k-1}) \big)\Big),
+\]</div>
+<ul>
+<li>The agent should not stop at any cell <span class="arithmatex">\(C_i\)</span>, for all <span class="arithmatex">\(i \in \{1,\ldots, k-2\}\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+\varphi_3 = \square\neg(\bigvee_{i = 1}^{k-2} (x_c = C_i \wedge v_c = 0)).
+\]</div>
+<p><img alt="Img" src="https://github.com/pacti-org/media/blob/main/case_studies/evaluating_perception/autonomy-stack.png?raw=True"></p>
+<p>Figure 1: On the right, we see an illustration of a discrete-state representation of a car driving down a road and a pedestrian at a crosswalk. On the left, we see an illustration of a class-labeled confusion matrices with the row and column labels being classes of objects. The true positive rates for each class constitute the diagonal elements. The confusion matrix can be used to derive transition probabilities for a Markov chain representing the state evolution of the system. For each object class label <span class="arithmatex">\(c\)</span>, we can construct a Markov chain parametrized by the true positive rate and false negative rates corresponding to the class. By randomly sampling the false negative rates, we can plot the system-level satisfaction probability as a function of the true positive rate.</p>
+<h2 id="part-2-controller-contracts">Part 2: Controller Contracts<a class="headerlink" href="#part-2-controller-contracts" title="Permanent link">¶</a></h2>
+<p>This section details the construction of controller contracts for the specific car pedestrain example given above. Suppose <span class="arithmatex">\(c\)</span> is the object class of the true environment. Since the probability of satisfaction of formula <span class="arithmatex">\(\varphi_c\)</span> is a nonlinear function of the elements of the confusion matrix, we compute an affine lower bound of this function via sampling. For each true positive rate, <span class="arithmatex">\(\mathtt{TP}_{c}\)</span>, for a environment object type <span class="arithmatex">\(c\)</span>, we generate 15 random instantiations of the false negative rates, <span class="arithmatex">\(\mathtt{FN}_{(c',c)}\)</span> and <span class="arithmatex">\(\mathtt{FN}_{(c'',c)}\)</span>, where <span class="arithmatex">\(c \notin \{c',c''\}\)</span>. For each instantiation of the confusion matrix, we construct the corresponding Markov chain <span class="arithmatex">\(M(\mathtt{TP}_{c}, \mathtt{FN}_{(c',c)}, \mathtt{FN}_{(c'',c)})\)</span> and compute the satisfaction probability accordingly. For all the probability samples, we then use linear programming to compute a lower bound as a function of the true positive rate.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Here we load probability points from saved pickle files. To fully recompute the results, see recompute.ipynb</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"data/lb.pkl"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">lbounds_ped</span><span class="p">,</span> <span class="n">points_ped</span><span class="p">,</span> <span class="n">tpped_vals</span> <span class="o">=</span> <span class="n">pkl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"data/lbobj.pkl"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">lbounds_obj</span><span class="p">,</span> <span class="n">points_obj</span><span class="p">,</span> <span class="n">tpobj_vals</span> <span class="o">=</span> <span class="n">pkl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"data/lbempty.pkl"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">lbounds_emp</span><span class="p">,</span> <span class="n">points_emp</span><span class="p">,</span> <span class="n">tpemp_vals</span> <span class="o">=</span> <span class="n">pkl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Plotting Probabilities:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">plot_probabilities_bounds</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">tp_vals</span><span class="p">,</span> <span class="n">ubounds</span><span class="p">,</span> <span class="n">lbounds</span><span class="p">,</span> <span class="n">true_env</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"major"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="s2">"b*"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"sampled"</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">if</span> <span class="n">ubounds</span> <span class="o">!=</span> <span class="p">[]:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">ub_m</span><span class="p">,</span> <span class="n">ub_c</span> <span class="o">=</span> <span class="n">ubounds</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="n">y_ub</span> <span class="o">=</span> <span class="n">ub_m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">)</span> <span class="o">+</span> <span class="n">ub_c</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">,</span> <span class="n">y_ub</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">lb_m</span><span class="p">,</span> <span class="n">lb_c</span> <span class="o">=</span> <span class="n">lbounds</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">y_lb</span> <span class="o">=</span> <span class="n">lb_m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">)</span> <span class="o">+</span> <span class="n">lb_c</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">,</span> <span class="n">y_lb</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"lower bound"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">lb</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">ub</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">tp_vals</span><span class="p">)</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">lP</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">uP</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"size"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">lb</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">ub</span><span class="o">+</span><span class="mf">0.01</span><span class="p">)</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">lP</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">uP</span><span class="o">+</span><span class="mf">0.01</span><span class="p">)</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Lower bound of $\mathbb</span><span class="si">{P}</span><span class="s2">_{"</span> <span class="o">+</span> <span class="n">true_env</span> <span class="o">+</span> <span class="s2">"}$ as a function of $\mathtt</span><span class="si">{TP}</span><span class="s2">_{"</span> <span class="o">+</span> <span class="n">true_env</span> <span class="o">+</span> <span class="s2">"}$."</span><span class="p">)</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"$\mathbb</span><span class="si">{P}</span><span class="s2">_{"</span> <span class="o">+</span> <span class="n">true_env</span> <span class="o">+</span> <span class="s2">"}$"</span><span class="p">)</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"$\mathtt</span><span class="si">{TP}</span><span class="s2">_{"</span> <span class="o">+</span> <span class="n">true_env</span> <span class="o">+</span> <span class="s2">"}$"</span><span class="p">)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"compressed"</span><span class="p">)</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="n">plot_probabilities_bounds</span><span class="p">(</span><span class="n">points_ped</span><span class="p">,</span> <span class="n">tpped_vals</span><span class="p">,</span> <span class="p">[],</span> <span class="n">lbounds_ped</span><span class="p">,</span> <span class="s2">"ped"</span><span class="p">,</span> <span class="n">ax1</span><span class="p">)</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="n">plot_probabilities_bounds</span><span class="p">(</span><span class="n">points_obj</span><span class="p">,</span> <span class="n">tpobj_vals</span><span class="p">,</span> <span class="p">[],</span> <span class="n">lbounds_obj</span><span class="p">,</span> <span class="s2">"obj"</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="n">plot_probabilities_bounds</span><span class="p">(</span><span class="n">points_emp</span><span class="p">,</span> <span class="n">tpemp_vals</span><span class="p">,</span> <span class="p">[],</span> <span class="n">lbounds_emp</span><span class="p">,</span> <span class="s2">"emp"</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="png" src="../evaluate_perception_files/evaluate_perception_8_0.png"></p>
+<p>Now, we construct the controller contracts for each object class using Polyhedral contracts and constructing it from string. We end up with three contracts—<span class="arithmatex">\(\mathcal{C}_{ped}\)</span>, <span class="arithmatex">\(\mathcal{C}_{obj}\)</span>, and <span class="arithmatex">\(\mathcal{C}_{emp}\)</span>, respectively for the <span class="arithmatex">\(\textit{pedestrian}\)</span>, <span class="arithmatex">\(\textit{object}\)</span>, and <span class="arithmatex">\(\textit{background}\)</span> classes. Each contract is constructed from the lower bounds evaluated for probabilities of satisfication of specifications as shown in the Figures above.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># First we construct each contract individually, and then compose the controller contracts:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">## Control contract for pedestrian class</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">control_contract_ped</span><span class="p">(</span><span class="n">lbounds_ped</span><span class="p">):</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">lb_m</span><span class="p">,</span> <span class="n">lb_c</span> <span class="o">=</span> <span class="n">lbounds_ped</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">tp</span> <span class="o">=</span> <span class="s2">"tp_ped"</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">P</span> <span class="o">=</span> <span class="s2">"P_ped"</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= 1"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= -0.6"</span><span class="p">]</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s2"> + "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">lb_m</span><span class="p">)</span><span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">lb_c</span><span class="p">)]</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">Cped</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span><span class="n">input_vars</span><span class="o">=</span><span class="n">input_vars</span><span class="p">,</span> <span class="n">output_vars</span><span class="o">=</span><span class="n">output_vars</span><span class="p">,</span> <span class="n">assumptions</span><span class="o">=</span><span class="n">assumptions</span><span class="p">,</span> <span class="n">guarantees</span><span class="o">=</span><span class="n">guarantees</span><span class="p">)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="k">return</span> <span class="n">Cped</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">control_contract_obj</span><span class="p">(</span><span class="n">lbounds_obj</span><span class="p">):</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">lb_m</span><span class="p">,</span> <span class="n">lb_c</span> <span class="o">=</span> <span class="n">lbounds_obj</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="n">tp</span> <span class="o">=</span> <span class="s2">"tp_obj"</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="n">P</span> <span class="o">=</span> <span class="s2">"P_obj"</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= 1"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= -0.3"</span><span class="p">]</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s2"> + "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">lb_m</span><span class="p">)</span><span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">lb_c</span><span class="p">)]</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="n">Cobj</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span><span class="n">input_vars</span><span class="o">=</span><span class="n">input_vars</span><span class="p">,</span> <span class="n">output_vars</span><span class="o">=</span><span class="n">output_vars</span><span class="p">,</span> <span class="n">assumptions</span><span class="o">=</span><span class="n">assumptions</span><span class="p">,</span> <span class="n">guarantees</span><span class="o">=</span><span class="n">guarantees</span><span class="p">)</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    <span class="k">return</span> <span class="n">Cobj</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="k">def</span><span class="w"> </span><span class="nf">control_contract_emp</span><span class="p">(</span><span class="n">lbounds_emp</span><span class="p">):</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>    <span class="n">lb_m</span><span class="p">,</span> <span class="n">lb_c</span> <span class="o">=</span> <span class="n">lbounds_emp</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>    <span class="n">tp</span> <span class="o">=</span> <span class="s2">"tp_emp"</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    <span class="n">P</span> <span class="o">=</span> <span class="s2">"P_emp"</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= 1"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= -0.6"</span><span class="p">]</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s2"> + "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">lb_m</span><span class="p">)</span><span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> &lt;= "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">lb_c</span><span class="p">)]</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>    <span class="n">Cemp</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span><span class="n">input_vars</span><span class="o">=</span><span class="n">input_vars</span><span class="p">,</span> <span class="n">output_vars</span><span class="o">=</span><span class="n">output_vars</span><span class="p">,</span> <span class="n">assumptions</span><span class="o">=</span><span class="n">assumptions</span><span class="p">,</span> <span class="n">guarantees</span><span class="o">=</span><span class="n">guarantees</span><span class="p">)</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>    <span class="k">return</span> <span class="n">Cemp</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="n">Cped</span> <span class="o">=</span> <span class="n">control_contract_ped</span><span class="p">(</span><span class="n">lbounds_ped</span><span class="p">)</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="n">Cobj</span> <span class="o">=</span> <span class="n">control_contract_obj</span><span class="p">(</span><span class="n">lbounds_obj</span><span class="p">)</span>
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="n">Cemp</span> <span class="o">=</span> <span class="n">control_contract_emp</span><span class="p">(</span><span class="n">lbounds_emp</span><span class="p">)</span>
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Controller Contract for pedestrian class:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Cped</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Controller Contract for object class:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Cobj</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Controller Contract for empty class:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Cemp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Controller Contract for pedestrian class:
+InVars: [tp_ped]
+OutVars:[P_ped]
+A: [
+  tp_ped &lt;= 1
+  -tp_ped &lt;= -0.6
+]
+G: [
+  -P_ped + 1.58 tp_ped &lt;= 0.6221
+]
+
+Controller Contract for object class:
+InVars: [tp_obj]
+OutVars:[P_obj]
+A: [
+  tp_obj &lt;= 1
+  -tp_obj &lt;= -0.3
+]
+G: [
+  -P_obj + 0.06835 tp_obj &lt;= -0.9289
+]
+
+Controller Contract for empty class:
+InVars: [tp_emp]
+OutVars:[P_emp]
+A: [
+  tp_emp &lt;= 1
+  -tp_emp &lt;= -0.6
+]
+G: [
+  -P_emp + 0.2005 tp_emp &lt;= -0.7997
+]
+</code></pre></div>
+<p>Then, the control contracts are composed as follows to get the full contract describing the assumptions and guarantees of the controller:</p>
+<div class="arithmatex">\[
+\mathcal{C}_{control} = \mathcal{C}_{ped} \parallel \mathcal{C}_{obj} \parallel \mathcal{C}_{emp}
+\]</div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Construct composition of contracts:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">C_controller</span> <span class="o">=</span> <span class="n">Cped</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">Cobj</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">C_controller</span> <span class="o">=</span> <span class="n">C_controller</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">Cemp</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Composed Controller Contract for all object classes:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">C_controller</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Composed Controller Contract for all object classes:
+InVars: [tp_ped, tp_obj, tp_emp]
+OutVars:[P_ped, P_obj, P_emp]
+A: [
+  tp_ped &lt;= 1
+  -tp_ped &lt;= -0.6
+  tp_obj &lt;= 1
+  -tp_obj &lt;= -0.3
+  tp_emp &lt;= 1
+  -tp_emp &lt;= -0.6
+]
+G: [
+  -P_ped + 1.58 tp_ped &lt;= 0.6221
+  -P_obj + 0.06835 tp_obj &lt;= -0.9289
+  -P_emp + 0.2005 tp_emp &lt;= -0.7997
+]
+</code></pre></div>
+<h2 id="part-3-system-contract">Part 3: System Contract<a class="headerlink" href="#part-3-system-contract" title="Permanent link">¶</a></h2>
+<p>The overall system level contract is return takes an input distance and returns the desired system-level probability is lower bounded by an affine function of distance. Thus, we encode the following is contract form:</p>
+<div class="arithmatex">\[
+\begin{align*}
+&amp; \mathbb{P}_{ped}(s_0 \models \varphi_{ped}) \geq m_{ped}d + c_{ped}, \\
+&amp; \mathbb{P}_{obj}(s_0 \models \varphi_{obj}) \geq m_{obj}d + c_{obj}, \\
+&amp; \mathbb{P}_{emp}(s_0 \models \varphi_{emp}) \geq m_{emp}d + c_{emp}, \\
+\end{align*}
+\]</div>
+<p>where <span class="arithmatex">\(m_{ped} = -0.099\)</span>, <span class="arithmatex">\(c_{ped}=0.99\)</span>, <span class="arithmatex">\(m_{obj} = -0.08\)</span>, <span class="arithmatex">\(c_{obj}=0.8\)</span>, <span class="arithmatex">\(m_{emp} = -0.09\)</span>, <span class="arithmatex">\(c_{emp}=0.9\)</span>. For this case study example, these lower bounds were arbitrarily chosen.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">## System contract: P &gt;= 0.99</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">system_contract_dist</span><span class="p">():</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a3</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.95</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">d</span> <span class="o">=</span> <span class="s2">"d"</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">P_emp</span> <span class="o">=</span> <span class="s2">"P_emp"</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">P_obj</span> <span class="o">=</span> <span class="s2">"P_obj"</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">P_ped</span> <span class="o">=</span> <span class="s2">"P_ped"</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">]</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">P_ped</span><span class="p">,</span> <span class="n">P_obj</span><span class="p">,</span> <span class="n">P_emp</span><span class="p">]</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> &lt;= 0"</span><span class="p">,</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> &lt;= 10"</span><span class="p">,</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="p">]</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">P_ped</span><span class="si">}</span><span class="s2"> - 0.099</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> &lt;= "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="n">a1</span><span class="p">),</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">P_obj</span><span class="si">}</span><span class="s2"> - 0.08</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> &lt;= "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="n">a2</span><span class="p">),</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">P_emp</span><span class="si">}</span><span class="s2"> - 0.095</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> &lt;= "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="n">a3</span><span class="p">),</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="p">]</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>    <span class="n">system_contract</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span><span class="n">input_vars</span><span class="o">=</span><span class="n">input_vars</span><span class="p">,</span> <span class="n">output_vars</span><span class="o">=</span><span class="n">output_vars</span><span class="p">,</span> <span class="n">assumptions</span><span class="o">=</span><span class="n">assumptions</span><span class="p">,</span> <span class="n">guarantees</span><span class="o">=</span><span class="n">guarantees</span><span class="p">)</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>    <span class="k">return</span> <span class="n">system_contract</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="n">Csys_dist</span> <span class="o">=</span> <span class="n">system_contract_dist</span><span class="p">()</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"System Contract (distance bounds):</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Csys_dist</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>System Contract (distance bounds):
+InVars: [d]
+OutVars:[P_ped, P_obj, P_emp]
+A: [
+  -d &lt;= -0
+  d &lt;= 10
+]
+G: [
+  -P_ped - 0.099 d &lt;= -0.99
+  -P_obj - 0.08 d &lt;= -0.8
+  -P_emp - 0.095 d &lt;= -0.95
+]
+</code></pre></div>
+<h2 id="part-4-object-detection-contract-found-using-quotient">Part 4: Object Detection Contract found using quotient<a class="headerlink" href="#part-4-object-detection-contract-found-using-quotient" title="Permanent link">¶</a></h2>
+<p>Finally, to derive specifications on the object detection module, we derive lower bounds on the required <span class="arithmatex">\(\textit{true positive rate}\)</span> for each class. To do this, we take the quotient of the composed controller contract from the overall system contract,</p>
+<div class="arithmatex">\[
+\mathcal{C}_{det} = \mathcal{C}_{sys}/\mathcal{C}_{control}
+\]</div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Computing quotient contract:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">C_det</span> <span class="o">=</span> <span class="n">Csys_dist</span><span class="o">.</span><span class="n">quotient</span><span class="p">(</span><span class="n">C_controller</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Quotient Contract with distance bounds on true positive rates:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">C_det</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Quotient Contract with distance bounds on true positive rates:
+InVars: [d]
+OutVars:[tp_ped, tp_obj, tp_emp]
+A: [
+  -d &lt;= 0
+  d &lt;= 10
+]
+G: [
+  -0.099 d - 1.58 tp_ped &lt;= -1.612
+  tp_ped &lt;= 1
+  -tp_ped &lt;= -0.6
+  tp_obj &lt;= 1
+  -tp_obj &lt;= -0.3
+  tp_emp &lt;= 1
+  -tp_emp &lt;= -0.6
+]
+</code></pre></div>
+<p>Let's see how contract <span class="arithmatex">\(\mathcal{C}_{det}\)</span> varies with distance to ego for the pedestrian specification.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">_</span><span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_guarantees</span><span class="p">(</span><span class="n">C_det</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="s1">'d'</span><span class="p">),</span> <span class="n">Var</span><span class="p">(</span><span class="s1">'tp_ped'</span><span class="p">),</span> <span class="n">var_values</span><span class="o">=</span><span class="p">{</span><span class="n">Var</span><span class="p">(</span><span class="s1">'tp_obj'</span><span class="p">):</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="s1">'tp_emp'</span><span class="p">):</span><span class="mf">0.7</span><span class="p">},</span> <span class="n">x_lims</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span><span class="n">y_lims</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span></code></pre></div>
+<p><img alt="png" src="../evaluate_perception_files/evaluate_perception_20_0.png"></p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>
+<p><a id="ref0"></a> <strong><a href="http://perso.ens-lyon.fr/quentin.guilmant/M1/Semestre2/SV/_principles_of_model_checking.pdf">Baier and Katoen. 2008</a></strong></p>
+<p>Baier, Christel, and Joost-Pieter Katoen. 
+<strong>Principles of Model Checking.</strong></p>
+<p><a id="ref1"></a> <strong><a href="http://jtlv.ysaar.net/resources/publications/synth.pdf">Piterman et al. 2006</a></strong></p>
+<p>Piterman, N., Pnueli, A., Sa’ar, Y.
+<strong>Synthesis of reactive (1) designs.</strong>
+In: International Workshop on Verification, Model Checking, and Abstract Interpretation.
+pp. 364–380. Springer (2006)</p>
+<p><a id="ref2"></a> <strong><a href="https://authors.library.caltech.edu/36081/">Wongpiromsarn et al. 2012</a></strong></p>
+<p>Wongpiromsarn, T., Topcu, U., Murray, R.M.
+<strong>Receding horizon temporal logic planning</strong>
+IEEE Transactions on Automatic Control 57(11), 2817–2830 (2012)</p>
+<p><a id="ref3"></a> <strong><a href="https://georgejpappas.org/papers/IEEE-LTL2009.pdf">Kress-Gazit et al. 2009</a></strong></p>
+<p>Kress-Gazit, H., Fainekos, G.E., Pappas, G.J.: 
+<strong>Temporal-logic-based reactive mission and motion planning.</strong>
+IEEE Transactions on Robotics 25(6), 1370–1381 (2009) 26. </p>
+<p><a id="ref4"></a> <strong><a href="https://www.bu.edu/anderssonlab/files/2013/08/IEEE_Conference_on_Decision_and_Control_2009_Lahijanian.pdf">Lahijanian et al. 2009</a></strong></p>
+<p>Lahijanian, M., Andersson, S.B., Belta, C.
+<strong>A probabilistic approach for control of a stochastic system from LTL specifications.</strong>
+In: Proceedings of the 48h IEEE Conference on Decision and Control (CDC) held jointly with 2009 28th Chinese
+Control Conference. pp. 2236–2241. IEEE (2009)</p>
+<p><a id="ref5"></a> <strong><a href="https://proceedings.neurips.cc/paper/2015/file/85f007f8c50dd25f5a45fca73cad64bd-Paper.pdf">Koyejo et al. 2015</a></strong></p>
+<p>Koyejo, O., Natarajan, N., Ravikumar, P., Dhillon, I.S.
+<strong>Consistent multilabel classification.</strong>
+In: NeurIPS. vol. 29, pp. 3321–3329 (2015)</p>
+<p><a id="ref6"></a> <strong><a href="https://sites.bu.edu/hyness/files/2014/05/TAC08_LTL_Contr.pdf">Kloetzer et al. 2008</a></strong></p>
+<p>Kloetzer, M., Belta, C.
+<strong>A fully automated framework for control of linear systems from temporal logic specifications.</strong>
+IEEE Transactions on Automatic Control 53(1),
+287–297 (2008)</p>
+<p><a id="ref7"></a> <strong><a href="https://github.com/ageron/handson-ml2">Geron et al. 2019</a></strong></p>
+<p>Géron, A.
+<strong>Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems.</strong>
+O’Reilly Media
+(2019)</p>
+<p><a id="ref8"></a> <strong><a href="https://ieeexplore.ieee.org/document/9683611">BWM 2021</a></strong></p>
+<p>Badithela, A., Wongpiromsarn, T., Murray, R.M.
+<strong>Leveraging classification metrics for quantitative system-level analysis with temporal logic specifications.</strong>
+In: 2021 60th IEEE Conference on Decision and Control (CDC). pp. 564–571. IEEE (2021)</p>
+<p><a id="ref9"></a> <strong><a href="https://arxiv.org/pdf/2210.10298">BWM 2022</a></strong></p>
+<p>Badithela, A., Wongpiromsarn, T., Murray, R.M.
+<strong>Evaluation metrics for object detection for autonomous systems.</strong>
+arXiv preprint arXiv:2210.10298 (2022)</p>
+<p><a id="ref10"></a> <strong><a href="http://proceedings.mlr.press/v37/narasimhanb15.pdf">Narasimhan et al. 2015</a></strong></p>
+<p>Narasimhan, H., Ramaswamy, H., Saha, A., Agarwal, S.</p>
+<p><strong>Consistent multiclass algorithms for complex performance measures.</strong>
+In: International Conference on
+Machine Learning. pp. 2398–2407. PMLR (2015)</p>
+<p><a id="ref11"></a> <strong><a href="https://arxiv.org/abs/2206.12471">Topan et al. 2022</a></strong></p>
+<p>Topan, S., Leung, K., Chen, Y., Tupekar, P., Schmerling, E., Nilsson, J., Cox, M.,
+Pavone, M.</p>
+<p><strong>Interaction-dynamics-aware perception zones for obstacle detection safety evaluation.</strong></p>
+<p>In: 2022 IEEE Intelligent Vehicles Symposium (IV). pp. 1201–1210. IEEE (2022)</p>
+<p><a id="ref12"></a> <strong><a href="https://arxiv.org/pdf/1908.09057">Wang et al. 2019</a></strong></p>
+<p>Wang, X., Li, R., Yan, B., Koyejo, O.
+<strong>Consistent classification with generalized metrics.</strong>
+arXiv preprint arXiv:1908.09057 (2019)</p></div>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> University of Michigan - <a href="#__consent">Change cookie settings</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+  
+    
+  
+
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../assets/_markdown_exec_pyodide.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://kit.fontawesome.com/4f533dc5a0.js"></script>
+      
+    
+  </body>
+</html>

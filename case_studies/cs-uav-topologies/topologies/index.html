@@ -1,0 +1,1780 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Compositional system analysis and design using contracts.">
+      
+      
+      
+        <link rel="canonical" href="https://www.pacti.org/case_studies/cs-uav-topologies/topologies/">
+      
+      
+        <link rel="prev" href="../../cs-digital-signal-processing/dsp_wl/">
+      
+      
+        <link rel="next" href="../../cs-space-mission/space_mission/space_mission/">
+      
+      
+      <link rel="icon" href="../../../pacti_small_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.2.8">
+    
+    
+      
+        <title>UAV Topologies - Pacti</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Libre Baskerville";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../css/material.css">
+    
+      <link rel="stylesheet" href="../../../css/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-27G2PM6M65"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-27G2PM6M65",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-27G2PM6M65",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="purple">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topology-generation-for-uav-designs-using-pacti" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+<!--
+  Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine base classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="../../.."
+      title="Pacti"
+      class="md-header__button md-logo"
+      aria-label="Pacti"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../logos/pacti_colorful.svg" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- Navigation tabs (sticky) -->
+    
+    
+        
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  Case Studies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../iocontract/" class="md-tabs__link">
+          
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../contributing/" class="md-tabs__link">
+          
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+    
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette -->
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pacti-org/pacti" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+</header>
+
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Pacti" class="md-nav__button md-logo" aria-label="Pacti" data-md-component="logo">
+      
+  <img src="../../../logos/pacti_colorful.svg" alt="logo">
+
+    </a>
+  </label>
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_1" id="__nav_1_label" tabindex="0">
+            Home
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/getting_started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_2" id="__nav_2_label" tabindex="0">
+            Case Studies
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Case Studies
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-vehicle-perception/evaluate_perception/" class="md-nav__link">
+        Autonomous Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-multiagent-planning/multiagent/" class="md-nav__link">
+        Multi-agent Coordination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-biocircuits/specification_based_synthetic_biology/" class="md-nav__link">
+        Synthetic Biology
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-digital-signal-processing/dsp_wl/" class="md-nav__link">
+        Signal Processing in Digital ICs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          UAV Topologies
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        UAV Topologies
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#grid" class="md-nav__link">
+    Grid
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    Context
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#symbols" class="md-nav__link">
+    Symbols
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-context" class="md-nav__link">
+    Local Context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    Rules
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matching" class="md-nav__link">
+    Matching
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grammar-and-design-generation-process" class="md-nav__link">
+    Grammar and design generation process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contract-formalization-with-pacti" class="md-nav__link">
+    Contract formalization with Pacti
+  </a>
+  
+    <nav class="md-nav" aria-label="Contract formalization with Pacti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-directions-as-linear-constraint" class="md-nav__link">
+    Local directions as linear constraint
+  </a>
+  
+    <nav class="md-nav" aria-label="Local directions as linear constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direction-assignment-problem" class="md-nav__link">
+    Direction assignment problem
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contracts-for-state" class="md-nav__link">
+    Contracts for State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contracts-for-rules" class="md-nav__link">
+    Contracts for Rules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assuring-matching-conditions-using-contracts-composition" class="md-nav__link">
+    Assuring matching conditions using contracts composition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-code" class="md-nav__link">
+    Running the code
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            Space Mission Scenario
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Space Mission Scenario
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_power/" class="md-nav__link">
+        Power Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_science/" class="md-nav__link">
+        Science & Communication Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_navigation/" class="md-nav__link">
+        Navigation Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_thermal/" class="md-nav__link">
+        Thermal Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/space_mission_3viewpoints/" class="md-nav__link">
+        Schedulability Analysis with 3 Viewpoints
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_7" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_7" id="__nav_2_7_7_label" tabindex="0">
+            Benchmarks for scenario generation
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for scenario generation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/scenario_generation_5steps/" class="md-nav__link">
+        Short scenario generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/scenario_generation_20steps/" class="md-nav__link">
+        Long scenario generation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_8" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_8" id="__nav_2_7_8_label" tabindex="0">
+            Benchmarks for schedulability analysis of generated scenarios
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for schedulability analysis of generated scenarios
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/schedulability_analysis_5steps/" class="md-nav__link">
+        Short scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/schedulability_analysis_20steps/" class="md-nav__link">
+        Long scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_9" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_9" id="__nav_2_7_9_label" tabindex="0">
+            Visualization of schedulable combinations
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_9">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of schedulable combinations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/analysis_results1-5steps/" class="md-nav__link">
+        Short scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/space_mission/analysis_results1-20steps/" class="md-nav__link">
+        Long scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs-space-mission/mars_entry_descent_landing/mars_edl_2nd_encoding/" class="md-nav__link">
+        Mars 2020 Entry-Descent-Landing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_3" id="__nav_3_label" tabindex="0">
+            API
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../iocontract/" class="md-nav__link">
+        IoContract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Polyhedral/" class="md-nav__link">
+        PolyhedralTerms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../smt/" class="md-nav__link">
+        SmtTems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../polyhedral-contracts/" class="md-nav__link">
+        PolyhedralContracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../smt-contracts/" class="md-nav__link">
+        SmtContracts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_4" id="__nav_4_label" tabindex="0">
+            Development
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#grid" class="md-nav__link">
+    Grid
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    Context
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#symbols" class="md-nav__link">
+    Symbols
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-context" class="md-nav__link">
+    Local Context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    Rules
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matching" class="md-nav__link">
+    Matching
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grammar-and-design-generation-process" class="md-nav__link">
+    Grammar and design generation process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contract-formalization-with-pacti" class="md-nav__link">
+    Contract formalization with Pacti
+  </a>
+  
+    <nav class="md-nav" aria-label="Contract formalization with Pacti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-directions-as-linear-constraint" class="md-nav__link">
+    Local directions as linear constraint
+  </a>
+  
+    <nav class="md-nav" aria-label="Local directions as linear constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direction-assignment-problem" class="md-nav__link">
+    Direction assignment problem
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contracts-for-state" class="md-nav__link">
+    Contracts for State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contracts-for-rules" class="md-nav__link">
+    Contracts for Rules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assuring-matching-conditions-using-contracts-composition" class="md-nav__link">
+    Assuring matching conditions using contracts composition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-code" class="md-nav__link">
+    Running the code
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="topology-generation-for-uav-designs-using-pacti">Topology generation for UAV designs using Pacti<a class="headerlink" href="#topology-generation-for-uav-designs-using-pacti" title="Permanent link">¶</a></h1>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/grammar-1.png" alt="grid" style="width: 1000px;"></p>
+<p>We demonstrate how pacti can be utilized to generate designs for Unmanned Aerial Vehicles (UAVs) under a set of predefined "design rules". Our primary objective is to produce a 3D grid, consisting of interconnected points that represent the abstract topology of the UAV. Each point within the grid represents a specific component of the UAV, such as fuselage, wing, rotor, etc., while each edge between two points depicts the connection among components. To achieve this, we employ a context-sensitive grammar (CSG) that formalizes the placement of UAV components on the grid based on their local context, i.e., the components around them.</p>
+<p>Our grammar's primary goal is to generate all legal configurations of components and their connections within the 3D grid. A context-sensitive grammar (CSG) is a formal grammar that describes a formal language through a set of rules that define how strings of symbols within the language can be generated.</p>
+<p>In the following, we introduce the main building blocks of our grammar: grid, context, symbols, and rules. By leveraging these components, our proposed method generates UAV designs that adhere to predefined design rules, resulting in functional and efficient UAV designs.</p>
+<h2 id="grid">Grid<a class="headerlink" href="#grid" title="Permanent link">¶</a></h2>
+<p>A 3D grid of points, or simply a grid, can be formally defined as a set of ordered triplets, where each triplet represents a point in 3D space. The triplet is composed of three integer coordinates <span class="arithmatex">\((x, y, z)\)</span> that specify the position of the point in the 3D grid. Let <span class="arithmatex">\(n_{half} \in \mathbb{Z}\)</span>, and let <span class="arithmatex">\(G = \{(x, y, z) | x, y, z \in \mathbb{Z}, -n_{half} \leq x, y, z \leq n_{half}\}\)</span> be the set of all points in a 3D grid. We define the size of a grid <span class="arithmatex">\(G\)</span> as <span class="arithmatex">\(|G| = ((n_{half} * 2) + 1)^3\)</span>.</p>
+<p>Below, we present an example of a grid of size 27, and we highlight the middle point of the grid, which has coordinates <span class="arithmatex">\((0,0,0)\)</span>:</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/grid-1.png" alt="grid" style="width: 400px;"></p>
+<p>Using the defined grid structure, we can easily specify the position of each component of the UAV in the form of a 3D point. This facilitates the use of a context-sensitive grammar to formalize the placement of components on the grid.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">¶</a></h2>
+<p>Given a 3D grid of points, we define the context of a point <span class="arithmatex">\(p\)</span> as a tuple of seven points, where six points are the coordinates of the adjacent points in the grid and one point is <span class="arithmatex">\(p\)</span> itself. We define a set of seven directions <span class="arithmatex">\(\Delta = (\texttt{ego}, \texttt{front}, \texttt{rear}, \texttt{left}, \texttt{right}, \texttt{top}, \texttt{bottom})\)</span>. Given a point <span class="arithmatex">\(p = (x, y, z)\)</span>, we can construct its context <span class="arithmatex">\(Ctx(p) = (p_\texttt{ego}, p_\texttt{front}, p_\texttt{rear}, p_\texttt{left}, p_\texttt{right}, p_\texttt{top}, p_{bottom})\)</span> as follows:</p>
+<div class="arithmatex">\[
+\begin{align}
+p_\texttt{ego} &amp;= (x, y, z) \\
+p_\texttt{front} &amp;= (x, y+1, z) \\
+p_\texttt{rear} &amp;= (x, y-1, z) \\
+p_\texttt{left} &amp;= (x-1, y, z) \\
+p_\texttt{right} &amp;= (x+1, y-1, z) \\
+p_\texttt{top} &amp;= (x+1, y-1, z+1) \\
+p_\texttt{bottom} &amp;= (x+1, y-1, z-1)
+\end{align}
+\]</div>
+<p>Below we show an example of a grid together with context of the point <span class="arithmatex">\((0,0,0)\)</span></p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/grid_local_context-1.png" alt="grid_local_context" style="width: 500px;"></p>
+<p>Note that the points at the edge of the grid have contexts with some points having coordinates outside the grid, i.e., the points adjacent to them in the specified direction are not included in the grid. The context of a point is used to define the placement of components of an UAV in the grid according to their local context.</p>
+<h2 id="symbols">Symbols<a class="headerlink" href="#symbols" title="Permanent link">¶</a></h2>
+<p>In our grammar, each point <span class="arithmatex">\(p\)</span> in the grid is associated with a symbol, denoted by <span class="arithmatex">\(Sym(p)\)</span>. The symbols are divided into two main categories: terminal symbols and nonterminal symbols. Terminal symbols represent actual characters or words in the language that the grammar defines, while nonterminal symbols are used to represent groups or structures in the language. These symbols can be expanded or rewritten by the production rules of the grammar to generate strings in the language.</p>
+<p>We define the set of terminal symbols as <span class="arithmatex">\(\Lambda\)</span>, which contains five elements that mostly represent UAV components: <span class="arithmatex">\({\texttt{Fuselage}, \texttt{Rotor}, \texttt{Wing}, \texttt{Connector}, \texttt{Empty}}\)</span>. We define the set of nonterminal symbols as <span class="arithmatex">\(\Theta\)</span>, which contains one element: <span class="arithmatex">\({\texttt{Unoccupied}}\)</span>.</p>
+<p>Note that although <span class="arithmatex">\(\texttt{Empty}\)</span> and <span class="arithmatex">\(\texttt{Unoccupied}\)</span> represent the same concept (i.e., the absence of a component), they are different symbols. <span class="arithmatex">\(\texttt{Empty}\)</span> is terminal, meaning it cannot be expanded into a new symbol, while <span class="arithmatex">\(\texttt{Unoccupied}\)</span> is nonterminal.</p>
+<p>At initialization, all points in the grid are associated with the <span class="arithmatex">\(\texttt{Unoccupied}\)</span> symbol.</p>
+<p>We associate each symbol with a color, as shown in the figure below:</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/symbols-1.png" alt="symbols" style="width: 700px;"></p>
+<h3 id="local-context">Local Context<a class="headerlink" href="#local-context" title="Permanent link">¶</a></h3>
+<p>A local context <span class="arithmatex">\(LC=(sym_1, sym_2, \dots, sym_7)\)</span> is a tuple of seven symbols, i.e. <span class="arithmatex">\(l_c \in \Lambda \cup \Theta\)</span>, one for each direction in <span class="arithmatex">\(\Delta\)</span>. The figure below shows a local context <span class="arithmatex">\(LC_i\)</span> = (<span class="arithmatex">\(\texttt{Unoccupied}\)</span>, <span class="arithmatex">\(\texttt{Unoccupied}\)</span>, <span class="arithmatex">\(\texttt{Unoccupied}\)</span>, <span class="arithmatex">\(\texttt{Fuselage}\)</span>, <span class="arithmatex">\(\texttt{Unoccupied}\)</span>, <span class="arithmatex">\(\texttt{Rotor}\)</span>, <span class="arithmatex">\(\texttt{Unoccupied}\)</span>).</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/local-1.png" alt="symbols" style="width: 400px;"></p>
+<h3 id="state">State<a class="headerlink" href="#state" title="Permanent link">¶</a></h3>
+<p>The state of a point <span class="arithmatex">\(p\)</span> on a grid is the local context around that point, denoted by <span class="arithmatex">\(S(p)\)</span>.</p>
+<p>For example, given the grid depicted below, let us consider the point <span class="arithmatex">\(p=(0,0,0)\)</span>. We have that <span class="arithmatex">\(S(p)=(\texttt{Fuselage}, \texttt{Unoccupied}, \texttt{Unoccupied}, \texttt{Wing}, \texttt{Wing}, \texttt{Rotor}, \texttt{Unoccupied})\)</span>. In the picture below, we have associated a color with each symbol.</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/local_context-1.png" alt="Local Context" style="width: 700px;"></p>
+<p>Please see <a href="https://github.com/pacti-org/cs-uav-topologies/blob/main/src/grammar/grid.py">grid.py</a> for the implementation of the grid and local context.</p>
+<h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">¶</a></h2>
+<p>In our grammar a production rule, or rule, defines how a single nonterminal symbol can be substituted with a non-terminal symbol according to its context.</p>
+<p>In our grammar, a production rule, or simply a rule, defines how a single nonterminal symbol can be substituted with another non-terminal symbol based on its context.</p>
+<p>A rule <span class="arithmatex">\(R_i = (\Omega, \Pi)\)</span> consists of a condition <span class="arithmatex">\(\Omega\)</span> and a production <span class="arithmatex">\(\Pi\)</span>, where:</p>
+<ol>
+<li><span class="arithmatex">\(\Omega=\{LC_0, LC_1, ..., LC_c\}\)</span> is a set of <span class="arithmatex">\(c\)</span> local contexts.</li>
+<li><span class="arithmatex">\(\Pi = (sym, \texttt{dir})\)</span> where <span class="arithmatex">\(sym \in \Lambda\)</span> and <span class="arithmatex">\(\texttt{dir} \in \Delta\)</span>.</li>
+</ol>
+<p>The condition <span class="arithmatex">\(\Omega\)</span> determines all the local contexts where the rule can be applied. The production <span class="arithmatex">\(\Pi\)</span> specifies the nonterminal symbol <span class="arithmatex">\(sym \in Tau\)</span> to be produced and the direction of the edge that connects the newly generated symbol to one of the adjacent symbols in the grid. If no connection is required, then <span class="arithmatex">\(\texttt{dir}\)</span> is simply <span class="arithmatex">\(\texttt{ego}\)</span>.</p>
+<h3 id="matching">Matching<a class="headerlink" href="#matching" title="Permanent link">¶</a></h3>
+<p>At each time step, we apply a rule to a point in the grid.
+A rule <span class="arithmatex">\(R_i\)</span> <em>matches</em> with a point <span class="arithmatex">\(p\)</span> if the local context of <span class="arithmatex">\(p\)</span>, i.e. <span class="arithmatex">\(S(p)\)</span>, is a subset of the conditions of <span class="arithmatex">\(R_i\)</span>, i.e. if <span class="arithmatex">\(S(p) \subseteq \Omega\)</span>. If a rule <span class="arithmatex">\(R_i = (\Omega, \Pi)\)</span> matches with a point <span class="arithmatex">\(p\)</span>, then the production <span class="arithmatex">\(\Pi\)</span> is applied to the point <span class="arithmatex">\(p\)</span>. That is, let <span class="arithmatex">\(\Pi=(sym, p_{dir})\)</span>, then the symbol <span class="arithmatex">\(sym\)</span> is placed in <span class="arithmatex">\(p\)</span>, i.e. <span class="arithmatex">\(Sym(p)=sym\)</span>, and an edge is created from <span class="arithmatex">\(p\)</span> to <span class="arithmatex">\(p_{dir}\)</span>. The figure below shows an example of a grid at a time step <span class="arithmatex">\(t\)</span>, where a point <span class="arithmatex">\(p\)</span> matches a rule <span class="arithmatex">\(R_i\)</span>, and the production of <span class="arithmatex">\(R_i\)</span> is applied to <span class="arithmatex">\(p\)</span>, modifying the state of the grid in the next time step <span class="arithmatex">\(t+1\)</span>.</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/match-1.png" alt="Rule Matching" style="width: 1000px;"></p>
+<h2 id="grammar-and-design-generation-process">Grammar and design generation process<a class="headerlink" href="#grammar-and-design-generation-process" title="Permanent link">¶</a></h2>
+<p>Given <span class="arithmatex">\(n\)</span> rules, a grammar <span class="arithmatex">\(Gr={R_0, R_1, \dots , R_n}\)</span> is simply the set of all rules.</p>
+<p>We start with a grid where all points are associated with the nonterminal symbol <em>Unassigned</em>. Then, at discrete time-steps, we choose a point in the grid and try to match it with one or more rules in the grammar. If a rule matches the local context of the chosen point, we apply the production of the rule to the point, which changes its nonterminal symbol and potentially creates edges between adjacent points. We repeat this process until all points contain nonterminal symbols or until we have no rules matching in the grammar.</p>
+<h2 id="contract-formalization-with-pacti">Contract formalization with Pacti<a class="headerlink" href="#contract-formalization-with-pacti" title="Permanent link">¶</a></h2>
+<p>We can use <em>pacti</em> as verification engine to match rules with points on the grid.
+We are going to use the <em>composition</em> and <em>refinement</em> operators to verify weather local contexts of points match rule's conditions. In the following we are going to formalize local contexts and rules with contracts of polyhedra constraints.</p>
+<p>We can use <em>pacti</em> as a verification engine to match rules with points on the grid.
+We are going to use the <em>composition</em> and <em>refinement</em> operators to verify weather local contexts of points match rule's conditions. To do this, we will define contracts using polyhedral constraints to formalize local contexts and rules.</p>
+<h3 id="local-directions-as-linear-constraint">Local directions as linear constraint<a class="headerlink" href="#local-directions-as-linear-constraint" title="Permanent link">¶</a></h3>
+<p>We will define a variable for every terminal and nonterminal symbol of the grammar and an integer for every direction.
+For example, given the grammar with nonterminal symbols <span class="arithmatex">\(\Lambda={\texttt{Fuselage}, \texttt{Rotor}, \texttt{Wing}, \texttt{Connector}, \texttt{Empty}}\)</span> and terminal symbol <span class="arithmatex">\(\Theta={\texttt{Unoccupied}}\)</span>, we generate a set of variables <span class="arithmatex">\(V = {f, r, w, c, e, u}\)</span> where each element corresponds to the element in <span class="arithmatex">\(\Lambda \cup \Theta\)</span> starting with the corresponding letter.
+We define a set of integers <span class="arithmatex">\(\Delta'={0,1,2,3,4,5,6}\)</span> where every element corresponds to an element in <span class="arithmatex">\(\Delta={\texttt{ego}, \texttt{front}, \texttt{rear}, \texttt{left}, \texttt{right}, \texttt{top}, \texttt{bottom}}\)</span>.
+Our goal is to represent a local context with linear constraints such as <span class="arithmatex">\(U \le 6~~ \land~~ F = 7\)</span>, which prescribe a local context having <span class="arithmatex">\(\texttt{Unoccupied}\)</span> in the direction corresponding to the integers <span class="arithmatex">\(i \in \Delta'\)</span> where <span class="arithmatex">\(i \leq 6\)</span> and a <span class="arithmatex">\(\texttt{Fuselage}\)</span> in the direction corresponding to the integer <span class="arithmatex">\(7\)</span>. From this example we can see how the assignment of integers in <span class="arithmatex">\(\Delta'\)</span> to directions in <span class="arithmatex">\(\Delta\)</span> can greatly influence the number of constraints necessary to express a set of local contexts. </p>
+<h4 id="direction-assignment-problem">Direction assignment problem<a class="headerlink" href="#direction-assignment-problem" title="Permanent link">¶</a></h4>
+<p>We have seen how from a local context we can produe a set of local constraints that represents it.</p>
+<p>Given a grammar with <span class="arithmatex">\(n\)</span> rules <span class="arithmatex">\(Gr=\{R_0, R_1, \dots , R_n\}\)</span> where every rule <span class="arithmatex">\(R_i \in Gr\)</span> contains a set if local contexts, e.g. <span class="arithmatex">\(\Omega_i = \{LC_0, LC_1, \dots, LC_c\}\)</span>; given a set of seven directions <span class="arithmatex">\(\Delta=\{\texttt{ego}, \texttt{front}, \texttt{rear}, \texttt{left}, \texttt{right}, \texttt{top}, \texttt{bottom}\}\)</span>; 
+Produce a function <span class="arithmatex">\(Dir: \Delta \rightarrow \Delta'\)</span> that maps elements of <span class="arithmatex">\(\Delta\)</span> to elements of <span class="arithmatex">\(\Delta'=\{0,1, 2,3,4,5,6\}\)</span> such that it minimizes the number of constraints representing the local contexts for all the rules in the grammar.</p>
+<p>Please see the method <code>get_directions_assignment</code> in <a href="https://github.com/pacti-org/cs-uav-topologies/blob/main/src/grammar/grid.py">grammar.py</a> for the implementation of such function.</p>
+<p>For the grammar in our case study the optimal assignment is the following:</p>
+<div class="arithmatex">\[
+\begin{align}
+Dir(\texttt{ego}) &amp;= 6 \\
+Dir(\texttt{front}) &amp;= 4 \\
+Dir(\texttt{rear}) &amp;= 5 \\
+Dir(\texttt{left}) &amp;= 0 \\
+Dir(\texttt{right}) &amp;= 2 \\
+Dir(\texttt{top}) &amp;= 3 \\
+Dir(\texttt{bottom}) &amp;= 1
+\end{align}
+\]</div>
+<h3 id="contracts-for-state">Contracts for State<a class="headerlink" href="#contracts-for-state" title="Permanent link">¶</a></h3>
+<p>We can transform any state of a point <span class="arithmatex">\(p\)</span> in the grid into a contract having <em>true</em> assumptions and the set of linear constraints representing the state as <em>guarantees</em>.</p>
+<p>For example, let us consider the state in the figure below:</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/state_example-1.png" alt="Rule Matching" style="width: 350px;"></p>
+<p>We have annotated all the edges with a tuple containing respectively the integer assignment of the direction and the variable representing the symbol. The contract representing the state in the figure is the following:</p>
+<div class="arithmatex">\[
+\begin{align}
+  \mathcal{C}_{s(t)} &amp;=
+      \begin{cases}
+        A &amp; true \\
+          &amp;  \\
+        G &amp; f=4 \land (u \leq 3 \lor (4 \leq u \leq 5))\\
+      \end{cases}\notag
+\end{align}
+\]</div>
+<p>Notice that the guarantees of <span class="arithmatex">\(C_{s(t)}\)</span> contain a <em>disjunction</em>. Since in <em>pacti</em> contracts can only have conjunctions of constraints, we distribute the disjunction and create new contracts that we group in a structure that we refer as <em>ContractUnions</em></p>
+<div class="arithmatex">\[
+\begin{cases}
+      &amp; \mathcal{C}_{s(t)}^{1}
+      \begin{cases}
+        A &amp; true \\
+          &amp;  \\
+        G &amp; f=4 \land u \leq 3\\
+      \end{cases}\notag\\
+      &amp; \mathcal{C}_{s(t)}^{2}
+      \begin{cases}
+        A &amp; true \\
+          &amp;  \\
+        G &amp; f=4 \land (5 \leq u \leq 6))\\
+      \end{cases}\notag
+    \end{cases}
+\]</div>
+<h3 id="contracts-for-rules">Contracts for Rules<a class="headerlink" href="#contracts-for-rules" title="Permanent link">¶</a></h3>
+<p>Let us show how rules can be modeled as contracts. The figure below shows a pictorial representation of one rule having four local contexts as matching conditions and producing a symbol and a connection.</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/rule_example-1.png" alt="Rule Example" style="width: 750px;"></p>
+<p>The conditions describe four different states where from the ego position we can have in front a fuselage (red), a propeller (green), a wing (blue), and a connector (grey). The production prescribes the ego symbol to be a connector and a connection to the symbol in front of it. We represent the rule with a <em>ContractUnion</em> formed by four contracts.</p>
+<div class="arithmatex">\[
+    \begin{cases}
+      &amp; \mathcal{C}_{r_{i}}^{1}
+      \begin{cases}
+        A &amp; \land c=4 \land u=5 \land f=4 \land w=4 \land r=4 \\
+        G &amp; c=6 \land edge=4\\
+      \end{cases}\notag\\
+      &amp; \mathcal{C}_{r_{i}}^{2}
+      \begin{cases}
+        A &amp; \land c=4 \land u \leq 3 \land f=4 \land w=4 \land r=4 \\
+        G &amp; c=6 \land edge=4\\
+      \end{cases}\notag\\
+      &amp; \mathcal{C}_{r_{i}}^{3}
+      \begin{cases}
+        A &amp; \land c=4 \land u=5 \land f=4 \land w=4 \land r=4 \\
+        G &amp; c=6 \land edge=4\\
+      \end{cases}\notag\\
+      &amp; \mathcal{C}_{r_{i}}^{4}
+      \begin{cases}
+        A &amp; \land c=4 \land u \leq 3 \land f=4 \land w=4 \land r=4 \\
+        G &amp; c=6 \land edge=4
+      \end{cases}\notag
+    \end{cases}
+\]</div>
+<p>The assumptions of the contract represent all possible conditions that are accepted by the rule, while the guarantees specify the symbol to be placed in the ego position (<span class="arithmatex">\(c=6\)</span>) and provide information about a possible connection. In this case, the value of <span class="arithmatex">\(edge=4\)</span> indicates a connection from the ego position to direction 4, which represents the <em>front</em> direction.</p>
+<h3 id="assuring-matching-conditions-using-contracts-composition">Assuring matching conditions using contracts composition<a class="headerlink" href="#assuring-matching-conditions-using-contracts-composition" title="Permanent link">¶</a></h3>
+<p>We are using the <em>composition</em> operation offered by <em>pacti</em> to assure that a rule is a valid match for a given state. When composing two contracts <em>pacti</em> will check if the guarantees of a contract are compatible with the assumptions of the other contract being composed. Composing a state contract with a rule contract will automatically check if the state is compatible with the rule, as shown in the following picture.</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/matching_slide.png" alt="Rule Example" style="width: 750px;"></p>
+<p>We have seen how both rules and states can be expressed as <em>ContractUnion</em> objects. When <em>pacti</em> composes a rule ContractUnion with a state ContractUnion, it checks if <strong>every</strong> element of the state can be composed with <strong>at least one</strong> element of the rule. Furthermore before composing a rule with a state, we produce an <em>abstraction</em> of every contract in the rule <em>ContractUnion</em>, by removing constraints related to variables which are not present in the state. The figure below shows the abstraction produced by the rule <span class="arithmatex">\(r_{i}\)</span> introduced before.</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/matching_contracts-1.png" alt="Matching Contracts" style="width: 550px;"></p>
+<h2 id="running-the-code">Running the code<a class="headerlink" href="#running-the-code" title="Permanent link">¶</a></h2>
+<p>We start with some imports</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.contracts_utils.union</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContractsUnions</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.grammar.grammar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grammar</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.grammar.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridBuilder</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.shared.shared</span><span class="w"> </span><span class="kn">import</span> <span class="n">DirectionsAssignment</span><span class="p">,</span> <span class="n">SymbolType</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.shared.paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">rules_path</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.tools.refinement_checking</span><span class="w"> </span><span class="kn">import</span> <span class="n">rule_matching</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.tools.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_gif</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span></code></pre></div>
+<p>We define three constants defining the half size (<span class="arithmatex">\(n_{half}\)</span>) of the grid, the max number of wings and rotors that we want the UAV to have.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">grid_half_size</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">max_num_wings</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">max_num_rotors</span> <span class="o">=</span> <span class="mi">4</span>
+</span></code></pre></div>
+<p>We can generate a new grid with the <code>GridBuilder</code> class</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">grid</span> <span class="o">=</span> <span class="n">GridBuilder</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">half_size</span><span class="o">=</span><span class="n">grid_half_size</span><span class="p">)</span>
+</span></code></pre></div>
+<p>We can build a <code>Grammar</code> object from a json file where we have defined all the rules.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">grammar</span> <span class="o">=</span> <span class="n">Grammar</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">rules_json_path</span><span class="o">=</span><span class="n">rules_path</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Then we produce an optimal assignment of integers to the diretions based on the grammar</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">directions_assignment</span> <span class="o">=</span> <span class="n">DirectionsAssignment</span><span class="p">()</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">directions_assignment</span><span class="o">.</span><span class="n">set_direction_assignment</span><span class="p">(</span><span class="n">grammar</span><span class="o">.</span><span class="n">get_directions_assignment</span><span class="p">())</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Creating the object
+</code></pre></div>
+<p>We convert all the rules of the grammar to contracts</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">rule_contracts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">SymbolType</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">ContractsUnions</span><span class="p">]]</span> <span class="o">=</span> <span class="n">grammar</span><span class="o">.</span><span class="n">to_contracts</span><span class="p">()</span>
+</span></code></pre></div>
+<p>We explore all the points of the grid until there are no more points to visit. At each iteration, we 
+* Update the current point to visit
+* Get the local state wrt the point chosen
+* Create the list of "rule contracts" that are allowed at the current iteration based on the current number of wings and propellers
+* Convert the state to a contract
+* Find all the matching rules to the current state
+* Select one of the compatible rules randomly and apply it to the current state</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">figures</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">points_to_visit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="c1"># print(f"STEP {step}")</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="c1"># print(f"{len(grid.points_to_visit)} POINTS LEFT:\t{grid.points_to_visit}")</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">grid</span><span class="o">.</span><span class="n">update_current_point</span><span class="p">()</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">current_state</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">local_state</span><span class="p">()</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current_state</span><span class="o">.</span><span class="n">has_non_empty_symbols</span><span class="p">():</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="k">continue</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">forbidden_symbols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">n_wings</span> <span class="o">==</span> <span class="n">max_num_wings</span> <span class="ow">and</span> <span class="n">grid</span><span class="o">.</span><span class="n">n_rotors</span> <span class="o">==</span> <span class="n">max_num_rotors</span><span class="p">:</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="k">break</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">n_wings</span> <span class="o">&gt;=</span> <span class="n">max_num_wings</span><span class="p">:</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="n">forbidden_symbols</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SymbolType</span><span class="o">.</span><span class="n">WING</span><span class="p">)</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">n_rotors</span> <span class="o">&gt;=</span> <span class="n">max_num_rotors</span><span class="p">:</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="n">forbidden_symbols</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SymbolType</span><span class="o">.</span><span class="n">ROTOR</span><span class="p">)</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="n">rules_allowed_contracts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rule_contracts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">forbidden_symbols</span><span class="p">}</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="n">rules_allowed_contracts</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">rules_allowed_contracts</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>        <span class="n">rules_allowed_contracts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"r0"</span><span class="p">,</span> <span class="n">rules_allowed_contracts</span><span class="p">))</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="n">rule_names_allowed</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rules_allowed_contracts</span><span class="p">]</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>    <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>        <span class="n">rules_compatible_contracts</span> <span class="o">=</span> <span class="p">[</span><span class="n">grammar</span><span class="o">.</span><span class="n">rules</span><span class="p">[</span><span class="s2">"r0"</span><span class="p">]]</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>        <span class="n">rules_compatible_contracts</span> <span class="o">=</span> <span class="n">rule_matching</span><span class="p">(</span><span class="n">current_state</span><span class="o">.</span><span class="n">contract</span><span class="p">,</span> <span class="n">rules_allowed_contracts</span><span class="p">)</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>    <span class="n">r_id_from_contracts</span> <span class="o">=</span> <span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">rules_compatible_contracts</span><span class="p">]</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>    <span class="n">r_id_from_contracts_str</span> <span class="o">=</span> <span class="s2">"-"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">r_id_from_contracts</span><span class="p">))</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>    <span class="c1"># print(f"R_C: {r_id_from_contracts_str}")</span>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">rules_compatible_contracts</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>        <span class="n">chosen_rule</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">rules_compatible_contracts</span><span class="p">))</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>        <span class="n">grid</span><span class="o">.</span><span class="n">apply_rule</span><span class="p">(</span><span class="n">grammar</span><span class="o">.</span><span class="n">rules</span><span class="p">[</span><span class="n">chosen_rule</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>        <span class="n">grid</span><span class="o">.</span><span class="n">apply_rule</span><span class="p">(</span><span class="n">grammar</span><span class="o">.</span><span class="n">rules</span><span class="p">[</span><span class="s2">"r19"</span><span class="p">])</span>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>    <span class="n">fig</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">figure_with_edges</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>    <span class="n">figures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>    <span class="c1"># Increase step counter</span>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>    <span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="n">grid</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a><span class="n">figures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">figure_with_edges</span><span class="p">)</span>
+</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Design generated in </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2"> steps"</span><span class="p">)</span>
+</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="n">gif_path</span> <span class="o">=</span> <span class="n">create_gif</span><span class="p">(</span><span class="n">figures</span><span class="o">=</span><span class="n">figures</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"uav_design_process.gif"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Design generated in 41 steps
+GIF generated at: uav_design_process.gif
+</code></pre></div>
+<p>We can visualize the different steps of the design process in the following GIF:</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/uav_topologies/uav_design_process_example.gif" alt="grid" style="width: 400px;"></p></div>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> University of Michigan - <a href="#__consent">Change cookie settings</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+  
+    
+  
+
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../assets/_markdown_exec_pyodide.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://kit.fontawesome.com/4f533dc5a0.js"></script>
+      
+    
+  </body>
+</html>

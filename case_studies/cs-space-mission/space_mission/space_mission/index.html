@@ -1,0 +1,1658 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Compositional system analysis and design using contracts.">
+      
+      
+      
+        <link rel="canonical" href="https://www.pacti.org/case_studies/cs-space-mission/space_mission/space_mission/">
+      
+      
+        <link rel="prev" href="../../../cs-uav-topologies/topologies/">
+      
+      
+        <link rel="next" href="../space_mission_power/">
+      
+      
+      <link rel="icon" href="../../../../pacti_small_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.2.8">
+    
+    
+      
+        <title>Overview - Pacti</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Libre Baskerville";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../../css/material.css">
+    
+      <link rel="stylesheet" href="../../../../css/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-27G2PM6M65"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-27G2PM6M65",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-27G2PM6M65",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="purple">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#space-mission-case-study" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+<!--
+  Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine base classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="../../../.."
+      title="Pacti"
+      class="md-header__button md-logo"
+      aria-label="Pacti"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../logos/pacti_colorful.svg" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- Navigation tabs (sticky) -->
+    
+    
+        
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  Case Studies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../iocontract/" class="md-tabs__link">
+          
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../contributing/" class="md-tabs__link">
+          
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+    
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette -->
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pacti-org/pacti" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+</header>
+
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Pacti" class="md-nav__button md-logo" aria-label="Pacti" data-md-component="logo">
+      
+  <img src="../../../../logos/pacti_colorful.svg" alt="logo">
+
+    </a>
+  </label>
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_1" id="__nav_1_label" tabindex="0">
+            Home
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../docs/getting_started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_2" id="__nav_2_label" tabindex="0">
+            Case Studies
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Case Studies
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cs-vehicle-perception/evaluate_perception/" class="md-nav__link">
+        Autonomous Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cs-multiagent-planning/multiagent/" class="md-nav__link">
+        Multi-agent Coordination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cs-biocircuits/specification_based_synthetic_biology/" class="md-nav__link">
+        Synthetic Biology
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cs-digital-signal-processing/dsp_wl/" class="md-nav__link">
+        Signal Processing in Digital ICs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cs-uav-topologies/topologies/" class="md-nav__link">
+        UAV Topologies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            Space Mission Scenario
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Space Mission Scenario
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Overview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Overview
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#space-mission-case-study" class="md-nav__link">
+    Space Mission Case Study
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-space-mission-scenario" class="md-nav__link">
+    A simple space mission scenario
+  </a>
+  
+    <nav class="md-nav" aria-label="A simple space mission scenario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-task-behaviors-as-assume-guarantee-contracts" class="md-nav__link">
+    Modeling task behaviors as assume-guarantee contracts
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling task behaviors as assume-guarantee contracts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qualitative-impacts" class="md-nav__link">
+    Qualitative Impacts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-scenario-requirements" class="md-nav__link">
+    Mission scenario requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../space_mission_power/" class="md-nav__link">
+        Power Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../space_mission_science/" class="md-nav__link">
+        Science & Communication Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../space_mission_navigation/" class="md-nav__link">
+        Navigation Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../space_mission_thermal/" class="md-nav__link">
+        Thermal Viewpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../space_mission_3viewpoints/" class="md-nav__link">
+        Schedulability Analysis with 3 Viewpoints
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_7" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_7" id="__nav_2_7_7_label" tabindex="0">
+            Benchmarks for scenario generation
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for scenario generation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_generation_5steps/" class="md-nav__link">
+        Short scenario generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_generation_20steps/" class="md-nav__link">
+        Long scenario generation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_8" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_8" id="__nav_2_7_8_label" tabindex="0">
+            Benchmarks for schedulability analysis of generated scenarios
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          Benchmarks for schedulability analysis of generated scenarios
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedulability_analysis_5steps/" class="md-nav__link">
+        Short scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedulability_analysis_20steps/" class="md-nav__link">
+        Long scenario schedulability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_9" >
+      
+      
+      
+        
+          <label class="md-nav__link " for="__nav_2_7_9" id="__nav_2_7_9_label" tabindex="0">
+            Visualization of schedulable combinations
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_9">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of schedulable combinations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis_results1-5steps/" class="md-nav__link">
+        Short scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis_results1-20steps/" class="md-nav__link">
+        Long scenario & requirements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mars_entry_descent_landing/mars_edl_2nd_encoding/" class="md-nav__link">
+        Mars 2020 Entry-Descent-Landing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_3" id="__nav_3_label" tabindex="0">
+            API
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iocontract/" class="md-nav__link">
+        IoContract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Polyhedral/" class="md-nav__link">
+        PolyhedralTerms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../smt/" class="md-nav__link">
+        SmtTems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../polyhedral-contracts/" class="md-nav__link">
+        PolyhedralContracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../smt-contracts/" class="md-nav__link">
+        SmtContracts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          <label class="md-nav__link nav_heading " for="__nav_4" id="__nav_4_label" tabindex="0">
+            Development
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#space-mission-case-study" class="md-nav__link">
+    Space Mission Case Study
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-space-mission-scenario" class="md-nav__link">
+    A simple space mission scenario
+  </a>
+  
+    <nav class="md-nav" aria-label="A simple space mission scenario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-task-behaviors-as-assume-guarantee-contracts" class="md-nav__link">
+    Modeling task behaviors as assume-guarantee contracts
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling task behaviors as assume-guarantee contracts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qualitative-impacts" class="md-nav__link">
+    Qualitative Impacts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-scenario-requirements" class="md-nav__link">
+    Mission scenario requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Overview</h1>
+
+<div><h2 id="space-mission-case-study">Space Mission Case Study<a class="headerlink" href="#space-mission-case-study" title="Permanent link">¶</a></h2>
+<p>This case study demonstrates using Pacti for the design and analysis of operational space mission scenarios. Normally, designing and analyzing such space missions and their scenarios involves complex simulation models covering the significant interactions that can influence the behavior of the systems involved. Several factors drive the complexity of such simulation models including the scope of subsystem interactions and the cross-domain interactions that require coordination among multiple domain experts. Is there a simpler way to explore the salient aspects of a space mission design/analysis problem than building a complex simulation? We believe that Pacti shows such a simpler approach; however, it requires switching the design paradigm from simulation-based to contract-based-- see <a href="#ref_contracts_book">Benveniste et al. 2018</a> and <a href="#ref_cbd">Sangiovanni-Vincentelli et al. 2013</a>.</p>
+<p>This case study focuses on the problem of operating a CubeSat-sized spacecraft/small-body asteroid rendezvous mission as described in detail in <a href="#ref5">Nesnas et al. 2021</a>. For autonomous operation, this would involve an onboard planning/scheduling system based on a generalized timeline representation as described in <a href="#ref1">Chien et al. 2012</a>. Examples of such timeline representation modeling include <a href="#ref2">Rabideau et al. 2017</a> and <a href="#ref3">Chen et al. 2003</a>. Such systems reflect deliberate design decisions to limit the expressiveness of constraint formulas for planning/scheduling due to considerations of the limited computational resources available on space mission systems and performance requirements for computing solutions. In contrast to the general class of 1st order constraint formulas of PDDL (see <a href="#ref4">Ghallab et al. 1998</a>), such systems involve computationally efficient linear inequalities of the form:</p>
+<div class="arithmatex">\[aX &lt;= b\]</div>
+<p>where <span class="arithmatex">\(x\)</span> is a timeline variable and <span class="arithmatex">\(a,b\)</span> are constants that may encode temporal information about the schedule of a task instance.</p>
+<p>Since this class of constraint formula fits the expressiveness of Pacti's polyhedral constraints, this case study explores modeling tasks for an onboard automated planning/scheduling system as assume-guarantee components using Pacti.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">base64</span><span class="w"> </span><span class="kn">import</span> <span class="n">b64decode</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">contract_utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span></code></pre></div>
+<h2 id="a-simple-space-mission-scenario">A simple space mission scenario<a class="headerlink" href="#a-simple-space-mission-scenario" title="Permanent link">¶</a></h2>
+<p>The following figure illustrates a simplification of the CubeSat-sized spacecraft/small-body asteroid approach scenario described in more detail in <a href="ref5">Nesnas et al. 2021</a>. Note: the Sun, Earth, spacecraft and small-body asteroid are shown at different scales for illustration purposes.</p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/space_mission/space-mission.png" alt="grid"></p>
+<p>To communicate with Earth, the cubesat-sized spacecraft (blue cube) must orient its fixed antennas towards Earth (line A). Depending on the trajectory, this orientation may be suboptimal for the spacecraft panels to produce maximum electrical power (line B). The spacecraft must make optical measurements of the small body asteroid to estimate its relative trajectory (line C) as part of the onboard autonomous navigation. This navigation requires pointing the spacecraft's thrusters in the direction of a velocity vector (line D) according to a trajectory correction maneuver (TCM). After several carefully designed TCMs, the spacecraft will eventually reach the small body asteroid and land on it as described in <a href="ref5">Nesnas et al. 2021</a>. For onboard planning/scheduling these behaviors would be modeled as tasks in the style of <a href="#ref2">Rabideau et al. 2017</a> and <a href="#ref3">Chen et al. 2003</a>; that is, tasks would involve linear inequality constraints for specifying their pre/post conditions and their effects. The following describes the specification of these behaviors in Pacti's assume-guarantee paradigm.</p>
+<h3 id="modeling-task-behaviors-as-assume-guarantee-contracts">Modeling task behaviors as assume-guarantee contracts<a class="headerlink" href="#modeling-task-behaviors-as-assume-guarantee-contracts" title="Permanent link">¶</a></h3>
+<p>The simplified space mission scenario described above involves the following tasks:</p>
+<table>
+<thead>
+<tr>
+<th>Task Name</th>
+<th>Task Description</th>
+<th>Pointing Constraint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DSN</td>
+<td>Communicate with Earth</td>
+<td>Line A</td>
+</tr>
+<tr>
+<td>SBO</td>
+<td>Acquire Small body observations</td>
+<td>Line B</td>
+</tr>
+<tr>
+<td>TCM</td>
+<td>Perform a Trajectory Correction Maneuver</td>
+<td>Line C</td>
+</tr>
+<tr>
+<td>CHARGING</td>
+<td>Ensure power</td>
+<td>Line D</td>
+</tr>
+</tbody>
+</table>
+<p>Planning and scheduling these tasks will result in a scenario of task instances as illustrated below where red dashed rectangles show the temporal extent of each scheduled task instance. </p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/space_mission/space-mission-segments.png" alt="grid"></p>
+<p>To help stakeholders understand the constraints involved in planning/scheduling these tasks, it is necessary to characterize their impacts on key system states as described below:</p>
+<table>
+<thead>
+<tr>
+<th>Variable name</th>
+<th>Value range</th>
+<th>Variable description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>t</code></td>
+<td><span class="arithmatex">\([0-..]\)</span></td>
+<td>time</td>
+</tr>
+<tr>
+<td><code>soc</code></td>
+<td><span class="arithmatex">\([0-100]\)</span></td>
+<td>Spacecraft's battery state-of-charge</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td><span class="arithmatex">\([0-100]\)</span></td>
+<td>Spacecraft's current onboard science data storage from small body observations</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td><span class="arithmatex">\(&gt;= 0\)</span></td>
+<td>Spacecraft cummulative science data from small body observations</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td><span class="arithmatex">\([0-100]\)</span></td>
+<td>Spacecraft-small-body relative trajectory uncertainty</td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td><span class="arithmatex">\([0-100]\)</span></td>
+<td>Spacecraft's relative distance (100=trajectory at beginning of scenario, 0=trajectory at rendez-vous with small body)</td>
+</tr>
+<tr>
+<td><code>temp</code></td>
+<td><span class="arithmatex">\([0-100]\)</span></td>
+<td>Spacecraft's thurster temperature (0=cold, 100=hot)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="qualitative-impacts">Qualitative Impacts<a class="headerlink" href="#qualitative-impacts" title="Permanent link">¶</a></h4>
+<p>The following table summarizes a rough qualitative description of each task's impacts on the system states with a simple scale, <code>+</code>, <code>0</code>, and <code>-</code>, for, respectively, increase, no change, or decrease.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Viewpoint</th>
+<th style="text-align: center;">State</th>
+<th style="text-align: center;">CHARGING</th>
+<th style="text-align: center;">DSN</th>
+<th style="text-align: center;">SBO</th>
+<th style="text-align: center;">TCM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Power</td>
+<td style="text-align: center;"><code>soc</code></td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;">Science</td>
+<td style="text-align: center;"><code>d</code></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><code>c</code></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">Navigation</td>
+<td style="text-align: center;"><code>u</code></td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">+</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><code>r</code></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">+</td>
+</tr>
+<tr>
+<td style="text-align: center;">Thermal</td>
+<td style="text-align: center;"><code>temp</code></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">+</td>
+</tr>
+</tbody>
+</table>
+<p>For power, only the CHARGING task ensures the optimal orientation of the spacecraft's solar panels for charging the battery. All other tasks consume power where the spacecraft attitude pointing requirements may result in a net discharge of the battery. </p>
+<p>For science &amp; communication, the onboard science data storage will evolve up and down according to the SBO and DSN tasks respectively while the cumulative science data will increase with SBO tasks. </p>
+<p>For navigation, the relative trajectory estimation uncertainty grows with tasks that require spacecraft attitude changes (i.e. CHARGING, DSN, and SBO); the only way to reduce this estimation uncertainty is to perform direct optical measurements in the SBO task to refine the onboard navigation trajectory estimate. The TCM task performs so-called delta-V maneuvers calculated to improve the spacecraft's relative distance from the small body. </p>
+<p>For thermal, each delta-V maneuver in a TCM task requires pre-heating the spacecraft thrusters that otherwise cool off very quickly during all other tasks.</p>
+<p>While this qualitative characterization suffices to convey a sense of the phenomena involved, we need a quantitative characterization to explore the feasibility of mission scenarios from a planning/scheduling perspective and to explore different scenario strategies. The following diagram illustrates a quantitative characterization of a scenario using Pacti's polyhedral algebra for specifying assume/guarantee constraints over input/output variables. Each task instance in the scenario has a corresponding contract (e.g. A and B in the figure example). By forcing the input of a subsequent task (e.g. B) to be equal to the outputs of a previous task (e.g. A), we can thus encode a temporal ordering constraint for these tasks (i.e., B starts immediately after A finishes). Modeling task instance duration as an explicit input variable (e.g. <span class="arithmatex">\(duration_A\)</span>), we can model quantitative linear relationships about the task behavior as a function of its duration. </p>
+<p><img src="https://raw.githubusercontent.com/pacti-org/media/main/case_studies/space_mission/task-schedule-contracts.png" alt="grid"></p>
+<p>This approach was initially attractive because it resembles what current planning/scheduling systems do: propagating values of state variables across the impacts of scheduled task instances. However, this approach turned out to be impractical because adding more variables leads to significant practical hurdles:
+- it is difficult to tell whether viewpoints are coupled or not;
+- plotting convex regions of admissible values becomes more difficult because such regions could have a dimension &gt; 2, thereby requiring some kind of projection to visualize;
+- it prevents collaborative engineering where different experts could work independently on modeling their viewpoints separately;
+- it prevents detecting when it becomes necessary to couple viewpoints, an important indicator of domain complexity that warrants careful analysis.</p>
+<p>For these reasons, this case study is split into distinct viewpoints for power, data, navigation, and thermal.</p>
+<h4 id="mission-scenario-requirements">Mission scenario requirements<a class="headerlink" href="#mission-scenario-requirements" title="Permanent link">¶</a></h4>
+<p>At the mission level, we can specify an end-to-end mission scenario requirement as assumptions/guarantees over the system state variables as shown below. Note that the scenario requirement omits any reference to the task duration as these must remain unconstrained so that Pacti can compute an admissible schedule by finding values of task durations that satisfy all task constraints.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">scenario_requirements</span> <span class="o">=</span> <span class="n">PolyhedralIoContract</span><span class="o">.</span><span class="n">from_strings</span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">input_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="s2">"t_entry"</span><span class="p">,</span>    <span class="c1"># scenario start time</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="s2">"soc_entry"</span><span class="p">,</span>  <span class="c1"># initial battery SOC</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">"d_entry"</span><span class="p">,</span>    <span class="c1"># initial data storage volume</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s2">"c_entry"</span><span class="p">,</span>    <span class="c1"># initial cumulative data volume</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">"u_entry"</span><span class="p">,</span>    <span class="c1"># initial trajectory uncertainty</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">"r_entry"</span><span class="p">,</span>    <span class="c1"># initial relative distance</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="s2">"temp_entry"</span><span class="p">,</span> <span class="c1"># initial spacecraft thruster temperature</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">],</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">output_vars</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="s2">"t_exit"</span><span class="p">,</span>     <span class="c1"># scenario end time</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="s2">"soc_exit"</span><span class="p">,</span>   <span class="c1"># final battery SOC</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="s2">"d_exit"</span><span class="p">,</span>     <span class="c1"># final data storage volume</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="s2">"c_exit"</span><span class="p">,</span>     <span class="c1"># final cumulative data volume</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="s2">"u_exit"</span><span class="p">,</span>     <span class="c1"># final trajectory uncertainty</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="s2">"r_exit"</span><span class="p">,</span>     <span class="c1"># final relative distance</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="s2">"temp_exit"</span><span class="p">,</span>  <span class="c1"># final spacecraft thruster temperature</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="p">],</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">assumptions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="s2">"t_entry = 0"</span><span class="p">,</span>      <span class="c1"># start @ t=0</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        <span class="s2">"soc_entry = 100"</span><span class="p">,</span>  <span class="c1"># start with battery fully charged</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        <span class="s2">"d_entry = 0"</span><span class="p">,</span>      <span class="c1"># start with no science data storage</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        <span class="s2">"c_entry = 0"</span><span class="p">,</span>      <span class="c1"># start with no cumulative science data</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        <span class="s2">"u_entry = 20"</span><span class="p">,</span>     <span class="c1"># start with trajectory estimation uncertainty = 20% (ground-based calculations)</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>        <span class="s2">"r_entry = 100"</span><span class="p">,</span>    <span class="c1"># start with relative distance = 100%</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>        <span class="s2">"temp_entry = 0"</span><span class="p">,</span>   <span class="c1"># start with cold thruster temperature</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="p">],</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    <span class="n">guarantees</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        <span class="s2">"t_exit = 300"</span><span class="p">,</span>     <span class="c1"># projected end @ t=300</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        <span class="s2">"-soc_exit &lt;= 70"</span><span class="p">,</span>  <span class="c1"># goal: battery &gt;= 70% SOC</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        <span class="s2">"d_exit = 0"</span><span class="p">,</span>       <span class="c1"># goal: all science data downlinked</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        <span class="s2">"-c_exit &lt;= -1e4"</span><span class="p">,</span>  <span class="c1"># goal: at least 10^4 cumulative science data observations</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="s2">"u_exit &lt;= 1"</span><span class="p">,</span>      <span class="c1"># goal: trajectory estimation uncertainty &lt;= 1%</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        <span class="s2">"r_exit &lt;= 10"</span><span class="p">,</span>     <span class="c1"># goal: relative distance below 10%</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        <span class="s2">"-r_exit &lt;= -5"</span><span class="p">,</span>    <span class="c1"># goal: relative distance above 5%</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        <span class="s2">"-temp_exit &lt;= 0"</span><span class="p">,</span>  <span class="c1"># goal: no constraint on thruster temperature since they cool very quickly</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="p">],</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="p">)</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scenario_requirements:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">scenario_requirements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>scenario_requirements:
+
+InVars: [t_entry, soc_entry, d_entry, c_entry, u_entry, r_entry, temp_entry]
+OutVars:[t_exit, soc_exit, d_exit, c_exit, u_exit, r_exit, temp_exit]
+A: [
+  t_entry = 0.0
+  soc_entry = 100.0
+  d_entry = 0.0
+  c_entry = 0.0
+  u_entry = 20.0
+  r_entry = 100.0
+  temp_entry = 0.0
+]
+G: [
+  t_exit = 300.0
+  -soc_exit &lt;= 70.0
+  d_exit = 0.0
+  -c_exit &lt;= -10000.0
+  u_exit &lt;= 1.0
+  r_exit &lt;= 10.0
+  -r_exit &lt;= -5.0
+  -temp_exit &lt;= 0.0
+]
+</code></pre></div>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>
+<p><a id="ref_contracts_book"></a> <strong><a href="https://ieeexplore.ieee.org/document/8620676">Benveniste et al. 2018</a></strong></p>
+<p>Benveniste, A., Caillaud, B., Nickovic, D., Passerone, R., Raclet, J-B., Reinkemeier, P., Sangiovanni-Vincentelli, A., Damm, W., Henzinger, T. A., and Larsen, K. G. <strong>Contracts for system design.</strong> Foundations and Trends® in Electronic Design Automation 12, no. 2-3 (2018): 124-400.</p>
+<p><a id="ref_cbd"></a> <strong><a href="https://www.sciencedirect.com/science/article/abs/pii/S0947358012709433">Sangiovanni-Vincentelli et al. 2012</a></strong></p>
+<p>Sangiovanni-Vincentelli, A., Damm, W., and Passerone, R. <strong>Taming Dr. Frankenstein: Contract-based design for cyber-physical systems.</strong> European journal of control 18.3 (2012): 217-238.</p>
+<p><a id="ref0"></a> <strong><a href="https://doi.org/10.1017/dsj.2020.16">Toche et al. 2020</a></strong></p>
+<p>Toche, B.; Pellerin, R.; and Fortin, C. 
+<strong>Set-based design: a review and new directions.</strong> 
+In Design Science, Volume 6, e18, 2020. </p>
+<p><a id="ref1"></a> <strong><a href="https://ai.jpl.nasa.gov/public/documents/papers/chien_spaceops2012_generalized.pdf">Chien et al. 2012</a></strong></p>
+<p>Chien, S.; Johnston, M.; Policella, N.; Frank, J.; Lenzen, C.; Giuliano, M.; and Kavelaars, A. 
+<strong>A generalized timeline representation, services, and interface for automating space mission operations.</strong> 
+In International Conference On Space Operations (SpaceOps 2012), Stockholm, Sweden, June 2012. </p>
+<p><a id="ref2"></a> <strong><a href="https://arc.aiaa.org/doi/pdf/10.2514/1.I010544">Rabideau et al. 2017</a></strong></p>
+<p>Rabideau, G.; Chien, S.; Galer, M.; Nespoli, F.; and Costa, M. 
+<strong>Managing Spacecraft Memory Buffers with Concurrent Data Collection and Downlink.</strong> 
+Journal of Aerospace Information Systems (JAIS). December 2017.</p>
+<p><a id="ref3"></a> <strong><a href="https://www.researchgate.net/profile/Benjamin-Wah/publication/2861650_Automated_Planning_and_Scheduling_using_Calculus_of_Variations/links/54db35b20cf261ce15cf7">Chen et al. 2003</a></strong></p>
+<p>Chen, Y. and Wah, B. 
+<strong>Automated Planning and Scheduling using Calculus of Variations.</strong>
+13th International Conference on Automated Planning&amp;Scheduling (ICAPS 2003), Trento, Italy, June 2003.</p>
+<p><a id="ref4"></a> <strong><a href="https://planning.wiki/_citedpapers/pddl1998.pdf">Ghallab et al. 1998</a></strong></p>
+<p>Ghallab, M., Knoblock, C., Wilkins, D., Barrett, A., Christianson, D., Friedman, M., Kwok, C., Golden, K., Penberthy, S., Smith, D., Sun, Y., &amp; Weld, D. (1998). 
+<strong>PDDL - The Planning Domain Definition Language.</strong></p>
+<p><a id="ref5"></a> <strong><a href="https://www.frontiersin.org/articles/10.3389/frobt.2021.650885/full">Nesnas et al. 2021</a></strong></p>
+<p>Nesnas, I. A. D., Hockman, B. J., Bandopadhyay, S., Morrell, B. J., Lubey, D. P., Villa, J., Bayard, D. S., Osmundson, A., Jarvis, B., Bersani, M., Bhaskaran, S.
+<strong>Autonomous Exploration of Small Bodies Toward Greater Autonomy for Deep Space Missions</strong>
+In Frontiers in Robotics and AI, volume 8, November 2021.</p></div>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> University of Michigan - <a href="#__consent">Change cookie settings</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+  
+    
+  
+
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://kit.fontawesome.com/4f533dc5a0.js"></script>
+      
+    
+  </body>
+</html>
