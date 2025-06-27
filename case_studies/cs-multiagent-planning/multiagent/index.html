@@ -1428,21 +1428,21 @@ t_{i+1} - t_i = 1
 </span></code></pre></div>
 <h3 id="swapping-contract">Swapping Contract<a class="headerlink" href="#swapping-contract" title="Permanent link">¶</a></h3>
 <p>Next we define the contract that determines that the robots will also stay collision free during their transition to another cell, meaning that two robots cannot swap places in the grid, as they would collide while traversing the same edge in opposite directions. We do this by defining another contract with a disjoint guarantee sets.
-What we want to enforce is that the two robots cannot swap positions, given as:
-$$
-\begin{align<em>}
+What we want to enforce is that the two robots cannot swap positions, given as:</p>
+<div class="arithmatex">\[
+\begin{align*}
 \vert x_{i}^{A}-x_{i+1}^{B}\vert+\vert y_{i}^{A}-y_{i+1}^{B}\vert \neq 0 \quad \text{ or }\quad \vert x_{i}^{B}-x_{i+1}^{A}\vert +\vert y_{i}^{B}-y_{i+1}^{A}\vert \neq 0.
-\end{align</em>}
-$$
-We encode this constraint in the following four constraints:
-$$
-\begin{align<em>}
-&amp;(x_{i}^{A}-x_{i+1}^{B})+(y_{i}^{A}-y_{i+1}^{B}) \geq 1\
-&amp;(x_{i}^{A}-x_{i+1}^{B})+(y_{i}^{A}-y_{i+1}^{B}) \geq -1\
-&amp;(x_{i}^{B}-x_{i+1}^{A})+(y_{i}^{B}-y_{i+1}^{A}) \geq 1\
+\end{align*}
+\]</div>
+<p>We encode this constraint in the following four constraints:</p>
+<div class="arithmatex">\[
+\begin{align*}
+&amp;(x_{i}^{A}-x_{i+1}^{B})+(y_{i}^{A}-y_{i+1}^{B}) \geq 1\\
+&amp;(x_{i}^{A}-x_{i+1}^{B})+(y_{i}^{A}-y_{i+1}^{B}) \geq -1\\
+&amp;(x_{i}^{B}-x_{i+1}^{A})+(y_{i}^{B}-y_{i+1}^{A}) \geq 1\\
 &amp;(x_{i}^{B}-x_{i+1}^{A})+(y_{i}^{B}-y_{i+1}^{A}) \geq -1
-\end{align</em>}
-$$</p>
+\end{align*}
+\]</div>
 <p>Where we need at least one of these inequalities to be satisfied. This contract does not state a specific assumption on the agent's positions.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">swapping_contract</span><span class="p">(</span><span class="n">robot_1</span><span class="p">:</span> <span class="n">Robot</span><span class="p">,</span> <span class="n">robot_2</span><span class="p">:</span> <span class="n">Robot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyhedralIoContractCompound</span><span class="p">:</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">"""</span>
@@ -1590,10 +1590,10 @@ G: [
   -x_B_1 &lt;= 0
 ]
 </code></pre></div>
-<p>Next we can use the dynamics contract to find a possible next move for the robots that minimizes an objective. Our objective is minimizing the distance to the goal for the two robots A and B:
-$$
+<p>Next we can use the dynamics contract to find a possible next move for the robots that minimizes an objective. Our objective is minimizing the distance to the goal for the two robots A and B:</p>
+<div class="arithmatex">\[
 \vert x_{i+1}^{A}-x_{\text{goal}}^{A}\vert +\vert y_{i+1}^{A}-y_{\text{goal}}^{A}\vert + \vert x_{i+1}^{B}-x_{\text{goal}}^{B}\vert +\vert y_{i+1}^{B}-y_{\text{goal}}^{B}\vert
-$$</p>
+\]</div>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># set objective (cumulative distance to the goal)</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">objective_expr</span><span class="p">(</span><span class="n">robots</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Robot</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="sd">'''</span>

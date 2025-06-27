@@ -2554,7 +2554,7 @@ As a result, we perform an exhaustive search to find the word length that meets 
 <p>Now we apply the contract to a simple filter that computes the moving average of the input signal, as shown in the figure below,</p>
 <p><img alt="Example2" src="https://github.com/pacti-org/media/blob/main/case_studies/digital_signal_processing/digital_filter_flow.png?raw=True"></p>
 <p>, where the coefficient is <span class="arithmatex">\(a = 0.2\)</span>, <span class="arithmatex">\(b = 0.6\)</span>, and <span class="arithmatex">\(c = 0.2\)</span>.
-Therefore, $y[n] = 0.2 \times x[n-2] + 0.6 \times x[n-1] + 0.2 \times x[n] $.</p>
+Therefore, <span class="arithmatex">\(y[n] = 0.2 \times x[n-2] + 0.6 \times x[n-1] + 0.2 \times x[n]\)</span>.</p>
 <p>Assume the word lengths of all variables in the system are (6, 0).
 We can obtain the upper bound error of the output as the previous example:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">example2_filter_design</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
